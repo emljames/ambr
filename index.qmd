@@ -1,0 +1,11 @@
+---
+title: "Introduction"
+author: "Emma James"
+editor: visual
+---
+
+# Welcome
+
+Welcome to *Advanced Methods for Behavioural Research!*
+
+Each week's lecture content is available via the VLE. These course pages are where you will find the materials for the practical sessions.
