@@ -1,6 +1,3 @@
-# AMBR
+# Advanced Methods for Behavioural Research
 
-Practical materials for Advanced Methods for Behavioural Research (University of York)
-
-[testing set-up]
-[testing github add]
+Practical materials for the Advanced Methods for Behavioural Research module, MSc Data Science (Human Behaviour), University of York.
