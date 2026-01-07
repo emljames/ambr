@@ -2,6 +2,16 @@ project:
   type: website 
   title: "AMBR"
 
+website: 
+  sidebar:
+    style: "docked"
+    search: true
+    contents: 
+      - text: "Introduction"
+        href: index.qmd
+      - text: "Week 1: Meta-analysis"
+        href: ambr1_meta-analysis.qmd
+
 format: 
   html: 
     theme: lumen
