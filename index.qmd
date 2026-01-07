@@ -1,6 +1,7 @@
 ---
-title: "Introduction"
+title: "Advanced Methods for Behavioural Research"
 author: "Emma James"
+format: html
 editor: visual
 ---
 
