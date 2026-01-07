@@ -25,4 +25,7 @@ format:
     number-sections: true
     number-depth: 3
     page-width: 8.27
-editor: visual
+    
+
+execute: 
+  freeze: auto
