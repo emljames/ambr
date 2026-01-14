@@ -1,0 +1,12 @@
+---
+title: "Working in this module"
+editor: visual
+---
+
+This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working.
+
+# File set-up 
+
+# Script format 
+
+# Other RStudio tips 
