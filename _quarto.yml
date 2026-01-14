@@ -7,9 +7,10 @@ website:
     style: "docked"
     search: true
     contents: 
-      - section: "Week 1: Meta-analysis"
-        contents: 
-          - ambr1_meta-analysis.qmd
+      - text: "Guide to working in this module"
+        href: ambr0_guide.qmd
+      - text: "Week 1: Meta-analysis"
+        href: ambr1_meta-analysis.qmd
 
 format: 
   html: 
@@ -19,6 +20,7 @@ format:
     toc-location: left
     toc-depth: 4
     toc-expand: true
+    number-sections: true
   pdf: 
     number-sections: true
     number-depth: 3

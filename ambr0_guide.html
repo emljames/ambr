@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Emma James">
 
-<title>Advanced Methods for Behavioural Research – AMBR</title>
+<title>Working in this module – AMBR</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,9 +80,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      AMBR
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr0_guide.html">Guide to working in this module</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -96,19 +93,13 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Advanced Methods for Behavioural Research</h1>
+      <h1 class="title">Working in this module</h1>
                       </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Emma James </p>
-            </div>
-    </div>
       
     
       
@@ -132,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link">
+  <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Guide to working in this module</span></a>
   </div>
 </li>
@@ -148,9 +139,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome</a></li>
+  <li><a href="#file-set-up" id="toc-file-set-up" class="nav-link active" data-scroll-target="#file-set-up"><span class="header-section-number">1</span> File set-up</a></li>
+  <li><a href="#script-format" id="toc-script-format" class="nav-link" data-scroll-target="#script-format"><span class="header-section-number">2</span> Script format</a></li>
+  <li><a href="#other-rstudio-tips" id="toc-other-rstudio-tips" class="nav-link" data-scroll-target="#other-rstudio-tips"><span class="header-section-number">3</span> Other RStudio tips</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr0_guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr0_guide.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -163,10 +156,15 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="welcome" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Welcome</h1>
-<p>Welcome to <em>Advanced Methods for Behavioural Research!</em></p>
-<p>Each week’s lecture content is available via the VLE. These course pages are where you will find the materials for the practical sessions.</p>
+<p>This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine: consider the guidance below and decide on your workflow for this module, following the recommendations if you are not yet confident in your set-up.</p>
+<section id="file-set-up" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> File set-up</h1>
+</section>
+<section id="script-format" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Script format</h1>
+</section>
+<section id="other-rstudio-tips" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Other RStudio tips</h1>
 
 
 </section>
@@ -244,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/emljames\.github\.io\/ambr\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

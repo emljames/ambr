@@ -4,7 +4,17 @@
     "href": "index.html",
     "title": "Advanced Methods for Behavioural Research",
     "section": "",
-    "text": "Welcome\nWelcome to Advanced Methods for Behavioural Research!\nEach week’s lecture content is available via the VLE. These course pages are where you will find the materials for the practical sessions."
+    "text": "1 Welcome\nWelcome to Advanced Methods for Behavioural Research!\nEach week’s lecture content is available via the VLE. These course pages are where you will find the materials for the practical sessions."
+  },
+  {
+    "objectID": "ambr0_guide.html",
+    "href": "ambr0_guide.html",
+    "title": "Working in this module",
+    "section": "",
+    "text": "This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine: consider the guidance below and decide on your workflow for this module, following the recommendations if you are not yet confident in your set-up.\n\n1 File set-up\n\n\n2 Script format\n\n\n3 Other RStudio tips",
+    "crumbs": [
+      "Guide to working in this module"
+    ]
   },
   {
     "objectID": "ambr1_meta-analysis.html",
@@ -13,114 +23,97 @@
     "section": "",
     "text": "The aim of this week’s practical is to walk through some of the key steps involved in conducting a meta-analysis. As a basis for this, we will use a recently published meta-analysis that examined the relationship between procedural learning and reading ability.\nThe Procedural Deficit Hypothesis proposes that reading and language disorders stem from a difficulty in the procedural learning system - i.e., the system that underpins the learning of probabilistic knowledge (Ullman et al., 2020). Procedural learning has often been measured using Serial Reaction Time (SRT) tasks: participants respond to a repeating sequence of stimuli, and their improvements in speed over several blocks are measured as an index of learning. However, evidence that SRT performance is associated with reading ability is mixed, with some studies showing a strong association and others finding nothing at all. Many studies in this area suffer from small sample sizes, making it hard to draw sound conclusions.\nA meta-analysis provides a valuable way of summarising this evidence. This meta-analysis was conducted by a former PhD student at York, Dr Catia Oliveira, together with Professor Lisa Henderson and Dr Emma Hayiou-Thomas. We will use part of their dataset to showcase different steps in conducting a meta-analysis.\n\n\n\n\n\n\nLearning objectives\n\n\n\nBy the end of this practical, you will be able to:\n\nIdentify and extract effect sizes for pooling.\nCalculate pooled effect sizes via fixed and random effects meta-analyses.\nUse sample size to weight studies in a meta-analysis.\nProduce a forest plot to display effect sizes.\nProduce a funnel plot to inspect for publication bias.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#extract-effect-sizes",
     "href": "ambr1_meta-analysis.html#extract-effect-sizes",
     "title": "1: Meta-analysis",
-    "section": "Extract effect sizes",
-    "text": "Extract effect sizes\nIn this week’s practical section on the VLE, you should find a file named ambr1_srt_gaps.csv. Download this file and save it in your data folder.\n\n\n\n\n\n\nTip\n\n\n\nIf you don’t have this folder on your current machine, repeat the set-up steps outlined in 0_SetUp.pdf from Week 1.\n\n\nOpen this file in Excel to start with. This is a stripped back version of the published meta-analysis. You can see that we have the following columns:\n\nStudy: the authors and year of publication\nN: the sample size\nAge: the average age of the sample\nTask: the reading task administered\nGroup: whether the participants had developmental dyslexia (DD) or not (TD)\nCor: the correlation coefficient, r\n\nYou will see that a few cells are blank. We need to extract this information from the relevant papers before we begin! Inspect the following papers to fill in the missing sample sizes and correlation coefficients:\n\nClark & Lum (2017). (Hint: Inspect Table 3. You want to know the correlation between the procedural learning (SRTT) and nonword (phonemic decoding efficiency) tasks.)\nSchmalz et al. (2021). (Hint: Inspect Table 2. The correlations in the meta-analysis reflect each of the word reading and pseudoword reading measures with the SRTT difference)\n\nMake sure you check carefully that all cells of the table are filled before proceeding. Then save your new version of the file as ambr1_srt_complete.csv in the same data folder.",
+    "section": "2.1 Extract effect sizes",
+    "text": "2.1 Extract effect sizes\nIn this week’s practical section on the VLE, you should find a file named ambr1_srt_gaps.csv. Download this file and save it in your data folder.\n\n\n\n\n\n\nTip\n\n\n\nIf you don’t have this folder on your current machine, repeat the set-up steps outlined in 0_SetUp.pdf from Week 1.\n\n\nOpen this file in Excel to start with. This is a stripped back version of the published meta-analysis. You can see that we have the following columns:\n\nStudy: the authors and year of publication\nN: the sample size\nAge: the average age of the sample\nTask: the reading task administered\nGroup: whether the participants had developmental dyslexia (DD) or not (TD)\nCor: the correlation coefficient, r\n\nYou will see that a few cells are blank. We need to extract this information from the relevant papers before we begin! Inspect the following papers to fill in the missing sample sizes and correlation coefficients:\n\nClark & Lum (2017). (Hint: Inspect Table 3. You want to know the correlation between the procedural learning (SRTT) and nonword (phonemic decoding efficiency) tasks.)\nSchmalz et al. (2021). (Hint: Inspect Table 2. The correlations in the meta-analysis reflect each of the word reading and pseudoword reading measures with the SRTT difference)\n\nMake sure you check carefully that all cells of the table are filled before proceeding. Then save your new version of the file as ambr1_srt_complete.csv in the same data folder.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#setting-up-in-rstudio",
     "href": "ambr1_meta-analysis.html#setting-up-in-rstudio",
     "title": "1: Meta-analysis",
-    "section": "Setting up in RStudio",
-    "text": "Setting up in RStudio\nNow we have extracted information from our identified studies, let’s load the data into R. In your ARM_Practicals folder, double click the ARM_Practicals.Rproj file to open it in RStudio.\nCreate a new R script (using the button at the top-left of your window), and save it as ARM2_meta-analysis.R in your scripts folder.\nLet’s start by loading the necessary packages for today’s exercises. You will need to first install the metafor package for meta-analysis by running install.packages(\"metafor\"). You should only need to run this once on any device, so you don’t need to add this to your script. We will also be using the tidyverse package. This is already installed on university machines, but you might need to install it in the same way if you are working on a personal device.\nOnce you’ve installed the packages, add the following lines to the top of your script and run them to load the necessary packages for today.\n\n# Load packages\nlibrary(tidyverse) # for data cleaning\nlibrary(metafor)   # for meta-analysis\n\nThe next step is to load the data into R. If you have opened your R project and have saved the data in the data folder, you should be able to load it in as follows.\n\n# Read in extracted effect sizes and study info\nfull_dat &lt;- read.csv(\"./data/ambr1_srt_complete.csv\")\n\nThe dataset includes studies of people with dyslexia as well as those without reading difficulties. Let’s start by focusing just on those individuals without reading difficulties. We can do this using the filter() function from the tidyverse package that we loaded above. We tell R to filter (or subset) the dataset to keep the rows where the Group column is listed as “TD”, and store the result as td_dat.\n\ntd_dat &lt;- filter(full_dat, Group == \"TD\")",
+    "section": "2.2 Setting up in RStudio",
+    "text": "2.2 Setting up in RStudio\nNow we have extracted information from our identified studies, let’s load the data into R. In your ARM_Practicals folder, double click the ARM_Practicals.Rproj file to open it in RStudio.\nCreate a new R script (using the button at the top-left of your window), and save it as ARM2_meta-analysis.R in your scripts folder.\nLet’s start by loading the necessary packages for today’s exercises. You will need to first install the metafor package for meta-analysis by running install.packages(\"metafor\"). You should only need to run this once on any device, so you don’t need to add this to your script. We will also be using the tidyverse package. This is already installed on university machines, but you might need to install it in the same way if you are working on a personal device.\nOnce you’ve installed the packages, add the following lines to the top of your script and run them to load the necessary packages for today.\n\n# Load packages\nlibrary(tidyverse) # for data cleaning\nlibrary(metafor)   # for meta-analysis\n\nThe next step is to load the data into R. If you have opened your R project and have saved the data in the data folder, you should be able to load it in as follows.\n\n# Read in extracted effect sizes and study info\nfull_dat &lt;- read.csv(\"./data/ambr1_srt_complete.csv\")\n\nThe dataset includes studies of people with dyslexia as well as those without reading difficulties. Let’s start by focusing just on those individuals without reading difficulties. We can do this using the filter() function from the tidyverse package that we loaded above. We tell R to filter (or subset) the dataset to keep the rows where the Group column is listed as “TD”, and store the result as td_dat.\n\ntd_dat &lt;- filter(full_dat, Group == \"TD\")",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#compute-sampling-variance",
     "href": "ambr1_meta-analysis.html#compute-sampling-variance",
     "title": "1: Meta-analysis",
-    "section": "Compute sampling variance",
-    "text": "Compute sampling variance\nWe already have a correlation coefficient for each study, which is our effect size for this meta-analysis. It quantifies the direction and strength of relationship between SRT task performance and reading ability. However, some of the studies has much larger sample sizes than others. Use the min() and max() functions to identify the smallest and largest sample sizes (N) in the dataset. Remember, you can call e.g., help(min) to remind you how these functions work.\nTo capture this uncertainty around the correlation estimates, we should compute their variance ahead of running the meta-analysis. Our meta-analysis package, metafor, provides a handy function for doing this.\n\ntd_dat_var &lt;- escalc(measure = \"COR\",   # specify effect size measure\n                     ri = Cor,          # specify correlation variable\n                     ni = N,            # specify sample size variable\n                     data = td_dat)     # dataset\n\nIf you look to your Environment window (top right), you should now see an object called td_dat_var. If you click the grid to inspect it, you will see two extra columns at the end:\n\nyi: your effect size, which in this case is identical to the one in the Cor column as we haven’t asked it to do any kind of transformation\nvi: your sampling variances, which have now been computed based on the correlation coefficient and sample size\n\nNow we’re ready to run the analysis!",
+    "section": "2.3 Compute sampling variance",
+    "text": "2.3 Compute sampling variance\nWe already have a correlation coefficient for each study, which is our effect size for this meta-analysis. It quantifies the direction and strength of relationship between SRT task performance and reading ability. However, some of the studies has much larger sample sizes than others. Use the min() and max() functions to identify the smallest and largest sample sizes (N) in the dataset. Remember, you can call e.g., help(min) to remind you how these functions work.\nTo capture this uncertainty around the correlation estimates, we should compute their variance ahead of running the meta-analysis. Our meta-analysis package, metafor, provides a handy function for doing this.\n\ntd_dat_var &lt;- escalc(measure = \"COR\",   # specify effect size measure\n                     ri = Cor,          # specify correlation variable\n                     ni = N,            # specify sample size variable\n                     data = td_dat)     # dataset\n\nIf you look to your Environment window (top right), you should now see an object called td_dat_var. If you click the grid to inspect it, you will see two extra columns at the end:\n\nyi: your effect size, which in this case is identical to the one in the Cor column as we haven’t asked it to do any kind of transformation\nvi: your sampling variances, which have now been computed based on the correlation coefficient and sample size\n\nNow we’re ready to run the analysis!",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#fixed-effects-meta-analysis",
     "href": "ambr1_meta-analysis.html#fixed-effects-meta-analysis",
     "title": "1: Meta-analysis",
-    "section": "Fixed effects meta-analysis",
-    "text": "Fixed effects meta-analysis\nIn a fixed effects analysis, we assume that all studies are measuring the same underlying true effect size, and calculate the average effect size across the included studies. The metafor package terms this an “equal effects” model, as a better descriptive name. Use the rma() function to run this as follows:\n\n# Fixed effects model\nfixed_mod &lt;- rma(yi = yi, vi = vi,\n                 method = \"FE\", data = td_dat_var)\n\nWe’ve specified the variables with our effect size estimates and sampling variance (already conveniently named the same by escalc() function above). We’ve then specified the “FE” method for fixed effects, and the dataset to use.\nWe can use the summary() function on the model object to inspect the results.\n\nsummary(fixed_mod)\n\n\nFixed-Effects Model (k = 73)\n\n  logLik  deviance       AIC       BIC      AICc   \n 23.9041   82.2057  -45.8082  -43.5177  -45.7518   \n\nI^2 (total heterogeneity / total variability):   12.41%\nH^2 (total variability / sampling variability):  1.14\n\nTest for Heterogeneity:\nQ(df = 72) = 82.2057, p-val = 0.1926\n\nModel Results:\n\nestimate      se    zval    pval   ci.lb   ci.ub    \n  0.0444  0.0178  2.5003  0.0124  0.0096  0.0793  * \n\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe output tells us that we ran a Fixed-Effects model with 73 effect sizes. The pooled estimate for the correlation coefficient is ~0.04, showing a very small yet statistically significant correlation.",
+    "section": "3.1 Fixed effects meta-analysis",
+    "text": "3.1 Fixed effects meta-analysis\nIn a fixed effects analysis, we assume that all studies are measuring the same underlying true effect size, and calculate the average effect size across the included studies. The metafor package terms this an “equal effects” model, as a better descriptive name. Use the rma() function to run this as follows:\n\n# Fixed effects model\nfixed_mod &lt;- rma(yi = yi, vi = vi,\n                 method = \"FE\", data = td_dat_var)\n\nWe’ve specified the variables with our effect size estimates and sampling variance (already conveniently named the same by escalc() function above). We’ve then specified the “FE” method for fixed effects, and the dataset to use.\nWe can use the summary() function on the model object to inspect the results.\n\nsummary(fixed_mod)\n\n\nFixed-Effects Model (k = 73)\n\n  logLik  deviance       AIC       BIC      AICc   \n 23.9041   82.2057  -45.8082  -43.5177  -45.7518   \n\nI^2 (total heterogeneity / total variability):   12.41%\nH^2 (total variability / sampling variability):  1.14\n\nTest for Heterogeneity:\nQ(df = 72) = 82.2057, p-val = 0.1926\n\nModel Results:\n\nestimate      se    zval    pval   ci.lb   ci.ub    \n  0.0444  0.0178  2.5003  0.0124  0.0096  0.0793  * \n\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nThe output tells us that we ran a Fixed-Effects model with 73 effect sizes. The pooled estimate for the correlation coefficient is ~0.04, showing a very small yet statistically significant correlation.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#random-effects-meta-analysis",
     "href": "ambr1_meta-analysis.html#random-effects-meta-analysis",
     "title": "1: Meta-analysis",
-    "section": "Random effects meta-analysis",
-    "text": "Random effects meta-analysis\nThe random effects model assumes that the samples in the meta-analysis are a random sample from a larger population of studies that could plausibly have been/will be conducted. We can run this by simply changing the method in the meta-analysis function. The package provides us with several different options that have different ways of estimating the heterogeneity between studies (feel free to read more about these!), but for now we will stick with the default option.\n\n# Random effects model\nrandom_mod &lt;- rma(yi = yi, vi = vi,\n                 method = \"REML\", data = td_dat_var)\nsummary(random_mod)\n\n\nRandom-Effects Model (k = 73; tau^2 estimator: REML)\n\n  logLik  deviance       AIC       BIC      AICc   \n 25.3819  -50.7639  -46.7639  -42.2105  -46.5900   \n\ntau^2 (estimated amount of total heterogeneity): 0.0068 (SE = 0.0049)\ntau (square root of estimated tau^2 value):      0.0827\nI^2 (total heterogeneity / total variability):   22.78%\nH^2 (total variability / sampling variability):  1.30\n\nTest for Heterogeneity:\nQ(df = 72) = 82.2057, p-val = 0.1926\n\nModel Results:\n\nestimate      se    zval    pval    ci.lb   ci.ub    \n  0.0361  0.0208  1.7361  0.0825  -0.0047  0.0769  . \n\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nWe can see from the results that the coefficient estimate has shrunk slightly and is no longer significant. These are both valid models but have different inferences: the fixed effects model tells us that there is a very small but significant correlation across the available datasets, but when we consider heterogeneity between effect sizes in the random effects model, we see that this effect size is likely even smaller in the wider population.",
+    "section": "3.2 Random effects meta-analysis",
+    "text": "3.2 Random effects meta-analysis\nThe random effects model assumes that the samples in the meta-analysis are a random sample from a larger population of studies that could plausibly have been/will be conducted. We can run this by simply changing the method in the meta-analysis function. The package provides us with several different options that have different ways of estimating the heterogeneity between studies (feel free to read more about these!), but for now we will stick with the default option.\n\n# Random effects model\nrandom_mod &lt;- rma(yi = yi, vi = vi,\n                 method = \"REML\", data = td_dat_var)\nsummary(random_mod)\n\n\nRandom-Effects Model (k = 73; tau^2 estimator: REML)\n\n  logLik  deviance       AIC       BIC      AICc   \n 25.3819  -50.7639  -46.7639  -42.2105  -46.5900   \n\ntau^2 (estimated amount of total heterogeneity): 0.0068 (SE = 0.0049)\ntau (square root of estimated tau^2 value):      0.0827\nI^2 (total heterogeneity / total variability):   22.78%\nH^2 (total variability / sampling variability):  1.30\n\nTest for Heterogeneity:\nQ(df = 72) = 82.2057, p-val = 0.1926\n\nModel Results:\n\nestimate      se    zval    pval    ci.lb   ci.ub    \n  0.0361  0.0208  1.7361  0.0825  -0.0047  0.0769  . \n\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nWe can see from the results that the coefficient estimate has shrunk slightly and is no longer significant. These are both valid models but have different inferences: the fixed effects model tells us that there is a very small but significant correlation across the available datasets, but when we consider heterogeneity between effect sizes in the random effects model, we see that this effect size is likely even smaller in the wider population.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#under-the-hood-computing-inverse-variance",
     "href": "ambr1_meta-analysis.html#under-the-hood-computing-inverse-variance",
     "title": "1: Meta-analysis",
-    "section": "Under the hood: computing inverse variance",
-    "text": "Under the hood: computing inverse variance\nOne of the most common ways to do this is via inverse-variance, which the rma() function does by default. If you inspect your td_dat_var data frame, you will see that the smaller samples have the highest variance (vi). You can click on the column header to order the data by this variable, so that you can see this for yourself.\nTo use this variance in the analysis, the model uses the inverse (1/variance), so that smaller samples have the smallest weighting. The function does this under the hood, but you can see what this looks like by computing it for yourself:\n\ntd_dat_inv &lt;- mutate(td_dat_var, inv_var = 1/vi)\n\nHere we used the mutate() function (from the tidyverse package) to make a change to the existing dataframe td_dat_var. We provide the name of the new variable, inv_var, and specify that this variable should be computed as 1 divided by the variance variable vi. We assigned the new version of the dataset to a new object, td_dat_inv.\nInspect this new object by clicking the grid icon in your Environment window. You should now see that your inv_var column has larger numbers for studies with larger sample sizes (N).",
+    "section": "4.1 Under the hood: computing inverse variance",
+    "text": "4.1 Under the hood: computing inverse variance\nOne of the most common ways to do this is via inverse-variance, which the rma() function does by default. If you inspect your td_dat_var data frame, you will see that the smaller samples have the highest variance (vi). You can click on the column header to order the data by this variable, so that you can see this for yourself.\nTo use this variance in the analysis, the model uses the inverse (1/variance), so that smaller samples have the smallest weighting. The function does this under the hood, but you can see what this looks like by computing it for yourself:\n\ntd_dat_inv &lt;- mutate(td_dat_var, inv_var = 1/vi)\n\nHere we used the mutate() function (from the tidyverse package) to make a change to the existing dataframe td_dat_var. We provide the name of the new variable, inv_var, and specify that this variable should be computed as 1 divided by the variance variable vi. We assigned the new version of the dataset to a new object, td_dat_inv.\nInspect this new object by clicking the grid icon in your Environment window. You should now see that your inv_var column has larger numbers for studies with larger sample sizes (N).",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#changing-weights-in-the-meta-analysis",
     "href": "ambr1_meta-analysis.html#changing-weights-in-the-meta-analysis",
     "title": "1: Meta-analysis",
-    "section": "Changing weights in the meta-analysis",
-    "text": "Changing weights in the meta-analysis\nBecause weighting by inverse variance is a very common and sensible approach, the rma() meta-analysis function does this by default. This means you’ve already weighted your samples in your above models!\nTo compare, try fitting two new models (fixed, random) and include the argument weighted = FALSE. Use a different object name to store the model output, so that you can inspect the differences in output when you call summary().\nAlternatively, you can try weighting by sample size alone, by setting weights = N.",
+    "section": "4.2 Changing weights in the meta-analysis",
+    "text": "4.2 Changing weights in the meta-analysis\nBecause weighting by inverse variance is a very common and sensible approach, the rma() meta-analysis function does this by default. This means you’ve already weighted your samples in your above models!\nTo compare, try fitting two new models (fixed, random) and include the argument weighted = FALSE. Use a different object name to store the model output, so that you can inspect the differences in output when you call summary().\nAlternatively, you can try weighting by sample size alone, by setting weights = N.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#challenge-yourself",
     "href": "ambr1_meta-analysis.html#challenge-yourself",
     "title": "1: Meta-analysis",
-    "section": "Challenge yourself",
-    "text": "Challenge yourself\nOften we are interested in how effect sizes vary across different conditions. In this case, the researchers were interested in whether the relationship between procedural learning (SRT) and reading ability might differ depending on the participant groups tested.\nIf you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant Group is a moderator in your analysis. Use the original data file that you loaded in (full_dat), which also includes effect sizes for samples with developmental dyslexia. You can look at the help files or use Google to find out how to include this extra predictor.",
+    "section": "7.1 Challenge yourself",
+    "text": "7.1 Challenge yourself\nOften we are interested in how effect sizes vary across different conditions. In this case, the researchers were interested in whether the relationship between procedural learning (SRT) and reading ability might differ depending on the participant groups tested.\nIf you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant Group is a moderator in your analysis. Use the original data file that you loaded in (full_dat), which also includes effect sizes for samples with developmental dyslexia. You can look at the help files or use Google to find out how to include this extra predictor.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
   },
   {
     "objectID": "ambr1_meta-analysis.html#further-learning",
     "href": "ambr1_meta-analysis.html#further-learning",
     "title": "1: Meta-analysis",
-    "section": "Further learning",
-    "text": "Further learning\nYou can find the core reading for this week on the VLE. If you come to do meta-analysis in the future or want further details on the different steps that we have covered, then there is an excellent textbook available for free online: Harrer et al. (2021). Doing Meta-Analysis with R: A Hands-On Guide.\n\n\n\n\n\n\n\nFeedback\n\n\n\nThese practical sessions have been heavily edited this year. Please take 20 seconds to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board.",
+    "section": "7.2 Further learning",
+    "text": "7.2 Further learning\nYou can find the core reading for this week on the VLE. If you come to do meta-analysis in the future or want further details on the different steps that we have covered, then there is an excellent textbook available for free online: Harrer et al. (2021). Doing Meta-Analysis with R: A Hands-On Guide.\n\n\n\n\n\n\n\nFeedback\n\n\n\nThese practical sessions have been heavily edited this year. Please take 20 seconds to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board.",
     "crumbs": [
-      "Week 1: Meta-analysis",
-      "1: Meta-analysis"
+      "Week 1: Meta-analysis"
     ]
-  },
-  {
-    "objectID": "ambr0_guide.html",
-    "href": "ambr0_guide.html",
-    "title": "Working in this module",
-    "section": "",
-    "text": "This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working.\n\nFile set-up\n\n\nScript format\n\n\nOther RStudio tips"
   }
 ]

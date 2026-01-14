@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">Week 1: Meta-analysis</a></li><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">1: Meta-analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">Week 1: Meta-analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">Week 1: Meta-analysis</a></li><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">1: Meta-analysis</a></li></ol></nav>
+    <div class="quarto-title column-body">
       <h1 class="title">1: Meta-analysis</h1>
                       </div>
   </div>
@@ -163,52 +163,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Week 1: Meta-analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ambr1_meta-analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">1: Meta-analysis</span></a>
+  <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Guide to working in this module</span></a>
   </div>
 </li>
-      </ul>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ambr1_meta-analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Week 1: Meta-analysis</span></a>
+  </div>
+</li>
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#effect-sizes" id="toc-effect-sizes" class="nav-link" data-scroll-target="#effect-sizes">Effect sizes</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#effect-sizes" id="toc-effect-sizes" class="nav-link" data-scroll-target="#effect-sizes"><span class="header-section-number">2</span> Effect sizes</a>
   <ul>
-  <li><a href="#extract-effect-sizes" id="toc-extract-effect-sizes" class="nav-link" data-scroll-target="#extract-effect-sizes">Extract effect sizes</a></li>
-  <li><a href="#setting-up-in-rstudio" id="toc-setting-up-in-rstudio" class="nav-link" data-scroll-target="#setting-up-in-rstudio">Setting up in RStudio</a></li>
-  <li><a href="#compute-sampling-variance" id="toc-compute-sampling-variance" class="nav-link" data-scroll-target="#compute-sampling-variance">Compute sampling variance</a></li>
+  <li><a href="#extract-effect-sizes" id="toc-extract-effect-sizes" class="nav-link" data-scroll-target="#extract-effect-sizes"><span class="header-section-number">2.1</span> Extract effect sizes</a></li>
+  <li><a href="#setting-up-in-rstudio" id="toc-setting-up-in-rstudio" class="nav-link" data-scroll-target="#setting-up-in-rstudio"><span class="header-section-number">2.2</span> Setting up in RStudio</a></li>
+  <li><a href="#compute-sampling-variance" id="toc-compute-sampling-variance" class="nav-link" data-scroll-target="#compute-sampling-variance"><span class="header-section-number">2.3</span> Compute sampling variance</a></li>
   </ul></li>
-  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes" class="nav-link" data-scroll-target="#computing-pooled-effect-sizes">Computing pooled effect sizes</a>
+  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes" class="nav-link" data-scroll-target="#computing-pooled-effect-sizes"><span class="header-section-number">3</span> Computing pooled effect sizes</a>
   <ul>
-  <li><a href="#fixed-effects-meta-analysis" id="toc-fixed-effects-meta-analysis" class="nav-link" data-scroll-target="#fixed-effects-meta-analysis">Fixed effects meta-analysis</a></li>
-  <li><a href="#random-effects-meta-analysis" id="toc-random-effects-meta-analysis" class="nav-link" data-scroll-target="#random-effects-meta-analysis">Random effects meta-analysis</a></li>
+  <li><a href="#fixed-effects-meta-analysis" id="toc-fixed-effects-meta-analysis" class="nav-link" data-scroll-target="#fixed-effects-meta-analysis"><span class="header-section-number">3.1</span> Fixed effects meta-analysis</a></li>
+  <li><a href="#random-effects-meta-analysis" id="toc-random-effects-meta-analysis" class="nav-link" data-scroll-target="#random-effects-meta-analysis"><span class="header-section-number">3.2</span> Random effects meta-analysis</a></li>
   </ul></li>
-  <li><a href="#weighting-studies" id="toc-weighting-studies" class="nav-link" data-scroll-target="#weighting-studies">Weighting studies</a>
+  <li><a href="#weighting-studies" id="toc-weighting-studies" class="nav-link" data-scroll-target="#weighting-studies"><span class="header-section-number">4</span> Weighting studies</a>
   <ul>
-  <li><a href="#under-the-hood-computing-inverse-variance" id="toc-under-the-hood-computing-inverse-variance" class="nav-link" data-scroll-target="#under-the-hood-computing-inverse-variance">Under the hood: computing inverse variance</a></li>
-  <li><a href="#changing-weights-in-the-meta-analysis" id="toc-changing-weights-in-the-meta-analysis" class="nav-link" data-scroll-target="#changing-weights-in-the-meta-analysis">Changing weights in the meta-analysis</a></li>
+  <li><a href="#under-the-hood-computing-inverse-variance" id="toc-under-the-hood-computing-inverse-variance" class="nav-link" data-scroll-target="#under-the-hood-computing-inverse-variance"><span class="header-section-number">4.1</span> Under the hood: computing inverse variance</a></li>
+  <li><a href="#changing-weights-in-the-meta-analysis" id="toc-changing-weights-in-the-meta-analysis" class="nav-link" data-scroll-target="#changing-weights-in-the-meta-analysis"><span class="header-section-number">4.2</span> Changing weights in the meta-analysis</a></li>
   </ul></li>
-  <li><a href="#displaying-results-with-forest-plots" id="toc-displaying-results-with-forest-plots" class="nav-link" data-scroll-target="#displaying-results-with-forest-plots">Displaying results with forest plots</a></li>
-  <li><a href="#inspecting-for-publication-bias" id="toc-inspecting-for-publication-bias" class="nav-link" data-scroll-target="#inspecting-for-publication-bias">Inspecting for publication bias</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <li><a href="#displaying-results-with-forest-plots" id="toc-displaying-results-with-forest-plots" class="nav-link" data-scroll-target="#displaying-results-with-forest-plots"><span class="header-section-number">5</span> Displaying results with forest plots</a></li>
+  <li><a href="#inspecting-for-publication-bias" id="toc-inspecting-for-publication-bias" class="nav-link" data-scroll-target="#inspecting-for-publication-bias"><span class="header-section-number">6</span> Inspecting for publication bias</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7</span> Summary</a>
   <ul>
-  <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself">Challenge yourself</a></li>
-  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning">Further learning</a></li>
+  <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself"><span class="header-section-number">7.1</span> Challenge yourself</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">7.2</span> Further learning</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr1_meta-analysis.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr1_meta-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
@@ -224,8 +219,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>The aim of this week’s practical is to walk through some of the key steps involved in conducting a meta-analysis. As a basis for this, we will use a recently published meta-analysis that examined the relationship between procedural learning and reading ability.</p>
 <p>The Procedural Deficit Hypothesis proposes that reading and language disorders stem from a difficulty in the procedural learning system - i.e., the system that underpins the learning of probabilistic knowledge (Ullman et al., 2020). Procedural learning has often been measured using Serial Reaction Time (SRT) tasks: participants respond to a repeating sequence of stimuli, and their improvements in speed over several blocks are measured as an index of learning. However, evidence that SRT performance is associated with reading ability is mixed, with some studies showing a strong association and others finding nothing at all. Many studies in this area suffer from small sample sizes, making it hard to draw sound conclusions.</p>
 <p>A meta-analysis provides a valuable way of summarising this evidence. This meta-analysis was conducted by a former PhD student at York, Dr Catia Oliveira, together with Professor Lisa Henderson and Dr Emma Hayiou-Thomas. We will use part of their dataset to showcase different steps in conducting a meta-analysis.</p>
@@ -251,10 +246,10 @@ Learning objectives
 </div>
 <hr>
 </section>
-<section id="effect-sizes" class="level1">
-<h1>Effect sizes</h1>
-<section id="extract-effect-sizes" class="level2">
-<h2 class="anchored" data-anchor-id="extract-effect-sizes">Extract effect sizes</h2>
+<section id="effect-sizes" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Effect sizes</h1>
+<section id="extract-effect-sizes" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="extract-effect-sizes"><span class="header-section-number">2.1</span> Extract effect sizes</h2>
 <p>In this week’s practical section on the VLE, you should find a file named <strong>ambr1_srt_gaps.csv.</strong> Download this file and save it in your data folder.</p>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Tip">
 <div class="callout-header d-flex align-content-center">
@@ -285,8 +280,8 @@ Tip
 </ul>
 <p>Make sure you check carefully that all cells of the table are filled before proceeding. Then save your new version of the file as <strong>ambr1_srt_complete.csv</strong> in the same data folder.</p>
 </section>
-<section id="setting-up-in-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="setting-up-in-rstudio">Setting up in RStudio</h2>
+<section id="setting-up-in-rstudio" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="setting-up-in-rstudio"><span class="header-section-number">2.2</span> Setting up in RStudio</h2>
 <p>Now we have extracted information from our identified studies, let’s load the data into R. In your ARM_Practicals folder, double click the ARM_Practicals.Rproj file to open it in RStudio.</p>
 <p>Create a new R script (using the button at the top-left of your window), and save it as <strong>ARM2_meta-analysis.R</strong> in your scripts folder.</p>
 <p>Let’s start by loading the necessary packages for today’s exercises. You will need to first install the <em>metafor</em> package for meta-analysis by running <code>install.packages("metafor")</code>. You should only need to run this once on any device, so you don’t need to add this to your script. We will also be using the <em>tidyverse</em> package. This is already installed on university machines, but you might need to install it in the same way if you are working on a personal device.</p>
@@ -306,8 +301,8 @@ Tip
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>td_dat <span class="ot">&lt;-</span> <span class="fu">filter</span>(full_dat, Group <span class="sc">==</span> <span class="st">"TD"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="compute-sampling-variance" class="level2">
-<h2 class="anchored" data-anchor-id="compute-sampling-variance">Compute sampling variance</h2>
+<section id="compute-sampling-variance" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="compute-sampling-variance"><span class="header-section-number">2.3</span> Compute sampling variance</h2>
 <p>We already have a correlation coefficient for each study, which is our effect size for this meta-analysis. It quantifies the direction and strength of relationship between SRT task performance and reading ability. However, some of the studies has much larger sample sizes than others. Use the <code>min()</code> and <code>max()</code> functions to identify the smallest and largest sample sizes (<code>N</code>) in the dataset. Remember, you can call e.g., <code>help(min)</code> to remind you how these functions work.</p>
 <p>To capture this uncertainty around the correlation estimates, we should compute their variance ahead of running the meta-analysis. Our meta-analysis package, <em>metafor</em>, provides a handy function for doing this.</p>
 <div class="cell">
@@ -325,11 +320,11 @@ Tip
 <hr>
 </section>
 </section>
-<section id="computing-pooled-effect-sizes" class="level1">
-<h1>Computing pooled effect sizes</h1>
+<section id="computing-pooled-effect-sizes" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Computing pooled effect sizes</h1>
 <p>In the lecture, you learned about fixed and random effects meta-analyses. Let’s have a go at running both.</p>
-<section id="fixed-effects-meta-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="fixed-effects-meta-analysis">Fixed effects meta-analysis</h2>
+<section id="fixed-effects-meta-analysis" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="fixed-effects-meta-analysis"><span class="header-section-number">3.1</span> Fixed effects meta-analysis</h2>
 <p>In a fixed effects analysis, we assume that all studies are measuring the same underlying true effect size, and calculate the average effect size across the included studies. The <code>metafor</code> package terms this an “equal effects” model, as a better descriptive name. Use the <code>rma()</code> function to run this as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixed effects model</span></span>
@@ -364,8 +359,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>The output tells us that we ran a Fixed-Effects model with 73 effect sizes. The pooled estimate for the correlation coefficient is ~0.04, showing a very small yet statistically significant correlation.</p>
 </section>
-<section id="random-effects-meta-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="random-effects-meta-analysis">Random effects meta-analysis</h2>
+<section id="random-effects-meta-analysis" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="random-effects-meta-analysis"><span class="header-section-number">3.2</span> Random effects meta-analysis</h2>
 <p>The random effects model assumes that the samples in the meta-analysis are a random sample from a larger population of studies that could plausibly have been/will be conducted. We can run this by simply changing the method in the meta-analysis function. The package provides us with several different options that have different ways of estimating the heterogeneity between studies (feel free to read more about these!), but for now we will stick with the default option.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random effects model</span></span>
@@ -400,11 +395,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <hr>
 </section>
 </section>
-<section id="weighting-studies" class="level1">
-<h1>Weighting studies</h1>
+<section id="weighting-studies" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Weighting studies</h1>
 <p>We saw in Section 2 that the variation in sample size was very large. We should consider this in our analysis: a very large study likely provides a better estimate of the true effect size than a very small study.</p>
-<section id="under-the-hood-computing-inverse-variance" class="level2">
-<h2 class="anchored" data-anchor-id="under-the-hood-computing-inverse-variance">Under the hood: computing inverse variance</h2>
+<section id="under-the-hood-computing-inverse-variance" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="under-the-hood-computing-inverse-variance"><span class="header-section-number">4.1</span> Under the hood: computing inverse variance</h2>
 <p>One of the most common ways to do this is via inverse-variance, which the <code>rma()</code> function does by default. If you inspect your <code>td_dat_var</code> data frame, you will see that the smaller samples have the highest variance (<code>vi</code>). You can click on the column header to order the data by this variable, so that you can see this for yourself.</p>
 <p>To use this variance in the analysis, the model uses the <em>inverse</em> (<code>1/variance</code>), so that smaller samples have the smallest weighting. The function does this under the hood, but you can see what this looks like by computing it for yourself:</p>
 <div class="cell">
@@ -413,23 +408,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Here we used the <code>mutate()</code> function (from the <em>tidyverse</em> package) to make a change to the existing dataframe <code>td_dat_var</code>. We provide the name of the new variable, <code>inv_var</code>, and specify that this variable should be computed as 1 divided by the variance variable <code>vi</code>. We assigned the new version of the dataset to a new object, <code>td_dat_inv</code>.</p>
 <p>Inspect this new object by clicking the grid icon in your Environment window. You should now see that your <code>inv_var</code> column has larger numbers for studies with larger sample sizes (<code>N</code>).</p>
 </section>
-<section id="changing-weights-in-the-meta-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="changing-weights-in-the-meta-analysis">Changing weights in the meta-analysis</h2>
+<section id="changing-weights-in-the-meta-analysis" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="changing-weights-in-the-meta-analysis"><span class="header-section-number">4.2</span> Changing weights in the meta-analysis</h2>
 <p>Because weighting by inverse variance is a very common and sensible approach, the <code>rma()</code> meta-analysis function does this by default. This means you’ve already weighted your samples in your above models!</p>
 <p>To compare, try fitting two new models (fixed, random) and include the argument <code>weighted = FALSE</code>. Use a different object name to store the model output, so that you can inspect the differences in output when you call <code>summary()</code>.</p>
 <p>Alternatively, you can try weighting by sample size alone, by setting <code>weights = N</code>.</p>
 </section>
 </section>
-<section id="displaying-results-with-forest-plots" class="level1">
-<h1>Displaying results with forest plots</h1>
+<section id="displaying-results-with-forest-plots" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Displaying results with forest plots</h1>
 <p>An easy way to visualise the results is to use a forest plot. The <em>metafor</em> package provides a handy <code>forest()</code> function for this: we simply give it the name of our meta-analysis model object. We can also use the <code>slab</code> argument to provide study labels, which we can take from the <code>Study</code> column of the dataset we used.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(fixed_mod, <span class="at">slab =</span> td_dat_var<span class="sc">$</span>Study)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Try this now for the different models you ran, and see how the pooled estimate at the bottom changes in whether it crosses the 0 line.</p>
 </section>
-<section id="inspecting-for-publication-bias" class="level1">
-<h1>Inspecting for publication bias</h1>
+<section id="inspecting-for-publication-bias" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Inspecting for publication bias</h1>
 <p>Finally, let’s consider whether this analysis might be affected by publication bias. We can do this using a funnel plot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(fixed_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -437,17 +432,17 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Take a look at <a href="https://www.statisticshowto.com/funnel-plot/">this linked guide for interpreting the funnel plots</a>. What do you conclude?</p>
 <p>You can also test for asymmetry using Egger’s regression test, which is also a built-in function in the <em>metafor</em> package. See if you can find the relevant function online and apply it here.</p>
 </section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
+<section id="summary" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Summary</h1>
 <p>In this practical, we have extracted relevant results from published studies and used them in both fixed and random effects meta-analyses. We saw how these models can weight different studies in computing the pooled estimates, and plotted them using forest plots. Finally, we considered whether there might be evidence of publication bias in this literature. Before you leave, make sure you have commented your code so that future-you remembers what you have done.</p>
 <p>We ran a basic version of these models here, but there is much more you can do to correct for small sample sizes and adjust for the fact that some estimates come from the same study (i.e., there were different correlation coefficients for different measures of reading in the same sample). If you are interested in these issues, you can <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cogs.13310">access the full paper here</a> or <a href="https://osf.io/ev2xw/">download the full dataset and analysis scripts</a>.</p>
-<section id="challenge-yourself" class="level2">
-<h2 class="anchored" data-anchor-id="challenge-yourself">Challenge yourself</h2>
+<section id="challenge-yourself" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="challenge-yourself"><span class="header-section-number">7.1</span> Challenge yourself</h2>
 <p>Often we are interested in how effect sizes vary across different conditions. In this case, the researchers were interested in whether the relationship between procedural learning (SRT) and reading ability might differ depending on the participant groups tested.</p>
 <p>If you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant <code>Group</code> is a moderator in your analysis. Use the original data file that you loaded in (<code>full_dat</code>), which also includes effect sizes for samples with developmental dyslexia. You can look at the help files or use Google to find out how to include this extra predictor.</p>
 </section>
-<section id="further-learning" class="level2">
-<h2 class="anchored" data-anchor-id="further-learning">Further learning</h2>
+<section id="further-learning" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">7.2</span> Further learning</h2>
 <p>You can find the core reading for this week on the VLE. If you come to do meta-analysis in the future or want further details on the different steps that we have covered, then there is an excellent textbook available for free online: <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">Harrer et al.&nbsp;(2021). <em>Doing Meta-Analysis with R: A Hands-On Guide</em></a><em>.</em></p>
 <hr>
 <div class="callout callout-style-default callout-warning no-icon callout-titled" title="Feedback">
