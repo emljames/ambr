@@ -182,7 +182,7 @@
     "href": "ambr1_meta-analysis.html#conduct-your-meta-analysis",
     "title": "1: Meta-analysis",
     "section": "4.4 Conduct your meta-analysis",
-    "text": "4.4 Conduct your meta-analysis\nYou can now finish conducting your meta-analysis. Conduct the following steps, and write notes to justify your decisions along the way:\n\nDecide on the appropriate model and weighting strategy\nRun the model and interpret the output\nCreate a forest plot\nEvaluate evidence for publication bias\n\n\n\nShow the code\n# Random effects model\nsrt_mod &lt;- rma(yi = yi, vi = vi,\n                method = \"REML\", data = srt_dat3)\nsummary(srt_mod)\n\n# Create forest plot \nforest(srt_mod, slab = srt_dat3$Study)\n\n# Examine evidence for publication bias\nfunnel(srt_mod)\nregtest(srt_mod)",
+    "text": "4.4 Conduct your meta-analysis\nYou can now finish conducting your meta-analysis. Conduct the following steps, and write notes to justify your decisions along the way:\n\nDecide on the appropriate model and weighting strategy\nRun the model and interpret the output\nCreate a forest plot, and see if you can customise it (e.g., change the colour of the polygone, print the study weights)\nEvaluate evidence for publication bias\n\n\n\nShow the code\n# Random effects model, as different populations and tasks - likely a distribution\n# Default study weighting appropriate\nsrt_mod &lt;- rma(yi = yi, vi = vi,\n                method = \"REML\", data = srt_dat3)\nsummary(srt_mod)\n\n# Create forest plot \nforest(srt_mod, slab = srt_dat3$Study)\n\n# Examine evidence for publication bias\nfunnel(srt_mod)\nregtest(srt_mod)",
     "crumbs": [
       "Week 1: Meta-analysis"
     ]

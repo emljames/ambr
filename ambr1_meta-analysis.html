@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-adc86e7bd9615c2685d0123ba2ce0656.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-6b21568b0a8344e6ec6d450975682509.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -553,23 +553,24 @@ Take a break!
 <ul>
 <li>Decide on the appropriate model and weighting strategy</li>
 <li>Run the model and interpret the output</li>
-<li>Create a forest plot</li>
+<li>Create a forest plot, and see if you can customise it (e.g., change the colour of the polygone, print the study weights)</li>
 <li>Evaluate evidence for publication bias</li>
 </ul>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random effects model</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>srt_mod <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"REML"</span>, <span class="at">data =</span> srt_dat3)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(srt_mod)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create forest plot </span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(srt_mod, <span class="at">slab =</span> srt_dat3<span class="sc">$</span>Study)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine evidence for publication bias</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(srt_mod)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(srt_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random effects model, as different populations and tasks - likely a distribution</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Default study weighting appropriate</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>srt_mod <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"REML"</span>, <span class="at">data =</span> srt_dat3)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(srt_mod)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create forest plot </span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(srt_mod, <span class="at">slab =</span> srt_dat3<span class="sc">$</span>Study)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine evidence for publication bias</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(srt_mod)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(srt_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -577,7 +578,24 @@ Take a break!
 <section id="challenge-yourself" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Challenge yourself!</h1>
 <p>Often we are interested in how effect sizes vary across different conditions. In this case, the researchers were interested in whether the relationship between procedural learning (SRT) and reading ability might differ depending on the participant groups tested.</p>
-<p>If you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant <code>Group</code> is a moderator in your analysis. You can look at the help files or use Google to find out how to include this extra predictor.</p>
+<p>If you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant <code>Group</code> is a moderator in your analysis. How much additional variance do the groups account for? In which group(s) are the relationships between SRT and reading ability observed?</p>
+<p>You can look at the help files or use Google to find out how to include this extra predictor.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You will need to start by recoding your Group variable as a factor, setting “TD” as the baseline for comparison.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="summary" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
