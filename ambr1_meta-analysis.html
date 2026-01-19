@@ -75,13 +75,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ed0842c986c8dcdfd263d0ba06ad0873.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-adc86e7bd9615c2685d0123ba2ce0656.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -107,10 +107,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AMBR</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -119,14 +131,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr1_meta-analysis.html">Week 1: Meta-analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">1: Meta-analysis</h1>
@@ -148,21 +157,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">AMBR</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Module home</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link">
@@ -178,31 +183,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Practical outline</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
   </ul></li>
   <li><a href="#part-1-core-example" id="toc-part-1-core-example" class="nav-link" data-scroll-target="#part-1-core-example"><span class="header-section-number">3</span> Part 1: Core example</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
-  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes" class="nav-link" data-scroll-target="#computing-pooled-effect-sizes"><span class="header-section-number">3.2</span> Computing pooled effect sizes</a>
-  <ul class="collapse">
-  <li><a href="#fixed-effects-meta-analysis" id="toc-fixed-effects-meta-analysis" class="nav-link" data-scroll-target="#fixed-effects-meta-analysis"><span class="header-section-number">3.2.1</span> Fixed effects meta-analysis</a></li>
-  <li><a href="#random-effects-meta-analysis" id="toc-random-effects-meta-analysis" class="nav-link" data-scroll-target="#random-effects-meta-analysis"><span class="header-section-number">3.2.2</span> Random effects meta-analysis</a></li>
-  </ul></li>
-  <li><a href="#weighting-studies" id="toc-weighting-studies" class="nav-link" data-scroll-target="#weighting-studies"><span class="header-section-number">3.3</span> Weighting studies</a>
-  <ul class="collapse">
-  <li><a href="#under-the-hood-inverse-variance" id="toc-under-the-hood-inverse-variance" class="nav-link" data-scroll-target="#under-the-hood-inverse-variance"><span class="header-section-number">3.3.1</span> Under the hood: inverse variance</a></li>
-  <li><a href="#changing-weights-in-the-meta-analysis" id="toc-changing-weights-in-the-meta-analysis" class="nav-link" data-scroll-target="#changing-weights-in-the-meta-analysis"><span class="header-section-number">3.3.2</span> Changing weights in the meta-analysis</a></li>
-  </ul></li>
+  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes" class="nav-link" data-scroll-target="#computing-pooled-effect-sizes"><span class="header-section-number">3.2</span> Computing pooled effect sizes</a></li>
+  <li><a href="#weighting-studies" id="toc-weighting-studies" class="nav-link" data-scroll-target="#weighting-studies"><span class="header-section-number">3.3</span> Weighting studies</a></li>
   <li><a href="#inspecting-for-publication-bias" id="toc-inspecting-for-publication-bias" class="nav-link" data-scroll-target="#inspecting-for-publication-bias"><span class="header-section-number">3.4</span> Inspecting for publication bias</a></li>
   </ul></li>
   <li><a href="#part-2-apply-your-knowledge" id="toc-part-2-apply-your-knowledge" class="nav-link" data-scroll-target="#part-2-apply-your-knowledge"><span class="header-section-number">4</span> Part 2: Apply your knowledge</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
   <li><a href="#updating-the-dataset" id="toc-updating-the-dataset" class="nav-link" data-scroll-target="#updating-the-dataset"><span class="header-section-number">4.2</span> Updating the dataset</a></li>
   <li><a href="#compute-sampling-variance" id="toc-compute-sampling-variance" class="nav-link" data-scroll-target="#compute-sampling-variance"><span class="header-section-number">4.3</span> Compute sampling variance</a></li>
@@ -210,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#challenge-yourself" id="toc-challenge-yourself" class="nav-link" data-scroll-target="#challenge-yourself"><span class="header-section-number">5</span> Challenge yourself!</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
   <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
   </ul></li>
@@ -227,7 +224,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-
+<p>Advanced methods in Behavioural Research, Semester 2 (2025-2026)</p><nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">Practical outline</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#setting-up" id="toc-setting-up"><span class="header-section-number">2</span> Setting up</a>
+  <ul>
+  <li><a href="#packages" id="toc-packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  </ul></li>
+  <li><a href="#part-1-core-example" id="toc-part-1-core-example"><span class="header-section-number">3</span> Part 1: Core example</a>
+  <ul>
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes"><span class="header-section-number">3.2</span> Computing pooled effect sizes</a></li>
+  <li><a href="#weighting-studies" id="toc-weighting-studies"><span class="header-section-number">3.3</span> Weighting studies</a></li>
+  <li><a href="#inspecting-for-publication-bias" id="toc-inspecting-for-publication-bias"><span class="header-section-number">3.4</span> Inspecting for publication bias</a></li>
+  </ul></li>
+  <li><a href="#part-2-apply-your-knowledge" id="toc-part-2-apply-your-knowledge"><span class="header-section-number">4</span> Part 2: Apply your knowledge</a>
+  <ul>
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  <li><a href="#updating-the-dataset" id="toc-updating-the-dataset"><span class="header-section-number">4.2</span> Updating the dataset</a></li>
+  <li><a href="#compute-sampling-variance" id="toc-compute-sampling-variance"><span class="header-section-number">4.3</span> Compute sampling variance</a></li>
+  <li><a href="#conduct-your-meta-analysis" id="toc-conduct-your-meta-analysis"><span class="header-section-number">4.4</span> Conduct your meta-analysis</a></li>
+  </ul></li>
+  <li><a href="#challenge-yourself" id="toc-challenge-yourself"><span class="header-section-number">5</span> Challenge yourself!</a></li>
+  <li><a href="#summary" id="toc-summary"><span class="header-section-number">6</span> Summary</a>
+  <ul>
+  <li><a href="#recap" id="toc-recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
+  </ul></li>
+  </ul>
+</nav>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
@@ -352,26 +379,9 @@ Learning objectives
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(rr_fixed_m, <span class="at">slab =</span> rr_m_ppts<span class="sc">$</span>Short_Title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(rr_fixed_m, <span class="at">slab =</span> rr_m_ppts<span class="sc">$</span>Short_Title)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(rr_random_m, <span class="at">slab =</span> rr_m_ppts<span class="sc">$</span>Short_Title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ambr1_meta-analysis_files/figure-html/forest-mod-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(rr_random_m, <span class="at">slab =</span> rr_m_ppts<span class="sc">$</span>Short_Title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ambr1_meta-analysis_files/figure-html/forest-mod-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
 </div>
 <hr>
 </section>
@@ -383,11 +393,11 @@ Learning objectives
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="under-the-hood-inverse-variance"><span class="header-section-number">3.3.1</span> Under the hood: inverse variance</h3>
 <p>One of the most common ways to do this is via inverse-variance, which the <code>rma()</code> function does by default. If you inspect your <code>rr_m_ppts</code>data frame, you will see that the smaller samples generally have the highest variance (<code>vi</code>). You might be able to see this more clearly via a quick scatterplot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect relationship between </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr_m_ppts<span class="sc">$</span>Total.SampleSize, rr_m_ppts<span class="sc">$</span>vi)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now plot inverse variance instead</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr_m_ppts<span class="sc">$</span>Total.SampleSize, <span class="dv">1</span><span class="sc">/</span>rr_m_ppts<span class="sc">$</span>vi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect relationship between </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr_m_ppts<span class="sc">$</span>Total.SampleSize, rr_m_ppts<span class="sc">$</span>vi)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now plot inverse variance instead</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rr_m_ppts<span class="sc">$</span>Total.SampleSize, <span class="dv">1</span><span class="sc">/</span>rr_m_ppts<span class="sc">$</span>vi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To use this variance in the analysis, the model uses the <em>inverse</em> (<code>1/variance</code>), so that smaller samples have the smallest weighting. The function does this under the hood, but you can see what this looks like by computing it for yourself. Recreate your plot using <code>1/rr_m_ppts$vi</code> as your y variable.</p>
 <p>You should now see a steady positive trend for the majority of studies, with higher inverse variance for large studies. A few studies buck this trend, with little variance in their estimates despite small-medium sample sizes. Can you identify them in the dataset?</p>
@@ -403,22 +413,22 @@ Learning objectives
 <h2 data-number="3.4" class="anchored" data-anchor-id="inspecting-for-publication-bias"><span class="header-section-number">3.4</span> Inspecting for publication bias</h2>
 <p>Finally, let’s consider whether this analysis might be affected by publication bias. Let’s use the random effects model given it would be the more appropriate choice here, and create a funnel plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(rr_random_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(rr_random_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Take a look at <a href="https://www.statisticshowto.com/funnel-plot/">this linked guide for interpreting the funnel plots</a>. What do you conclude?</p>
 <p>You can also test for asymmetry using Egger’s regression test. Is there statistical evidence for assymmetry?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(rr_random_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(rr_random_m)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For comparison, inspect the evidence for publication bias using female participants instead. You’ll need to subset the data, run a new random effects model, and then inspect for asymmetry. What do you conclude about publication bias in this area of research?</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only effect sizes corresponding to female participants</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>rr_f_ppts <span class="ot">&lt;-</span> <span class="fu">filter</span>(rr_dat, Gender <span class="sc">==</span> <span class="st">"Females"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>rr_random_f <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi, <span class="at">data =</span> rr_f_ppts)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(rr_random_f)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(rr_random_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only effect sizes corresponding to female participants</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>rr_f_ppts <span class="ot">&lt;-</span> <span class="fu">filter</span>(rr_dat, Gender <span class="sc">==</span> <span class="st">"Females"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>rr_random_f <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi, <span class="at">data =</span> rr_f_ppts)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(rr_random_f)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(rr_random_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <hr>
@@ -455,15 +465,15 @@ Take a break!
 <h2 data-number="4.2" class="anchored" data-anchor-id="updating-the-dataset"><span class="header-section-number">4.2</span> Updating the dataset</h2>
 <p>Oliveira et al.&nbsp;made their protocol and analyses openly available on the <a href="https://osf.io/ev2xw/overview">Open Science Framework</a>. This means that we can directly download the data into R as follows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download original dataset</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>srt_dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://osf.io/yj9bs/?action=download"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download original dataset</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>srt_dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://osf.io/yj9bs/?action=download"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s focus just on the relationship between SRT and reading, for simplicity, and stick to word/nonword reading tasks. We’re going to add a new study to the dataset, so for the sake of this practical we will also strip back the dataset to a few key variables (otherwise adding the new dataset will take you forever!).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>srt_dat2 <span class="ot">&lt;-</span> srt_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Component <span class="sc">==</span> <span class="st">"Reading"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Task <span class="sc">==</span> <span class="st">"Word Reading"</span> <span class="sc">|</span> Task <span class="sc">==</span> <span class="st">"Nonword Reading"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Study, N, Age, Task, Group, Cor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>srt_dat2 <span class="ot">&lt;-</span> srt_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Component <span class="sc">==</span> <span class="st">"Reading"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Task <span class="sc">==</span> <span class="st">"Word Reading"</span> <span class="sc">|</span> Task <span class="sc">==</span> <span class="st">"Nonword Reading"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Study, N, Age, Task, Group, Cor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Use your R skills to answer the following questions about the dataset:</p>
 <ul>
@@ -475,60 +485,60 @@ Take a break!
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of effect sizes </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(srt_dat2)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of unique studies</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(srt_dat2<span class="sc">$</span>Study))</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Range of ages </span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(srt_dat2<span class="sc">$</span>Age)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect sizes from different participant groups </span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(srt_dat2<span class="sc">$</span>Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of effect sizes </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(srt_dat2)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of unique studies</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(srt_dat2<span class="sc">$</span>Study))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Range of ages </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(srt_dat2<span class="sc">$</span>Age)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Effect sizes from different participant groups </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(srt_dat2<span class="sc">$</span>Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>This meta-analysis included data that were published up until November 2020, but many studies on this topic have been published since then. Let’s add this study published by <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/dys.1678">van Witteloostuijn et al.&nbsp;(2021)</a>, which adds 2 new correlation effect sizes between SRT and word/nonword reading, for each of two groups (typically developing children, children with developmental dyslexia). Use Appendix 1 of the paper to replace the NAs below with the relevant numbers, and run the code to add 4 new rows to the dataset.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>srt_dat3 <span class="ot">&lt;-</span> srt_dat2 <span class="sc">%&gt;%</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.66</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Word Reading"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"TD"</span>, </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.66</span>,</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Nonword Reading"</span>,</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"TD"</span>, </span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.83</span>,</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Word Reading"</span>,</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"DD"</span>, </span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.83</span>,</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Nonword Reading"</span>,</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"DD"</span>, </span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-code-copy="true">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>srt_dat3 <span class="ot">&lt;-</span> srt_dat2 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.66</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Word Reading"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"TD"</span>, </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.66</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Nonword Reading"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"TD"</span>, </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.83</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Word Reading"</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"DD"</span>, </span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_row</span>(<span class="at">Study =</span> <span class="st">"van Witteloostuijn et al. (2021)"</span>,</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">N =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">Age =</span> <span class="fl">9.83</span>,</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">Task =</span> <span class="st">"Nonword Reading"</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">Group =</span> <span class="st">"DD"</span>, </span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">Cor =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="compute-sampling-variance" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="compute-sampling-variance"><span class="header-section-number">4.3</span> Compute sampling variance</h2>
 <p>In the dataset above, the effect sizes and sampling variances had already been calculated for us. In the current dataset, we have extracted a consistent measure of effect size (the correlation coefficient representing the relationship between SRT task performance and reading ability), but still need to compute the sampling variance around the estimates to capture uncertainty. The <em>metafor</em> package provides a handy function for doing this: simply replace the NAs in the below code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>srt_dat3 <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">measure =</span> <span class="st">"COR"</span>,   <span class="co"># specify effect size measure         </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ri =</span> <span class="cn">NA</span>,           <span class="co"># specify correlation variable </span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ni =</span> <span class="cn">NA</span>,           <span class="co"># specify sample size variable </span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> srt_dat3)   <span class="co"># dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>srt_dat3 <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">measure =</span> <span class="st">"COR"</span>,   <span class="co"># specify effect size measure         </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ri =</span> <span class="cn">NA</span>,           <span class="co"># specify correlation variable </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ni =</span> <span class="cn">NA</span>,           <span class="co"># specify sample size variable </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> srt_dat3)   <span class="co"># dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should now see two new columns nicely formatted for the meta analysis:</p>
 <ul>
@@ -549,17 +559,17 @@ Take a break!
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random effects model</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>srt_mod <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"REML"</span>, <span class="at">data =</span> srt_dat3)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(srt_mod)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create forest plot </span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(srt_mod, <span class="at">slab =</span> srt_dat3<span class="sc">$</span>Study)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine evidence for publication bias</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(srt_mod)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(srt_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Random effects model</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>srt_mod <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"REML"</span>, <span class="at">data =</span> srt_dat3)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(srt_mod)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create forest plot </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(srt_mod, <span class="at">slab =</span> srt_dat3<span class="sc">$</span>Study)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine evidence for publication bias</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(srt_mod)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(srt_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -568,11 +578,6 @@ Take a break!
 <h1 data-number="5"><span class="header-section-number">5</span> Challenge yourself!</h1>
 <p>Often we are interested in how effect sizes vary across different conditions. In this case, the researchers were interested in whether the relationship between procedural learning (SRT) and reading ability might differ depending on the participant groups tested.</p>
 <p>If you finish the practical in good time or want to push your skills further beyond the end of today’s session, see if you can test whether participant <code>Group</code> is a moderator in your analysis. You can look at the help files or use Google to find out how to include this extra predictor.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod_mod &lt;- rma(yi = yi, vi = vi, mods = Group,</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#                 method = "REML", data = srt_dat3)</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(srt_mod)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="summary" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
@@ -583,7 +588,7 @@ Take a break!
 </section>
 <section id="further-learning" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
-<p>Make sure that you have completed the <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a> for this week, and consider reading further resources to consolidate your understanding. As you’ll have seen today, the code for actually running analyses is quite sparse(!), but it’s important that you read around the decisions that need to be made along the way.</p>
+<p>Make sure that you have completed the <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a> for this week, and consider reading further resources to consolidate your understanding. As you’ll have seen today, the code for actually running analyses is quite sparse(!) so there aren’t too many interactive resources available. It’s more important this week that you read around the decisions that need to be made along the way.</p>
 <p>If you come to do meta-analysis in the future or want further details on the different steps that we have covered, then there is an excellent textbook available for free online: <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">Harrer et al.&nbsp;(2021). <em>Doing Meta-Analysis with R: A Hands-On Guide</em></a><em>.</em></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -691,6 +696,11 @@ Feedback!
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1005,6 +1015,25 @@ Feedback!
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html">
+<p>License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
