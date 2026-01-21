@@ -168,31 +168,24 @@
     "text": "2.1 Preparation\nWe expect that you will come to this session having attended the lecture on Monday, or caught up via the recording if you were unable to make it in person. We also expect that you will have done (at least) the core reading for the week to consolidate your understanding. Having done so will help you to engage fully with the practical session, and also enable you to ask questions about aspects that you did not understand."
   },
   {
-    "objectID": "index.html#part-1-core-example",
-    "href": "index.html#part-1-core-example",
+    "objectID": "index.html#part-a-core-example",
+    "href": "index.html#part-a-core-example",
     "title": "Advanced Methods in Behavioural Research",
-    "section": "2.2 Part 1: Core example",
-    "text": "2.2 Part 1: Core example\nThis first part of the practical will provide detailed instructions on how to conduct the relevant analysis steps.\n\nWork through the instructions to run the analysis yourself, checking your understanding and taking notes as you go.\nWhere available/appropriate, this section may make use of built-in datasets from R or the relevant packages. This isn’t us being lazy, it’s for very good reasons!\n\nFirst, these datasets are frequently used in tutorials and help files, meaning that building your familiarity with them will make it easier to understand online resources as you develop your understanding further.\nSecond, being able to use these datasets is a core part of being able to ask for help. Posting in online forums requires that you create a reproducible example of your issue - i.e., code that allows someone else to recreate the issue that you are experiencing. This is much easier if you can call upon an existing dataset that others can access too.\n\nWhere we have hidden code sections, do your best to try and figure out the solution yourself before peeking! Trial and error is a much more effective way of learning, and will help you to build your coding skills.\nThis section is the minimum amount that you are expected to work through within the session."
+    "section": "2.2 Part A: Core example",
+    "text": "2.2 Part A: Core example\nThis first part of the practical will provide detailed instructions on how to conduct the relevant analysis steps.\n\nWork through the instructions to run the analysis yourself, checking your understanding and taking notes as you go.\nWhere available/appropriate, this section may make use of built-in datasets from R or the relevant packages. This isn’t us being lazy, it’s for very good reasons!\n\nFirst, these datasets are frequently used in tutorials and help files, meaning that building your familiarity with them will make it easier to understand online resources as you develop your understanding further.\nSecond, being able to use these datasets is a core part of being able to ask for help. Posting in online forums requires that you create a reproducible example of your issue - i.e., code that allows someone else to recreate the issue that you are experiencing. This is much easier if you can call upon an existing dataset that others can access too.\n\nWhere we have hidden code sections, do your best to try and figure out the solution yourself before peeking! Trial and error is a much more effective way of learning, and will help you to build your coding skills.\nThis section is the minimum amount that you are expected to work through within the session."
   },
   {
-    "objectID": "index.html#part-2-application",
-    "href": "index.html#part-2-application",
+    "objectID": "index.html#part-b-application",
+    "href": "index.html#part-b-application",
     "title": "Advanced Methods in Behavioural Research",
-    "section": "2.3 Part 2: Application",
-    "text": "2.3 Part 2: Application\nThe second section will instruct you to apply the analysis steps to a new question and/or dataset. This is designed to stretch your ability, and you may encounter some challenges along the way! If you don’t finish this within the practical session itself, you may want to continue this at home. You can ask any outstanding questions on the VLE."
+    "section": "2.3 Part B: Application",
+    "text": "2.3 Part B: Application\nThe second section will instruct you to apply the analysis steps to a new question and/or dataset. This is designed to stretch your ability, and you may encounter some challenges along the way! If you don’t finish this within the practical session itself, you may want to continue this at home. You can ask any outstanding questions on the VLE."
   },
   {
-    "objectID": "index.html#challenge-yourself",
-    "href": "index.html#challenge-yourself",
+    "objectID": "index.html#part-c-challenge-yourself",
+    "href": "index.html#part-c-challenge-yourself",
     "title": "Advanced Methods in Behavioural Research",
-    "section": "2.4 Challenge yourself!",
-    "text": "2.4 Challenge yourself!\nIf you have completed both of the above, this last section encourages you to have a go at figuring something out for yourself."
-  },
-  {
-    "objectID": "index.html#resolving-issues",
-    "href": "index.html#resolving-issues",
-    "title": "Advanced Methods in Behavioural Research",
-    "section": "2.5 Resolving issues",
-    "text": "2.5 Resolving issues\nAs you will already have learned, you can count on getting stuck at various points during the practical sessions. Errors are a very normal part of coding, even if sometimes frustrating! If you get stuck, try the following:\n\nSpend time trying some different things! What’s happening that you don’t expect? Is there an error message, and does it tell you anything useful?\nGoogle it! Copying and pasting the error message into Google often takes you to help forums where others have asked about the same problem.\nChat to the person next to you—maybe they can spot something in your code that you can’t see?\nAsk the session lead, we’re here to help!\n\n\n\n\n\n\n\n\nArtwork by @allison_horst"
+    "section": "2.4 Part C: Challenge yourself!",
+    "text": "2.4 Part C: Challenge yourself!\nIf you have completed both of the above, this last section encourages you to have a go at figuring something out for yourself."
   }
 ]
