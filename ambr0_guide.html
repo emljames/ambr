@@ -24,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -39,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6b21568b0a8344e6ec6d450975682509.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-abd4da933c5d641227d1b6e404bbaf9b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,9 +81,35 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">AMBR</span>
     </a>
   </div>
-        <div class="quarto-navbar-tools tools-end">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ambr0_guide.html" aria-current="page"> 
+<span class="menu-text">Set-up guide</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-content" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly content</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-content">    
+        <li>
+    <a class="dropdown-item" href="./ambr1_meta-analysis.html">
+ <span class="dropdown-text">W1: Meta-analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
 </div>
-          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -92,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr0_guide.html">Guide to working in this module</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Working in this module</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -118,28 +143,6 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Module home</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Guide to working in this module</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ambr1_meta-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1: Meta-analysis</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
     <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">Practical outline</h2>
    
@@ -211,7 +214,7 @@ Tip
 <p><em>Note that R is case sensitive, meaning that if you capitalise letters here then you will also need to be specific in your capitalisation in the scripts. It is a good idea to adopt a consistent approach to avoid later issues. Here we have used lower case, and strongly advise you to do the same so that you don’t get confused later on.</em></p>
 </div>
 </div>
-<p>When you download datasets for the practicals in the future, you should save them in your data folder. Similarly, when you create scripts in each practical, save them in the scripts folder.</p>
+<p>If you download datasets for the practicals in the future, you should save them in your data folder. Similarly, when you create scripts in each practical, save them in the scripts folder.</p>
 </section>
 <section id="initiate-an-r-project" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="initiate-an-r-project"><span class="header-section-number">1.2</span> Initiate an R Project</h2>
@@ -240,7 +243,7 @@ Tip
 </section>
 <section id="script-format" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Script format</h1>
-<p>In your Semester 1 modules, you learned how to integrate code and text using Quarto. We recommend that you use this file format for your scripts throughout the module, as it will allow you to chunk your sections of code and make notes easily as you go. Your assessment will also require you to submit a Quarto report, and so building your familiarity with this format will be helpful.</p>
+<p>In your Semester 1 modules, you learned how to integrate code and text using Quarto. We recommend that you use this file format for your scripts throughout the module, as it will allow you to chunk your sections of code and make notes easily as you go. Your assessment will also require you to submit a Quarto report, and so building your familiarity with this format and addressing technical issues within the practical sessions will be helpful.</p>
 <p>However, as above, if you prefer to work in an alternative format (e.g., R script) then you may.</p>
 </section>
 <section id="other-rstudio-tips" class="level1" data-number="3">
@@ -262,7 +265,7 @@ Tip
 </section>
 <section id="rainbow-parentheses" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="rainbow-parentheses"><span class="header-section-number">3.2</span> Rainbow parentheses</h2>
-<p>Sometimes we will need to wrap things inside multiple nested brackets. You don’t need to worry about what this means for now, but whilst we’re on the settings, we might as well set up one of my favourite most useful features: rainbow parentheses! This setting colour codes your brackets so that you can tell which ones are paired together. And who doesn’t want a bit of colour on their scripts?!</p>
+<p>Sometimes we will need to wrap things inside multiple nested brackets. Whilst we’re on the settings, we might as well set up one of my favourite most useful features: rainbow parentheses! This setting colour codes your brackets so that you can tell which ones are paired together. And who doesn’t want a bit of colour on their scripts?!</p>
 <p>1) On the Global Options… window you have open, click on “Code” down the left hand side.</p>
 <p>2) Click the “Display” tab at the op.</p>
 <p>3) Under syntax, check the box that says “Use rainbow parentheses”.</p>
