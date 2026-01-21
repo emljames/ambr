@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Advanced methods in Behavioural Research, Semester 2 (2025-2026)</p><nav id="TOC-body" role="doc-toc">
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York</p><nav id="TOC-body" role="doc-toc">
     <h2 id="toc-title">Practical outline</h2>
    
   <ul>
@@ -501,7 +501,7 @@ Take a break!
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(srt_dat2<span class="sc">$</span>Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>This meta-analysis included data that were published up until November 2020, but many studies on this topic have been published since then. Let’s add this study published by <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/dys.1678">van Witteloostuijn et al.&nbsp;(2021)</a>, which adds 2 new correlation effect sizes between SRT and word/nonword reading, for each of two groups (typically developing children, children with developmental dyslexia). Use Appendix 1 of the paper to replace the NAs below with the relevant numbers, and run the code to add 4 new rows to the dataset.</p>
+<p>This meta-analysis included data that were published up until November 2020, but many studies on this topic have been published since then. Let’s add this study published by <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/dys.1678">van Witteloostuijn et al.&nbsp;(2021)</a>, which adds 2 new correlation effect sizes between SRT and word/nonword reading, for each of two groups (typically developing children, children with developmental dyslexia). Copy this section of code below into your script, and then use Appendix 1 of the paper to replace the NAs below with the relevant numbers. Run the code to add 4 new rows to the dataset.</p>
 <div class="cell" data-code-copy="true">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>srt_dat3 <span class="ot">&lt;-</span> srt_dat2 <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -589,7 +589,7 @@ Take a break!
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hint!
+Click for a hint!
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -598,6 +598,21 @@ Hint!
 <p>You will need to start by recoding your Group variable as a factor, setting “TD” as the baseline for comparison.</p>
 </div>
 </div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformat group as a factor, with TD as the reference level</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>srt_dat4 <span class="ot">&lt;-</span> srt_dat3 <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group_f =</span> <span class="fu">factor</span>(Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"TD"</span>, <span class="st">"DD"</span>, <span class="st">"DLD"</span>)))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run a new model with Group as a moderator</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>mod_mod <span class="ot">&lt;-</span> <span class="fu">rma</span>(<span class="at">yi =</span> yi, <span class="at">vi =</span> vi, <span class="at">mods =</span> <span class="sc">~</span><span class="fu">factor</span>(Group_f),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"REML"</span>, <span class="at">data =</span> srt_dat4)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the output</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="summary" class="level1" data-number="6">
