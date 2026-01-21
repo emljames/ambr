@@ -8,7 +8,7 @@
 
 <meta name="author" content="Emma James">
 
-<title>1: Meta-analysis – AMBR</title>
+<title>Week 1: Meta-analysis – AMBR</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,10 +150,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">1: Meta-analysis</h1>
+      <h1 class="title">Week 1: Meta-analysis</h1>
                       </div>
   </div>
     
@@ -176,15 +176,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
-    <h2 id="toc-title">Practical outline</h2>
+    <h2 id="toc-title">Outline</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a></li>
-  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a></li>
-  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  </ul></li>
+  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  <li><a href="#computing-pooled-effect-sizes" id="toc-computing-pooled-effect-sizes" class="nav-link" data-scroll-target="#computing-pooled-effect-sizes"><span class="header-section-number">3.2</span> Computing pooled effect sizes</a></li>
+  <li><a href="#weighting-studies" id="toc-weighting-studies" class="nav-link" data-scroll-target="#weighting-studies"><span class="header-section-number">3.3</span> Weighting studies</a></li>
+  <li><a href="#inspecting-for-publication-bias" id="toc-inspecting-for-publication-bias" class="nav-link" data-scroll-target="#inspecting-for-publication-bias"><span class="header-section-number">3.4</span> Inspecting for publication bias</a></li>
+  </ul></li>
+  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  <li><a href="#updating-the-dataset" id="toc-updating-the-dataset" class="nav-link" data-scroll-target="#updating-the-dataset"><span class="header-section-number">4.2</span> Updating the dataset</a></li>
+  <li><a href="#compute-sampling-variance" id="toc-compute-sampling-variance" class="nav-link" data-scroll-target="#compute-sampling-variance"><span class="header-section-number">4.3</span> Compute sampling variance</a></li>
+  <li><a href="#conduct-your-meta-analysis" id="toc-conduct-your-meta-analysis" class="nav-link" data-scroll-target="#conduct-your-meta-analysis"><span class="header-section-number">4.4</span> Conduct your meta-analysis</a></li>
+  </ul></li>
   <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr1_meta-analysis.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr1_meta-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </nav>
@@ -198,18 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York</p><nav id="TOC-body" role="doc-toc">
-    <h2 id="toc-title">Practical outline</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#setting-up" id="toc-setting-up"><span class="header-section-number">2</span> Setting up</a></li>
-  <li><a href="#part-a-core-example" id="toc-part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a></li>
-  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a></li>
-  <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
-  <li><a href="#summary" id="toc-summary"><span class="header-section-number">6</span> Summary</a></li>
-  </ul>
-</nav>
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York</p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
