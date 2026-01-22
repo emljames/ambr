@@ -145,12 +145,23 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example"><span class="header-section-number">2</span> Worked example</a></li>
-  <li><a href="#applied-example" id="toc-applied-example" class="nav-link" data-scroll-target="#applied-example"><span class="header-section-number">3</span> Applied example</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4</span> Summary</a>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
   <ul class="collapse">
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">4.1</span> Recap</a></li>
-  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">4.2</span> Further learning</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  </ul></li>
+  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  </ul></li>
+  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  </ul></li>
+  <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambrX_template.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambrX_template.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
@@ -165,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York</p>
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -177,17 +188,18 @@ DELETE THIS: Template instructions
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li>Edit the title and author above, following the format of the other sessions</li>
-<li>Do any necessary data preprocessing in the housekeeping chunk below (and leave this in the script)</li>
-<li>Note that the headings will be numbered once rendered - using heading level 2 for each major step of the analysis in the two example sections, and lower heading levels as appropriate</li>
-<li></li>
+<li>Edit the title and author above, following the format of the other sessions.</li>
+<li>Do any necessary data preprocessing in the housekeeping chunk below (and leave this in the script).</li>
+<li>Try to stick to this main structure unless you have reason not to. Include the intro and learning objectives, Parts A-C (including a break), summary sections, and link to provide feedback. There are horizontal line breaks between each one.</li>
+<li>Note that the headings will be numbered once rendered - using heading level 2 for each major step of the analysis in the worked example, and lower heading levels as appropriate.</li>
+<li>Code solutions should be included, but hidden. There’s an example set-up for a hidden code chunk below, as well as a “hint” option.</li>
+<li>The visual formatting is controlled across all pages via the separate _quarto.yml file. This is also what we edit to add the page link to the menu (so we can hopefully test out the upload before students can readily find the page). If you have trouble with github, you can just send me this file instead.</li>
 </ol>
 </div>
 </div>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p><em>[Insert introductory text here - including aim for practical, broad context for the dataset and research questions]</em></p>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -197,7 +209,7 @@ Learning objectives
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>By the end of this week, you will be able to:</p>
+<p>As a reminder, the learning objectives for this week are:</p>
 <ol type="1">
 <li></li>
 <li></li>
@@ -207,26 +219,84 @@ Learning objectives
 </ol>
 </div>
 </div>
+<p><em>[Introductory text]</em></p>
+<hr>
 </section>
-<section id="worked-example" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Worked example</h1>
-<p><em>[walk through major steps for the analysis with a good amount of explanation; this is the minimum amount that they should complete within the practical]</em></p>
+<section id="setting-up" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setting up</h1>
+<section id="packages" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">2.1</span> Packages</h2>
+<p>Today’s practical will use the following packages. You will need to install each one, before loading them at the top of your script.</p>
+<hr>
 </section>
-<section id="applied-example" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Applied example</h1>
-<p><em>[provide instructions for them to apply their knowledge to a new question and/or dataset, including challenges for them to figure out for themselves]</em></p>
 </section>
-<section id="summary" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Summary</h1>
-<section id="recap" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">4.1</span> Recap</h2>
-<p><em>[summarise what they have achieved in relation to the learning objectives]</em></p>
+<section id="part-a-core-example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part A: Core example</h1>
+<section id="introduction-to-the-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</h2>
+<p><em>[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset]</em></p>
+<p><em>[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers ]</em></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for a hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><em>[Hint text here]</em></p>
+</div>
+</div>
+</div>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Take a break!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you haven’t already taken a break today, we suggest you so before you start the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/break.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Take a break" width="227"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
 </section>
-<section id="further-learning" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">4.2</span> Further learning</h2>
-<p>Make sure that you have completed the <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a> for this week, and consider reading further resources to consolidate your understanding.</p>
-<p>For further practical exercises, you may be interested in the following:</p>
-<p><em>[list DataCamp courses and/or other online tutorials]</em></p>
+</section>
+<section id="part-b-apply-your-knowledge" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part B: Apply your knowledge</h1>
+<section id="introduction-to-the-dataset-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</h2>
+<p><em>[Structure as above]</em></p>
+<hr>
+</section>
+</section>
+<section id="part-c-challenge-yourself" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part C: Challenge yourself!</h1>
+<p><em>[This last task should encourage them to advance their knowledge independently]</em></p>
+<hr>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="recap" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
+<p><em>[Practical summary in relation to learning objectives]</em></p>
+</section>
+<section id="further-learning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
+<p><em>[Link further interactive resources. Can also remind them of the</em> <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a>]</p>
+<hr>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
