@@ -1,0 +1,114 @@
+"Study","N","Age","Task","Group","Cor"
+"Clark and Lum (2017a)",20,9.089166667,"Word Recognition Task (Rt)","TD",0.18
+"Clark and Lum (2017a)",20,9.089166667,"Word Reading","TD",-0.24
+"Clark and Lum (2017a)",20,9.089166667,"Nonword Reading","TD",NA
+"Henderson & Warmington (2017)",29,20.31,"Word Reading","TD",0.22
+"Henderson & Warmington (2017)",29,20.31,"Nonword Reading","TD",0.13
+"Henderson & Warmington (2017)",30,21.13,"Word Reading","DD",-0.03
+"Henderson & Warmington (2017)",30,21.13,"Nonword Reading","DD",-0.08
+"Schmalz et al. (2019)",NA,27.7,"Word Reading","TD",-0.02
+"Schmalz et al. (2019)",NA,27.7,"Nonword Reading","TD",NA
+"West et al. (2019)",23,9.805833333,"Word Reading","DD",-0.06
+"West et al. (2019)",23,9.805833333,"Nonword Reading","DD",-0.16
+"West et al. (2019)",25,7.616666667,"Word Reading","TD",0.19
+"West et al. (2019)",25,7.616666667,"Nonword Reading","TD",0.08
+"West et al. (2021)",112,7.675833333,"Word Reading","TD",0.07
+"West et al. (2021)",112,7.675833333,"Nonword Reading","TD",0.05
+"West et al. (2021)",112,7.675833333,"Word Reading","TD",0.31
+"West et al. (2021)",112,7.675833333,"Nonword Reading","TD",0.22
+"van Witteloostuijn et al. (2019)",50,9.666666667,"Word Reading","TD",-0.17
+"van Witteloostuijn et al. (2019)",50,9.666666667,"Nonword Reading","TD",-0.26
+"van Witteloostuijn et al. (2019)",50,9.833333333,"Word Reading","DD",0.37
+"van Witteloostuijn et al. (2019)",50,9.833333333,"Nonword Reading","DD",0.26
+"Vakil et al.(2015)",23,12.41,"Silent Reading Speed","DD",0.008
+"Vakil et al.(2015)",23,12.41,"Reading Errors","DD",-0.1
+"Vakil et al.(2015)",23,12.41,"Pseudoword Rate","DD",-0.4
+"Vakil et al.(2015)",30,12.55,"Silent Reading Speed","TD",0.073
+"Vakil et al.(2015)",30,12.55,"Reading Errors","TD",0.016
+"Vakil et al.(2015)",30,12.55,"Pseudoword Rate","TD",-0.127
+"Hedenius et al. (2013)",12,11,"Composite Reading (Phonological Decoding And Orthographic Reading)","DD",-0.176
+"Hedenius et al. (2013)",17,11.1,"Composite Reading (Phonological Decoding And Orthographic Reading)","TD",-0.0115
+"Hedenius et al. (2013)",12,11,"Composite Reading (Phonological Decoding And Orthographic Reading)","DD",0.398
+"Hedenius et al. (2013)",17,11.1,"Composite Reading (Phonological Decoding And Orthographic Reading)","TD",0.232
+"Gabay et al.(2012)",12,24.83,"Word Reading Accuracy","TD",0.249499
+"Gabay et al.(2012)",12,24.83,"Word Reading Speed","TD",0.193245
+"Gabay et al.(2012)",12,24.83,"Nonword Reading Accuracy","TD",-0.000409
+"Gabay et al.(2012)",12,24.83,"Nonword Reading Speed","TD",0.083411
+"Gabay et al.(2012)",12,23.58,"Word Reading Accuracy","DD",-0.111301
+"Gabay et al.(2012)",12,23.58,"Word Reading Speed","DD",0.111877
+"Gabay et al.(2012)",12,23.58,"Nonword Reading Accuracy","DD",-0.145565
+"Gabay et al.(2012)",12,23.58,"Nonword Reading Speed","DD",-0.115386
+"Lammertink et al. (2020)",35,9.0833,"Nonword Reading","TD",-0.1029275
+"Lammertink et al. (2020)",35,9.0833,"Word Reading","TD",0.03835598
+"Hsu & Bishop(2014)",20,8.9305,"Towre_Word_Ss","TD",-0.107927548
+"Hsu & Bishop(2014)",20,8.9305,"Towre_Nonword_Ss","TD",0.077592818
+"Hsu & Bishop(2014)",28,5.813214,"Towre_Word_Ss","TD",0.157937487
+"Hsu & Bishop(2014)",28,5.813214,"Towre_Nonword_Ss","TD",0.208164306
+"Earle & Ullman (2021)",79,20.488,"Word Identification","TD",0.24
+"Earle & Ullman (2021)",79,20.488,"Word Attack","TD",0.15
+"Earle & Ullman (2021)",32,18.94,"Word Reading Fluency","TD",0.11
+"Earle & Ullman (2021)",32,18.94,"Decoding Fluency","TD",0.1
+"Earle & Ullman (2021)",32,18.94,"Word Reading Fluency","TD",-0.23
+"Earle & Ullman (2021)",32,18.94,"Decoding Fluency","TD",0.03
+"Earle & Ullman (2021)",79,20.488,"Word Identification","TD",0.18
+"Earle & Ullman (2021)",79,20.488,"Word Attack","TD",-0.12
+"Earle & Ullman (2021)",47,21.54,"Word Reading Fluency","TD",0.2
+"Earle & Ullman (2021)",47,21.54,"Decoding Fluency","TD",0.2
+"Earle & Ullman (2021)",47,21.54,"Word Reading Fluency","TD",-0.06
+"Earle & Ullman (2021)",47,21.54,"Decoding Fluency","TD",-0.07
+"Oliveira et al. (2022)",47,20.09,"Word Reading","TD",0.04
+"Oliveira et al. (2022)",47,20.09,"Nonword Reading","TD",0.02
+"Oliveira et al. (2022)",47,20.09,"Word Reading","TD",0.014
+"Oliveira et al. (2022)",47,20.09,"Nonword Reading","TD",0.08
+"Oliveira et al. (2022)",47,20.09,"Word Reading","TD",-0.002
+"Oliveira et al. (2022)",47,20.09,"Nonword Reading","TD",0.06
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",0.018522
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.344029
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",-0.198792
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",0.144882
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",0.186357
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",0.183209
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",-0.075692
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.334551
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",-0.329406
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",-0.094949
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",0.12012
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",-0.033682
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",-0.284714
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.36995
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",-0.262816
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",-0.201423
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",-0.228446
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",-0.115414
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",0.125096
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",0.102295
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",0.045477
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",-0.329586
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",-0.094177
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",-0.142372
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",0.551938
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.023324
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",-0.148831
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",0.163681
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",0.204052
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",0.163626
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",0.066889
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.097678
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",0.021003
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",-0.16382
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",0.167785
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",0.010256
+"Hedenius et al. (2020)",30,11.6,"Reading Fluency Subtest - Dls","DD",0.114077
+"Hedenius et al. (2020)",30,11.6,"Nonword Reading - Läst","DD",-0.077679
+"Hedenius et al. (2020)",30,11.6,"Word Reading - Läst","DD",-0.332341
+"Hedenius et al. (2020)",32,11.7,"Reading Fluency Subtest - Dls","TD",-0.016138
+"Hedenius et al. (2020)",32,11.7,"Nonword Reading - Läst","TD",-0.263134
+"Hedenius et al. (2020)",32,11.7,"Word Reading - Läst","TD",-0.106637
+"Menghini et al. (2010)",60,11.43,"Word Reading","DD",0.0714
+"Menghini et al. (2010)",60,11.43,"Word Reading","DD",0.0587
+"Menghini et al. (2010)",60,11.43,"Nonword Reading","DD",-0.0589
+"Menghini et al. (2010)",60,11.43,"Nonword Reading","DD",0.2806
+"Menghini et al. (2010)",65,11.94,"Word Reading","TD",-0.1
+"Menghini et al. (2010)",65,11.94,"Word Reading","TD",-0.0679
+"Menghini et al. (2010)",65,11.94,"Nonword Reading","TD",0.3399
+"Menghini et al. (2010)",65,11.94,"Nonword Reading","TD",-0.053

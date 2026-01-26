@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://emljames.github.io/ambr/index.html</loc>
-    <lastmod>2026-01-07T12:18:10.672Z</lastmod>
+    <loc>https://emljames.github.io/ambr/LICENSE.html</loc>
+    <lastmod>2026-01-19T18:02:54.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://emljames.github.io/ambr/ambrX_template.html</loc>
+    <lastmod>2026-01-22T14:13:39.044Z</lastmod>
   </url>
   <url>
     <loc>https://emljames.github.io/ambr/ambr0_guide.html</loc>
-    <lastmod>2026-01-14T10:39:47.585Z</lastmod>
+    <lastmod>2026-01-21T15:03:05.646Z</lastmod>
   </url>
   <url>
     <loc>https://emljames.github.io/ambr/ambr1_meta-analysis.html</loc>
-    <lastmod>2026-01-07T11:55:56.080Z</lastmod>
+    <lastmod>2026-01-22T14:26:38.877Z</lastmod>
+  </url>
+  <url>
+    <loc>https://emljames.github.io/ambr/index.html</loc>
+    <lastmod>2026-01-21T14:58:19.525Z</lastmod>
   </url>
 </urlset>

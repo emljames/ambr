@@ -1,0 +1,135 @@
+---
+title: "[Week X: template]"
+author: "[session lead]"
+editor: visual
+---
+
+::: callout-note
+## DELETE THIS: Template instructions
+
+1.  Edit the title and author above, following the format of the other sessions.
+2.  Do any necessary data preprocessing in the housekeeping chunk below (and leave this in the script).
+3.  Try to stick to this main structure unless you have reason not to. Include the intro and learning objectives, Parts A-C (including a break), summary sections, and link to provide feedback. There are horizontal line breaks between each one.
+4.  Note that the headings will be numbered once rendered - using heading level 2 for each major step of the analysis in the worked example, and lower heading levels as appropriate.
+5.  Code solutions should be included, but hidden. There's an example set-up for a hidden code chunk below, as well as a "hint" option.
+6.  The visual formatting is controlled across all pages via the separate \_quarto.yml file. This is also what we edit to add the page link to the menu (so we can hopefully test out the upload before students can readily find the page). If you have trouble with github, you can just send me this file instead.
+:::
+
+```{r housekeeping}
+#| include: false
+
+# Do any data pre-processing from original/downloaded datasets here 
+# (where possible, import directly from online source)
+
+# Anything here will not be displayed in the file output, although would be public should anyone access the source code on github 
+
+# Save processed data for practical to the data file, using the filepath "./data/ambr[X]_[Y].csv" - where X is the week number, and Y is a descriptive name for the data
+```
+
+# Introduction
+
+::: {.callout-note title="Learning objectives"}
+As a reminder, the learning objectives for this week are:
+
+1.  
+
+2.  
+
+3.  
+
+4.  
+
+5.  
+:::
+
+*\[Introductory text\]*
+
+------------------------------------------------------------------------
+
+# Setting up
+
+## Packages
+
+Today's practical will use the following packages. You will need to install each one, before loading them at the top of your script.
+
+```{r libraries}
+#| warning: false
+#| output: false
+
+
+```
+
+------------------------------------------------------------------------
+
+# Part A: Core example
+
+## Introduction to the dataset
+
+*\[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset\]*
+
+```{r load-dat1}
+#| output: false
+
+```
+
+*\[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers \]*
+
+::: {.callout-tip collapse="true"}
+## Click for a hint!
+
+*\[Hint text here\]*
+:::
+
+```{r hidden-answer}
+#| code-fold: true
+#| code-summary: "Show the code"
+#| eval: false 
+
+
+```
+
+------------------------------------------------------------------------
+
+::: callout-tip
+# Take a break!
+
+If you haven't already taken a break today, we suggest you so before you start the next section.
+
+![](images/break.png){fig-alt="Take a break" fig-align="center" width="227"}
+:::
+
+------------------------------------------------------------------------
+
+# Part B: Apply your knowledge
+
+## Introduction to the dataset
+
+*\[Structure as above\]*
+
+------------------------------------------------------------------------
+
+# Part C: Challenge yourself!
+
+*\[This last task should encourage them to advance their knowledge independently\]*
+
+------------------------------------------------------------------------
+
+# Summary
+
+## Recap
+
+*\[Practical summary in relation to learning objectives\]*
+
+## Further learning
+
+*\[Link further interactive resources. Can also remind them of the* [core reading](https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML)\]
+
+------------------------------------------------------------------------
+
+::: callout-important
+## Feedback!
+
+These practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via [this survey](https://docs.google.com/forms/d/e/1FAIpQLSepox6r76dAkSDZRxybJwCvRX28M7BS1_81fGMybkqsvBPvRA/viewform?usp=publish-editor), and let us know of any issues you encountered or aspects you didn't understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.
+
+For more general questions about the practical, please post them on the [VLE Discussion Board](https://vle.york.ac.uk/ultra/courses/_116420_1/engagement/discussion/_6408724_1?view=discussions&disGroupId=default&courseId=_116420_1).
+:::

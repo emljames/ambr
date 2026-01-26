@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Working in this module – AMBR</title>
+<title>Set-up guide – AMBR</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -39,13 +38,13 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ed0842c986c8dcdfd263d0ba06ad0873.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-01fbe853b7980beddfee3b159dd84a08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -71,29 +70,54 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ambr0_guide.html">Guide to working in this module</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AMBR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ambr0_guide.html" aria-current="page"> 
+<span class="menu-text">Set-up guide</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-content" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly content</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-content">    
+        <li>
+    <a class="dropdown-item" href="./ambr1_meta-analysis.html">
+ <span class="dropdown-text">W1: Meta-analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Working in this module</h1>
+      <h1 class="title">Set-up guide</h1>
                       </div>
   </div>
     
@@ -106,42 +130,25 @@ ul.task-list li input[type="checkbox"] {
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">AMBR</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ambr0_guide.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Guide to working in this module</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ambr1_meta-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1: Meta-analysis</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">On this page</h2>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Outline</h2>
    
-  <ul>
-  <li><a href="#file-set-up" id="toc-file-set-up" class="nav-link active" data-scroll-target="#file-set-up"><span class="header-section-number">1</span> File set-up</a></li>
+  <ul class="collapse">
+  <li><a href="#file-storage" id="toc-file-storage" class="nav-link active" data-scroll-target="#file-storage"><span class="header-section-number">1</span> File storage</a>
+  <ul class="collapse">
+  <li><a href="#set-up-your-folders" id="toc-set-up-your-folders" class="nav-link" data-scroll-target="#set-up-your-folders"><span class="header-section-number">1.1</span> Set up your folders</a></li>
+  <li><a href="#initiate-an-r-project" id="toc-initiate-an-r-project" class="nav-link" data-scroll-target="#initiate-an-r-project"><span class="header-section-number">1.2</span> Initiate an R Project</a></li>
+  <li><a href="#moving-forwards" id="toc-moving-forwards" class="nav-link" data-scroll-target="#moving-forwards"><span class="header-section-number">1.3</span> Moving forwards</a></li>
+  </ul></li>
   <li><a href="#script-format" id="toc-script-format" class="nav-link" data-scroll-target="#script-format"><span class="header-section-number">2</span> Script format</a></li>
-  <li><a href="#other-rstudio-tips" id="toc-other-rstudio-tips" class="nav-link" data-scroll-target="#other-rstudio-tips"><span class="header-section-number">3</span> Other RStudio tips</a></li>
+  <li><a href="#other-rstudio-tips" id="toc-other-rstudio-tips" class="nav-link" data-scroll-target="#other-rstudio-tips"><span class="header-section-number">3</span> Other RStudio tips</a>
+  <ul class="collapse">
+  <li><a href="#saving-the-workspace" id="toc-saving-the-workspace" class="nav-link" data-scroll-target="#saving-the-workspace"><span class="header-section-number">3.1</span> Saving the workspace</a></li>
+  <li><a href="#rainbow-parentheses" id="toc-rainbow-parentheses" class="nav-link" data-scroll-target="#rainbow-parentheses"><span class="header-section-number">3.2</span> Rainbow parentheses</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr0_guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr0_guide.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </nav>
@@ -155,18 +162,97 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-
-<p>This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine: consider the guidance below and decide on your workflow for this module, following the recommendations if you are not yet confident in your set-up.</p>
-<section id="file-set-up" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> File set-up</h1>
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.</p>
+<p>This section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine. Consider the guidance below and decide on your workflow for this module, and default to the recommendations if you are not yet confident in your set-up.</p>
+<section id="file-storage" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> File storage</h1>
+<p>It’s a good idea create a folder on your device to store all of your practical work for this module, and to set up an R project to work from.</p>
+<section id="set-up-your-folders" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="set-up-your-folders"><span class="header-section-number">1.1</span> Set up your folders</h2>
+<p><em>You can do this from within R if you prefer, but here are the simplest instructions for setting up on your device.</em></p>
+<p>1) Open the file browser on your computer. On Windows, you can do this by clicking <em>Start &gt;&gt; File Explorer</em>.</p>
+<p>2) Navigate to your <em>Documents</em> folder.</p>
+<p>3) Create a new folder, and call it something like “<strong>AMBR_Practicals</strong>”.</p>
+<p>4) Within this new folder, create one folder called “<strong>scripts</strong>”, and another folder called “<strong>data</strong>”.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Note that R is case sensitive, meaning that if you capitalise letters here then you will also need to be specific in your capitalisation in the scripts. It is a good idea to adopt a consistent approach to avoid later issues. Here we have used lower case, and strongly advise you to do the same so that you don’t get confused later on.</em></p>
+</div>
+</div>
+<p>If you download datasets for the practicals in the future, you should save them in your data folder. Similarly, when you create scripts in each practical, save them in the scripts folder.</p>
+</section>
+<section id="initiate-an-r-project" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="initiate-an-r-project"><span class="header-section-number">1.2</span> Initiate an R Project</h2>
+<p>Now let’s tell R where we want to work during these practicals.</p>
+<p>1) Open RStudio<em>.</em></p>
+<p>2) At the top of the window, click <em>File &gt;&gt; New Project…</em></p>
+<p>3) After a bit of thinking (be patient!), a “New Project Wizard” window should appear. Click the <em>Existing Directory</em> option in the middle, to associate this new project with an existing working directory. We choose this option because we have already set up our folders manually in the previous step.</p>
+<p>4) On the next window, click “Browse…” and then navigate to your AMBR_Practicals folder. Once you are in it (and can see your data/scripts folders), click “Open”.</p>
+<p>5) Click “Create Project”.</p>
+<p>The name of the R Project you are working in should now show in the top right hand corner of your window, like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/RProject.png" class="img-fluid figure-img" alt="An R cube icon from the top right-hand corner of the screen, accompanied by the text ARM_Practicals to show the project we have open."></p>
+<figcaption>The current R Project</figcaption>
+</figure>
+</div>
+<p>If it doesn’t, retrace your steps and try again. If it still doesn’t work, ask us for help.</p>
+</section>
+<section id="moving-forwards" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="moving-forwards"><span class="header-section-number">1.3</span> Moving forwards</h2>
+<p>The instructions for the practicals will assume that you have set up R in this way. We will follow three key principles:</p>
+<p>1) Open the R Project at the start of every session. You can do this by double clicking it from your file browser, or clicking <em>File &gt;&gt; Open Project…</em> from within RStudio.</p>
+<p>2) Save the data files in the data folder, once you have downloaded them.</p>
+<p>3) Save your scripts in the scripts folder.</p>
+</section>
 </section>
 <section id="script-format" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Script format</h1>
+<p>In your Semester 1 modules, you learned how to integrate code and text using Quarto. We recommend that you use this file format for your scripts throughout the module, as it will allow you to chunk your sections of code and make notes easily as you go. Your assessment will also require you to submit a Quarto report, and so building your familiarity with this format and addressing technical issues within the practical sessions will be helpful.</p>
+<p>However, as above, if you prefer to work in an alternative format (e.g., R script) then you may.</p>
 </section>
 <section id="other-rstudio-tips" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Other RStudio tips</h1>
+<p>There are a few other settings that can be useful to change when you first begin working in RStudio.</p>
+<section id="saving-the-workspace" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="saving-the-workspace"><span class="header-section-number">3.1</span> Saving the workspace</h2>
+<p>One irritating default of RStudio is that it saves everything automatically on exiting. This might sound like a great idea, but in reality it can mean that you have a very messy workspace and that mistakes can emerge from using old material. To turn this off (highly recommended):</p>
+<p>1) At the top of RStudio, click <em>Tools &gt;&gt; Global Options…</em></p>
+<p>2) On the <em>General</em> panel that should open in the window, there is a section titled <em>Workspace.</em></p>
+<p>3) Make sure that the <em>Restore .RData[…]</em> box is unticked, and that it is set to never save the workspace on exit.</p>
+<p>4) Click “Apply” to save the settings.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/workspace_settings.png" class="img-fluid figure-img" alt="The Workspace options are highlighted to show that &quot;Restore .RData into workspace at startup:&quot; is not ticked, and the &quot;Save workspace to .RData on exit:&quot; is set to Never."></p>
+<figcaption>Global options window with recommended General settings</figcaption>
+</figure>
+</div>
+</section>
+<section id="rainbow-parentheses" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="rainbow-parentheses"><span class="header-section-number">3.2</span> Rainbow parentheses</h2>
+<p>Sometimes we will need to wrap things inside multiple nested brackets. Whilst we’re on the settings, we might as well set up one of my favourite most useful features: rainbow parentheses! This setting colour codes your brackets so that you can tell which ones are paired together. And who doesn’t want a bit of colour on their scripts?!</p>
+<p>1) On the Global Options… window you have open, click on “Code” down the left hand side.</p>
+<p>2) Click the “Display” tab at the op.</p>
+<p>3) Under syntax, check the box that says “Use rainbow parentheses”.</p>
+<p>4) Then click “Apply”, and/or “OK” to close the window.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/rainbow_parentheses.png" class="img-fluid figure-img" alt="The Syntax option &quot;Use rainbow parentheses&quot; is ticked."></p>
+<figcaption>Global options window with recommended Code Display settings</figcaption>
+</figure>
+</div>
+<p>As for what this has done? Well, you’ll just have to wait and see as we get writing scripts…</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -256,6 +342,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -570,6 +661,25 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html">
+<p>License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
