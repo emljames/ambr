@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Emma James">
+
+<title>Week 2: Mixed effects models – AMBR</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-01fbe853b7980beddfee3b159dd84a08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AMBR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ambr0_guide.html"> 
+<span class="menu-text">Set-up guide</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-content" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly content</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-content">    
+        <li>
+    <a class="dropdown-item" href="./ambr1_meta-analysis.html">
+ <span class="dropdown-text">W1: Meta-analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Week 2: Mixed effects models</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Emma James </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Outline</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  <li><a href="#scientific-notation" id="toc-scientific-notation" class="nav-link" data-scroll-target="#scientific-notation"><span class="header-section-number">2.2</span> Scientific notation</a></li>
+  </ul></li>
+  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  <li><a href="#traditional-analyses" id="toc-traditional-analyses" class="nav-link" data-scroll-target="#traditional-analyses"><span class="header-section-number">3.2</span> Traditional analyses</a></li>
+  <li><a href="#random-intercepts-model" id="toc-random-intercepts-model" class="nav-link" data-scroll-target="#random-intercepts-model"><span class="header-section-number">3.3</span> Random intercepts model</a></li>
+  <li><a href="#adding-random-slopes" id="toc-adding-random-slopes" class="nav-link" data-scroll-target="#adding-random-slopes"><span class="header-section-number">3.4</span> Adding random slopes</a></li>
+  <li><a href="#testing-model-assumptions" id="toc-testing-model-assumptions" class="nav-link" data-scroll-target="#testing-model-assumptions"><span class="header-section-number">3.5</span> Testing model assumptions</a></li>
+  </ul></li>
+  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  <li><a href="#traditional-analyses-1" id="toc-traditional-analyses-1" class="nav-link" data-scroll-target="#traditional-analyses-1"><span class="header-section-number">4.2</span> Traditional analyses</a></li>
+  <li><a href="#random-intercepts-model-1" id="toc-random-intercepts-model-1" class="nav-link" data-scroll-target="#random-intercepts-model-1"><span class="header-section-number">4.3</span> Random intercepts model</a></li>
+  <li><a href="#adding-random-slopes-1" id="toc-adding-random-slopes-1" class="nav-link" data-scroll-target="#adding-random-slopes-1"><span class="header-section-number">4.4</span> Adding random slopes</a></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection"><span class="header-section-number">4.5</span> Model selection</a></li>
+  <li><a href="#testing-model-assumptions-1" id="toc-testing-model-assumptions-1" class="nav-link" data-scroll-target="#testing-model-assumptions-1"><span class="header-section-number">4.6</span> Testing model assumptions</a></li>
+  </ul></li>
+  <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr2_mixed-effects.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr2_mixed-effects.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a reminder, the learning objectives for this week are:</p>
+<ol type="1">
+<li>Describe some limitations of ANOVA and regression</li>
+<li>Explain the benefit and implications of modelling across groups</li>
+<li>Define and identify different fixed versus random effects</li>
+<li>Evaluate the benefits and challenges of a mixed effects approach</li>
+<li>Fit, evaluate, and interpret mixed effects models using the <em>lme4</em> package</li>
+</ol>
+</div>
+</div>
+<p>In the lecture this week we learned how mixed effects models can account for different sources of clustering in data. We saw how random effects can be used to model variation in the intercept and slope terms for different groups, and how the fitting algorithms can partially mitigate influences of imbalanced data</p>
+<p>Today, we’ll put this into practice in modelling both participant- and item-level variation in two different datasets. We will start by using the <code>sleepstudy</code> dataset, a frequently used example dataset loaded by the <em>lme4</em> package. We will then progress to a psycholinguistic dataset collected here in the York Psychology Department, which will involve modelling multiple sources of clustering simultaneously.</p>
+<hr>
+</section>
+<section id="setting-up" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setting up</h1>
+<section id="packages" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">2.1</span> Packages</h2>
+<p>Today’s practical will use the following packages. You will need to install each one, before loading them at the top of your script.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># for data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)         <span class="co"># for model fitting</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)     <span class="co"># significance tests</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)      <span class="co"># for plotting random effects</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># for checking model assumptions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="scientific-notation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="scientific-notation"><span class="header-section-number">2.2</span> Scientific notation</h2>
+<p>You might find it easier to interpret the model output if you turn off scientific notation. You can do that with the following line of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that this just affects the <em>presentation</em> of very small values, not the values themselves.</p>
+<hr>
+</section>
+</section>
+<section id="part-a-core-example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part A: Core example</h1>
+<section id="introduction-to-the-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</h2>
+<p>We will start with a built-in dataset from the <em>lme4</em> package: the <code>sleepstudy</code> dataset. This dataset was taken from a study by <a href="https://doi.org/10.1046/j.1365-2869.2003.00337.x">Belenky et al.&nbsp;(2003)</a>, who were interested in the effects of sleep deprivation and recovery on people’s performance. This version of the dataset includes data from participants who had only three hours of sleep per night during the study. They completed a psychomotor vigilance task each day, which provided an average reaction time score for each participant as they responded to a visual stimulus.</p>
+<p>Start by pulling the dataset into your environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sleep_dat <span class="ot">&lt;-</span> sleepstudy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You will see the dataset contains 180 observations across 3 variables: <code>Subject</code> (participant ID), <code>Days</code> (the day of the observation, starting at 0), and <code>Reaction</code> (the mean reaction time).</p>
+<p>Use your preferred R code to answer the following questions about the dataset:</p>
+<ul>
+<li>How many unique participants do the observations come from?</li>
+<li>How long was this phase of the study in days?</li>
+<li>What was the slowest and fastest reaction time?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do these, depending on your preference and style! Some examples...</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of participants</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(sleep_dat<span class="sc">$</span>Subject))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ...or we could do this using tidyverse code for consistency, e.g.,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sleep_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Subject) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># How long was this phase of the study in days? </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(sleep_dat<span class="sc">$</span>Days)  <span class="co"># but careful, this can be misleading if we consider...</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(sleep_dat<span class="sc">$</span>Days)  <span class="co"># ...showing how important it is to explore data properties!</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(sleep_dat<span class="sc">$</span>Days))  <span class="co"># an alternative answer</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Range of reaction times</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(sleep_dat<span class="sc">$</span>Reaction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="traditional-analyses" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="traditional-analyses"><span class="header-section-number">3.2</span> Traditional analyses</h2>
+<p>We want to test the hypothesis that the length of sleep deprivation is positively associated with participants’ reaction times (i.e., the more you are sleep deprived, the slower you are).</p>
+<p>This is an association between two continuous variables. If we were to ignore that the data include repeated observations from each participant, we could think of this as a regression analysis. Let’s start by running one here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify model</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lm_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Reaction <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Days, <span class="at">data =</span> sleep_dat)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print output</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The model formula specifies that the dependent variable (<code>Reaction</code>) is predicted by (<code>~</code>) both an intercept (<code>1</code>) and our independent variable <code>Days</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Take a look at the output. The <code>Estimate</code> for the <code>(Intercept)</code> tells you the predicted reaction time when <code>Days</code> = 0, the first day of the study. The model then estimates that each of the <code>Days</code> is significantly associated with ~10.46 ms increase in reaction time.</p>
+<p>However, as we noted above, this violates a core assumption of linear regression: that the data are independent. This is clearly not the case as there are multiple observations per participant in the study. We can therefore use random effects in our model to account for this.</p>
+</section>
+<section id="random-intercepts-model" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="random-intercepts-model"><span class="header-section-number">3.3</span> Random intercepts model</h2>
+<p>Let’s start by adding a random intercept for each participant, this time using the <code>lmer()</code> function from the <em>lme4</em> package. The model formula is very similar to the one above, but now we add a random intercept (<code>1</code>) per participant as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify model </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ri_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Days <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Subject), <span class="at">data =</span> sleep_dat)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print output</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ri_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Reassuringly, you should see that the <code>Fixed effects</code> coefficients remain very similar to the estimates we saw in our standard regression model. However, the error associated with these estimates is lower, as some of this variance can be attributed to between-subject differences captured by the random effects.</p>
+<p>You should also take a look at the <code>Random effects</code> section of the output. It tells us the number of observations in the model, and how many “groups” there were in any given random effect (here, Subject) - this is a good way of checking nothing has gone awry! The output then tells us how much variance is associated with each one.</p>
+<p>We can dig a bit deeper into the estimated random effects if we want to find out more about the groups in our study. For example, we can extract participants’ relative intercepts (i.e., deviations from the fixed intercept) to find out who started the study the fastest or slowest. Run the code below: which Subject IDs to these map on to?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract random intercepts </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>subj_int <span class="ot">&lt;-</span> <span class="fu">ranef</span>(ri_mod)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dot plot</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(subj_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="adding-random-slopes" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="adding-random-slopes"><span class="header-section-number">3.4</span> Adding random slopes</h2>
+<p>So far we have modelled variation in the intercept for each participant (i.e., their start point when <code>Days</code> = 0), but assumed that the effect of <code>Days</code> is the same for everybody. Let’s add a random slope to the model to consider variation in this too.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify model </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rs_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> Days <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>Days<span class="sc">|</span>Subject), <span class="at">data =</span> sleep_dat)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print output</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rs_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Where is there most variance: in the random intercepts, or the random slopes?</p>
+<p>Try extracting and plotting the random effects coefficients as you did above. Is there any sign of a correlation between how fast participants were when they started and how much they changed over time? We would see this if the random slopes followed a similar (or opposite) pattern to the intercept.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract random intercepts </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>subj_re <span class="ot">&lt;-</span> <span class="fu">ranef</span>(rs_mod)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot dot plot</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(subj_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="testing-model-assumptions" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="testing-model-assumptions"><span class="header-section-number">3.5</span> Testing model assumptions</h2>
+<p>Like any statistical model, its use depends on a number of assumptions—primarily which concern the error terms (i.e., residuals). The <code>performance</code> package provides some excellent tools to inspect these, which we will use today.</p>
+<p>Two assumptions concern the <strong><em>linearity</em></strong> of relationship between the variables, and the spread of variance across the range (i.e., <strong><em>homoscedasticity</em></strong>). We can inspect these by plotting the model fitted values against the residuals as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check linearity and heteroscedasticity</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(rs_mod, <span class="at">check =</span> <span class="st">"linearity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should see that the reference line is fairly flat (at least within the confidence intervals), indicating that a linear relationship is appropriate. There looks to be slightly higher variance towards the higher end of the distribution, suggesting that the model is doing slightly less well at predicting higher values.</p>
+<p>Another important assumption is the <strong><em>normality of residuals:</em></strong> we want to ensure there is not systematic bias that would undermine statistical inference from the model. Let’s inspect the distribution:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Normality of residuals </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(rs_mod, <span class="at">check =</span> <span class="st">"normality"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect further via QQ plot</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(rs_mod, <span class="at">check =</span> <span class="st">"qq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The two plots reveal issues with heavy tails in the distribution, indicative of some more extreme values that are not well-captured by the model. This is perhaps unsurprising considering that we are modelling reaction time data, which often deviates from a normal distribution. We’ll return to this issue with a larger dataset in Part B.</p>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Take a break!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you haven’t already taken a break today, we suggest you do so before you start the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/break.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Take a break" width="227"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-b-apply-your-knowledge" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part B: Apply your knowledge</h1>
+<section id="introduction-to-the-dataset-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</h2>
+<p>Let’s move on to a different example, this time from an experiment with two different conditions (i.e., a factorial design). You’ll remember from the lecture that mixed effects models first became popular in psycholinguistics, where researchers want to generalise their findings beyond their specific sample of people <em>and</em> the specific words that they selected to include in their experiment.</p>
+<p>We will use a psycholinguistic dataset today, collected by Adam Curtis (a former York PhD student) in Professor Gareth Gaskell’s lab. They were interested in how recent linguistic encounters support us in comprehending subsequent words. For example, hearing “<em>The entertainer filled the <u>balloon</u></em> <em>from the gas cylinder and inhaled it to make her voice squeaky”</em> might later bias our representation of”balloon” towards particular aspects of its meaning (e.g., <em>helium</em>) and make them easier to process. Their experiment looked for this meaning priming over a window of ~10 minutes.</p>
+<p>We will use a subset of the data today, but you can <a href="https://doi.org/10.1016/j.cognition.2022.105175">read more about their study here</a> if you are interested. The full data and analysis scripts are all available on the <a href="https://osf.io/yg428/overview">Open Science Framework</a>, and we can import the data file directly. Use the following code to select only the relevant conditions from Experiment 1, and variables of interest for today’s analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download and preprocess original dataset</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>prime_dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/e5vpn/?action=download"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(exp <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(condition <span class="sc">==</span> <span class="st">"unprimed"</span> <span class="sc">|</span> condition <span class="sc">==</span> <span class="st">"consistent"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, condition, target, probe, correct, rt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The dataset includes the following variables:</p>
+<ul>
+<li><strong>id:</strong> a unique identifier for each participant</li>
+<li><strong>condition<em>:</em></strong> consistent priming or unprimed condition<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li><strong>target:</strong> the target word whose meaning was/was not recently primed in a sentence context (depending on condition)</li>
+<li><strong>probe:</strong> the related word for the semantic judgement task</li>
+<li><strong>correct:</strong> whether the two words were correctly judged as related in meaning (1) or not (0)</li>
+<li><strong>rt:</strong> response time in milliseconds</li>
+</ul>
+<p>Use R code of your choice to answer the following questions about the dataset:</p>
+<ul>
+<li>How many participants took part in the study?</li>
+<li>How many target items were there?</li>
+<li>What was the average (mean) accuracy for each condition?</li>
+<li>What was the average (mean) RT for each condition?</li>
+<li>What does the distribution of RTs look like?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are some examples only, there are several ways to get these answers...</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of participants and words</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>prime_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_ppts =</span> <span class="fu">length</span>(<span class="fu">unique</span>(id)),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">n_words =</span> <span class="fu">length</span>(<span class="fu">unique</span>(target)))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Averages</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>prime_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_acc =</span> <span class="fu">mean</span>(correct),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_rt =</span> <span class="fu">mean</span>(rt))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># RT distribution</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(prime_dat<span class="sc">$</span>rt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="data-formatting" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="data-formatting"><span class="header-section-number">4.1.1</span> Data formatting</h3>
+<p>We have two further formatting tasks to do before we can begin our analysis.</p>
+<p>We want to test whether people are faster to judge the target and probe words as related if they have recently seen a consistent prime (relative to an unprimed condition). This means that we only want to analyse RTs from correct answers, as the reaction times for errors likely reflect a different process. Filter the dataset for correct answers only, and assign it to a new object for use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>correct_dat <span class="ot">&lt;-</span> <span class="fu">filter</span>(prime_dat, correct <span class="sc">==</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that for this model out independent variable (i.e., predictor) is a <em>factor</em>—a categorical variable that in this case has two levels. We want it to treat the “unprimed” condition as the baseline or reference group. Create a new formatted version of this variable, called <code>condition_f</code> which should be a factor version of the existing <code>condition</code> variable. We write out the two levels to specify that they should be considered in this order (rather than the default alphabetical interpretation).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>correct_dat <span class="ot">&lt;-</span> <span class="fu">mutate</span>(correct_dat,                        </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">condition_f =</span> <span class="fu">factor</span>(condition,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"unprimed"</span>, <span class="st">"consistent"</span>))) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What are the mean RTs per condition now that you have filtered for accuracy?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>correct_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_rt =</span> <span class="fu">mean</span>(rt))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="traditional-analyses-1" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="traditional-analyses-1"><span class="header-section-number">4.2</span> Traditional analyses</h2>
+<section id="t-test-of-participant-averages" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="t-test-of-participant-averages"><span class="header-section-number">4.2.1</span> T-test of participant averages</h3>
+<p>We can’t run a t-test on the dataset as it is because it violates the assumption of independence: we have multiple responses from each participant. Use the <code>group_by()</code> and <code>summarise()</code> functions to calculate an average (i.e., mean) response time for each participant in each condition. Call your new data frame <code>ppt_means</code>, and reformat it into wide format (i.e., one row per participant, with separate columns containing the average for each condition).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for a hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Run <code>help(pivot_wider)</code> to inspect the help files for reshaping your dataset. You will need to specify your new column names using <code>names_from</code>, and the values that should go in them using <code>values_from</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ppt_means <span class="ot">&lt;-</span> correct_dat <span class="sc">%&gt;%</span>       <span class="co"># take the existing data frame</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id, condition_f) <span class="sc">%&gt;%</span>    <span class="co"># for each id and condition</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_rt =</span> <span class="fu">mean</span>(rt)) <span class="sc">%&gt;%</span>  <span class="co"># calculate the mean rt </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> condition_f, <span class="at">values_from =</span> mean_rt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Use the <code>t.test()</code> function to run a <u><em>paired</em></u> t-test. Use the internet or the help files to help you if you are unsure. Your output should look as follows:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  ppt_means$consistent and ppt_means$unprimed
+t = -3.6171, df = 65, p-value = 0.0005827
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ -31.605607  -9.119575
+sample estimates:
+mean difference 
+      -20.36259 </code></pre>
+</div>
+</div>
+</section>
+<section id="t-test-of-word-averages" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="t-test-of-word-averages"><span class="header-section-number">4.2.2</span> T-test of word averages</h3>
+<p>The t-test on participant means tells us that that condition effect likely generalises to other people in the population we have sampled from. What if we also want to know whether it generalises to other words that we might have chosen?</p>
+<p>Repeat the steps above but for items instead of participants: create a set of <em>item</em> means by calculating an average RT for each target and condition. Then run a paired t-test. Are the results consistent with the participant version?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate item means</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>item_means <span class="ot">&lt;-</span> correct_dat <span class="sc">%&gt;%</span>         <span class="co"># take the existing data frame</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(target, condition_f) <span class="sc">%&gt;%</span>   <span class="co"># for each item and condition</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_rt =</span> <span class="fu">mean</span>(rt)) <span class="sc">%&gt;%</span>   <span class="co"># calculate the mean rt </span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> condition_f, <span class="at">values_from =</span> mean_rt)  <span class="co"># long to wide</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run paired t-test</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(item_means<span class="sc">$</span>consistent, item_means<span class="sc">$</span>unprimed, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="random-intercepts-model-1" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="random-intercepts-model-1"><span class="header-section-number">4.3</span> Random intercepts model</h2>
+<p>Mixed effects models build on the by-participant/by-item averaging approach by allowing us to account for both participant <em>and</em> item variation in the same model. We can use the original trial-level data so that we are not wasting information by averaging.</p>
+<p>Start by fitting a random intercepts model: you want to predict the <code>rt</code> variable by your formatted condition variable (<code>condition_f</code>). Include random intercepts for <code>id</code> and <code>target</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prime_ri <span class="ot">&lt;-</span> <span class="fu">lmer</span>(rt <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target), <span class="at">data =</span> correct_dat) </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prime_ri)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Call <code>summary()</code> on your model and ask yourself the following questions about the output:</p>
+<ul>
+<li>Check the number of observations, as well as the numbers associated with your grouping levels (id, target). Do they match up to your exploration of the dataset?</li>
+<li>What the model-estimated reaction time for responses associated with the <em>unprimed</em> condition? Remember, we formatted our condition variable so that the unprimed condition was the reference level (0).</li>
+<li>Does the prime condition significantly affect reaction times? How many ms does it change by, and in which direction?</li>
+<li>Do participants or items show the most variance?</li>
+</ul>
+<p>Use the <code>dotplot()</code> function on the random effects (<code>ranef()</code>) of the model like we did above. You can use the plot window arrows to toggle between the two types of random effect. Which participant IDs and target words were fastest (-) and slowest (+) overall? To what extent do these correspond to the participant and item means you calculated for the t-tests?</p>
+</section>
+<section id="adding-random-slopes-1" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="adding-random-slopes-1"><span class="header-section-number">4.4</span> Adding random slopes</h2>
+<p>We should also consider adding random slopes to model variation in condition effects. Do some participants/words show larger priming effects than others?</p>
+<p>Try adding random slopes for the effect of condition, for both participant ID and target items. Try plotting the random effects. What do you notice about the confidence intervals, and how the condition estimates are ordered relative to the intercept?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You might want to increase the size of the plot window so that you can see the plots more quickly.</p>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit maximal model</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>prime_rs <span class="ot">&lt;-</span> <span class="fu">lmer</span>(rt <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>id) <span class="sc">+</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>target), <span class="at">data =</span> correct_dat) </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect output</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prime_rs)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot random effects</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(<span class="fu">ranef</span>(prime_rs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="model-selection" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">4.5</span> Model selection</h2>
+<p>The random effect variation for condition effects across participants looks surprisingly small, and the model output shows that they are perfectly negatively correlated with the intercept. The clue here is in the warning that was printed during model fitting: <em>boundary (singular) fit: see help(‘isSingular’).</em> Essentially, this means that the model could not be estimated properly.</p>
+<p>In this situation, we would typically remove random effects components until the warning goes away. Try this—can we fit any random slopes at all? There is not a consensus on the best approach to deciding which random effects to include/remove from more complex models, but you can read more about this debate via the suggested reading for this week.</p>
+</section>
+<section id="testing-model-assumptions-1" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="testing-model-assumptions-1"><span class="header-section-number">4.6</span> Testing model assumptions</h2>
+<p>Once you have decided on your final model (i.e., one without singularity issues), use the <code>check_model()</code> functions from the <em>performance</em> package to check for linearity, heteroskedasticity, and the normality of residuals, as we did in Part A.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check linearity and heteroscedasticity</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(prime_ri, <span class="at">check =</span> <span class="st">"linearity"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check normality of residuals</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(prime_ri, <span class="at">check =</span> <span class="st">"normality"</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(prime_ri, <span class="at">check =</span> <span class="st">"qq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Sometimes a simple transformation can fix problems with skew, such as a log-transform. Try fitting another model, but use the log function to transform the dependent variable within the model formula (<code>log(rt)</code>). Inspect the residuals as above: what do you think of this new model?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>log_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">log</span>(rt) <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target), <span class="at">data =</span> correct_dat)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect residuals</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(log_mod, <span class="at">check =</span> <span class="st">"normality"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(log_mod, <span class="at">check =</span> <span class="st">"qq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-c-challenge-yourself" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part C: Challenge yourself!</h1>
+<p>In today’s examples, we fitted a linear mixed effects model on reaction time data, a continuous variable.</p>
+<p>Mixed effects models offer an extremely flexible framework, which we can also use to model accuracy data (0, 1). The underlying maths is different, but the process of fitting them in R is largely the same.</p>
+<p>Using the <code>prime_dat</code> file you initially loaded (before we filtered for correct responses), try to figure out how to analyse the accuracy data for this experiment. You will need to find the function for running a <em>binomial</em> mixed effects model, and specify the family as you run it.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Format condition factor</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prime_dat <span class="ot">&lt;-</span> prime_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition_f =</span> <span class="fu">factor</span>(condition,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"unprimed"</span>, <span class="st">"consistent"</span>)))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Binomial model - start with maximal model - singularity issues</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>prime_acc1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(correct <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>id) <span class="sc">+</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>target), <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> prime_dat)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with slopes for participant only - no issues - BEST</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>prime_acc2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(correct <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>id) <span class="sc">+</span> </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">|</span>target), <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> prime_dat)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Check - model with slopes for items only - singularity issues</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>prime_acc3 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(correct <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id) <span class="sc">+</span> </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">+</span> condition_f<span class="sc">|</span>target), <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> prime_dat)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect output for most complex model that was successful fit</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(prime_acc2)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Check model</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(prime_acc2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="recap" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
+<p>Today we’ve seen how mixed effects models can allow us to model repeated observations from participants within a regression framework. We also saw how this approach can be used to model multiple sources of variation simultaneously, providing a single overarching estimate of the effects of interest in the context of this variation. This makes it a very flexible framework that can be used across a wide range of research contexts.</p>
+<p>During the practical, we also encountered some of the challenges associated with this technique. Mixed effects models remain subject to a number of assumptions—as per any statistical approach—which are important to check and may require further consideration. We also saw that we might not be able to estimate all the model components we set out to, which is a topic widely debated in the literature.</p>
+</section>
+<section id="further-learning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
+<p>This week’s <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a> includes an <a href="https://journals.sagepub.com/doi/pdf/10.1177/2515245920960351">excellent tutorial paper by Violet Brown</a>. If you want to gain more interactive experience in fitting mixed effects models in R, there is also a <a href="https://app.datacamp.com/learn/courses/hierarchical-and-mixed-effects-models-in-r">relevant chapter on DataCamp</a>.</p>
+<hr>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Feedback!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via <a href="https://docs.google.com/forms/d/e/1FAIpQLSepox6r76dAkSDZRxybJwCvRX28M7BS1_81fGMybkqsvBPvRA/viewform?usp=publish-editor">this survey</a>, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.</p>
+<p>For more general questions about the practical, please post them on the <a href="https://vle.york.ac.uk/ultra/courses/_116420_1/engagement/discussion/_6408724_1?view=discussions&amp;disGroupId=default&amp;courseId=_116420_1">VLE Discussion Board</a>.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Note that we don’t actually need to specify the intercept (1), as the model will include this by default. However, we’ve done so here to make clear the similarities in structure when adding random effects below.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Curtis et al.&nbsp;also included a third condition with an <em>inconsistent prime</em> that biased meaning away from the target, but we have excluded that for the purposes of today’s demonstration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emljames\.github\.io\/ambr\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html">
+<p>License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
