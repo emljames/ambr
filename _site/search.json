@@ -25,7 +25,7 @@
     "href": "ambrX_template.html#introduction-to-the-dataset",
     "title": "[Week X: template]",
     "section": "3.1 Introduction to the dataset",
-    "text": "3.1 Introduction to the dataset\n[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset]\n[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers ]\n\n\n\n\n\n\nClick for a hint!\n\n\n\n\n\n[Hint text here]\n\n\n\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you so before you start the next section."
+    "text": "3.1 Introduction to the dataset\n[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset]\n[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers ]\n\n\n\n\n\n\nClick for a hint!\n\n\n\n\n\n[Hint text here]\n\n\n\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you do so before you start the next section."
   },
   {
     "objectID": "ambrX_template.html#introduction-to-the-dataset-1",
@@ -47,6 +47,125 @@
     "title": "[Week X: template]",
     "section": "6.2 Further learning",
     "text": "6.2 Further learning\n[Link further interactive resources. Can also remind them of the core reading]\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html",
+    "href": "ambr2_mixed-effects.html",
+    "title": "Week 2: Mixed effects models",
+    "section": "",
+    "text": "Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#packages",
+    "href": "ambr2_mixed-effects.html#packages",
+    "title": "Week 2: Mixed effects models",
+    "section": "2.1 Packages",
+    "text": "2.1 Packages\nToday’s practical will use the following packages. You will need to install each one, before loading them at the top of your script.\n\nlibrary(tidyverse)    # for data wrangling\nlibrary(lme4)         # for model fitting\nlibrary(lmerTest)     # significance tests\nlibrary(lattice)      # for plotting random effects\nlibrary(performance)  # for checking model assumptions"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#scientific-notation",
+    "href": "ambr2_mixed-effects.html#scientific-notation",
+    "title": "Week 2: Mixed effects models",
+    "section": "2.2 Scientific notation",
+    "text": "2.2 Scientific notation\nYou might find it easier to interpret the model output if you turn off scientific notation. You can do that with the following line of code:\n\noptions(scipen=999)\n\nNote that this just affects the presentation of very small values, not the values themselves."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#introduction-to-the-dataset",
+    "href": "ambr2_mixed-effects.html#introduction-to-the-dataset",
+    "title": "Week 2: Mixed effects models",
+    "section": "3.1 Introduction to the dataset",
+    "text": "3.1 Introduction to the dataset\nWe will start with a built-in dataset from the lme4 package: the sleepstudy dataset. This dataset was taken from a study by Belenky et al. (2003), who were interested in the effects of sleep deprivation and recovery on people’s performance. This version of the dataset includes data from participants who had only three hours of sleep per night during the study. They completed a psychomotor vigilance task each day, which provided an average reaction time score for each participant as they responded to a visual stimulus.\nStart by pulling the dataset into your environment.\n\nsleep_dat &lt;- sleepstudy\n\nYou will see the dataset contains 180 observations across 3 variables: Subject (participant ID), Days (the day of the observation, starting at 0), and Reaction (the mean reaction time).\nUse your preferred R code to answer the following questions about the dataset:\n\nHow many unique participants do the observations come from?\nHow long was this phase of the study in days?\nWhat was the slowest and fastest reaction time?\n\n\n\nShow example code\n# There are several ways you could do these, depending on your preference and style! Some examples...\n\n# Number of participants\nlength(unique(sleep_dat$Subject))\n\n## ...or we could do this using tidyverse code for consistency, e.g.,\nsleep_dat %&gt;% \n  distinct(Subject) %&gt;% \n  count()\n\n# How long was this phase of the study in days? \nmax(sleep_dat$Days)  # but careful, this can be misleading if we consider...\nmin(sleep_dat$Days)  # ...showing how important it is to explore data properties!\nlength(unique(sleep_dat$Days))  # an alternative answer\n\n# Range of reaction times\nrange(sleep_dat$Reaction)"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#traditional-analyses",
+    "href": "ambr2_mixed-effects.html#traditional-analyses",
+    "title": "Week 2: Mixed effects models",
+    "section": "3.2 Traditional analyses",
+    "text": "3.2 Traditional analyses\nWe want to test the hypothesis that the length of sleep deprivation is positively associated with participants’ reaction times (i.e., the more you are sleep deprived, the slower you are).\nThis is an association between two continuous variables. If we were to ignore that the data include repeated observations from each participant, we could think of this as a regression analysis. Let’s start by running one here:\n\n# Specify model\nlm_mod &lt;- lm(Reaction ~ 1 + Days, data = sleep_dat)\n\n# Print output\nsummary(lm_mod)\n\nThe model formula specifies that the dependent variable (Reaction) is predicted by (~) both an intercept (1) and our independent variable Days.1\nTake a look at the output. The Estimate for the (Intercept) tells you the predicted reaction time when Days = 0, the first day of the study. The model then estimates that each of the Days is significantly associated with ~10.46 ms increase in reaction time.\nHowever, as we noted above, this violates a core assumption of linear regression: that the data are independent. This is clearly not the case as there are multiple observations per participant in the study. We can therefore use random effects in our model to account for this."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#random-intercepts-model",
+    "href": "ambr2_mixed-effects.html#random-intercepts-model",
+    "title": "Week 2: Mixed effects models",
+    "section": "3.3 Random intercepts model",
+    "text": "3.3 Random intercepts model\nLet’s start by adding a random intercept for each participant, this time using the lmer() function from the lme4 package. The model formula is very similar to the one above, but now we add a random intercept (1) per participant as follows:\n\n# Specify model \nri_mod &lt;- lmer(Reaction ~ 1 + Days + (1|Subject), data = sleep_dat)\n\n# Print output\nsummary(ri_mod)\n\nReassuringly, you should see that the Fixed effects coefficients remain very similar to the estimates we saw in our standard regression model. However, the error associated with these estimates is lower, as some of this variance can be attributed to between-subject differences captured by the random effects.\nYou should also take a look at the Random effects section of the output. It tells us the number of observations in the model, and how many “groups” there were in any given random effect (here, Subject) - this is a good way of checking nothing has gone awry! The output then tells us how much variance is associated with each one.\nWe can dig a bit deeper into the estimated random effects if we want to find out more about the groups in our study. For example, we can extract participants’ relative intercepts (i.e., deviations from the fixed intercept) to find out who started the study the fastest or slowest. Run the code below: which Subject IDs to these map on to?\n\n# Extract random intercepts \nsubj_int &lt;- ranef(ri_mod)\n\n# Plot dot plot\ndotplot(subj_int)"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#adding-random-slopes",
+    "href": "ambr2_mixed-effects.html#adding-random-slopes",
+    "title": "Week 2: Mixed effects models",
+    "section": "3.4 Adding random slopes",
+    "text": "3.4 Adding random slopes\nSo far we have modelled variation in the intercept for each participant (i.e., their start point when Days = 0), but assumed that the effect of Days is the same for everybody. Let’s add a random slope to the model to consider variation in this too.\n\n# Specify model \nrs_mod &lt;- lmer(Reaction ~ 1 + Days + (1+Days|Subject), data = sleep_dat)\n\n# Print output\nsummary(rs_mod)\n\nWhere is there most variance: in the random intercepts, or the random slopes?\nTry extracting and plotting the random effects coefficients as you did above. Is there any sign of a correlation between how fast participants were when they started and how much they changed over time? We would see this if the random slopes followed a similar (or opposite) pattern to the intercept.\n\n\nShow the code\n# Extract random intercepts \nsubj_re &lt;- ranef(rs_mod)\n\n# Plot dot plot\ndotplot(subj_re)"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#testing-model-assumptions",
+    "href": "ambr2_mixed-effects.html#testing-model-assumptions",
+    "title": "Week 2: Mixed effects models",
+    "section": "3.5 Testing model assumptions",
+    "text": "3.5 Testing model assumptions\nLike any statistical model, its use depends on a number of assumptions—primarily which concern the error terms (i.e., residuals). The performance package provides some excellent tools to inspect these, which we will use today.\nTwo assumptions concern the linearity of relationship between the variables, and the spread of variance across the range (i.e., homoscedasticity). We can inspect these by plotting the model fitted values against the residuals as follows:\n\n# Check linearity and heteroscedasticity\ncheck_model(rs_mod, check = \"linearity\")\n\nYou should see that the reference line is fairly flat (at least within the confidence intervals), indicating that a linear relationship is appropriate. There looks to be slightly higher variance towards the higher end of the distribution, suggesting that the model is doing slightly less well at predicting higher values.\nAnother important assumption is the normality of residuals: we want to ensure there is not systematic bias that would undermine statistical inference from the model. Let’s inspect the distribution:\n\n# Normality of residuals \ncheck_model(rs_mod, check = \"normality\")\n\n# Inspect further via QQ plot\ncheck_model(rs_mod, check = \"qq\")\n\nThe two plots reveal issues with heavy tails in the distribution, indicative of some more extreme values that are not well-captured by the model. This is perhaps unsurprising considering that we are modelling reaction time data, which often deviates from a normal distribution. We’ll return to this issue with a larger dataset in Part B.\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you do so before you start the next section."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#introduction-to-the-dataset-1",
+    "href": "ambr2_mixed-effects.html#introduction-to-the-dataset-1",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.1 Introduction to the dataset",
+    "text": "4.1 Introduction to the dataset\nLet’s move on to a different example, this time from an experiment with two different conditions (i.e., a factorial design). You’ll remember from the lecture that mixed effects models first became popular in psycholinguistics, where researchers want to generalise their findings beyond their specific sample of people and the specific words that they selected to include in their experiment.\nWe will use a psycholinguistic dataset today, collected by Adam Curtis (a former York PhD student) in Professor Gareth Gaskell’s lab. They were interested in how recent linguistic encounters support us in comprehending subsequent words. For example, hearing “The entertainer filled the balloon from the gas cylinder and inhaled it to make her voice squeaky” might later bias our representation of”balloon” towards particular aspects of its meaning (e.g., helium) and make them easier to process. Their experiment looked for this meaning priming over a window of ~10 minutes.\nWe will use a subset of the data today, but you can read more about their study here if you are interested. The full data and analysis scripts are all available on the Open Science Framework, and we can import the data file directly. Use the following code to select only the relevant conditions from Experiment 1, and variables of interest for today’s analysis.\n\n# Download and preprocess original dataset\nprime_dat &lt;- read_csv(\"https://osf.io/e5vpn/?action=download\") %&gt;% \n  filter(exp == 1) %&gt;% \n  filter(condition == \"unprimed\" | condition == \"consistent\") %&gt;% \n  select(id, condition, target, probe, correct, rt)\n\nThe dataset includes the following variables:\n\nid: a unique identifier for each participant\ncondition: consistent priming or unprimed condition2\ntarget: the target word whose meaning was/was not recently primed in a sentence context (depending on condition)\nprobe: the related word for the semantic judgement task\ncorrect: whether the two words were correctly judged as related in meaning (1) or not (0)\nrt: response time in milliseconds\n\nUse R code of your choice to answer the following questions about the dataset:\n\nHow many participants took part in the study?\nHow many target items were there?\nWhat was the average (mean) accuracy for each condition?\nWhat was the average (mean) RT for each condition?\nWhat does the distribution of RTs look like?\n\n\n\nShow example code\n# These are some examples only, there are several ways to get these answers...\n\n# Number of participants and words\nprime_dat %&gt;% \n  summarise(n_ppts = length(unique(id)),\n            n_words = length(unique(target)))\n\n# Averages\nprime_dat %&gt;% \n  group_by(condition) %&gt;% \n  summarise(mean_acc = mean(correct),\n            mean_rt = mean(rt))\n\n# RT distribution\nhist(prime_dat$rt)\n\n\n\n4.1.1 Data formatting\nWe have two further formatting tasks to do before we can begin our analysis.\nWe want to test whether people are faster to judge the target and probe words as related if they have recently seen a consistent prime (relative to an unprimed condition). This means that we only want to analyse RTs from correct answers, as the reaction times for errors likely reflect a different process. Filter the dataset for correct answers only, and assign it to a new object for use:\n\ncorrect_dat &lt;- filter(prime_dat, correct == 1) \n\nNote that for this model out independent variable (i.e., predictor) is a factor—a categorical variable that in this case has two levels. We want it to treat the “unprimed” condition as the baseline or reference group. Create a new formatted version of this variable, called condition_f which should be a factor version of the existing condition variable. We write out the two levels to specify that they should be considered in this order (rather than the default alphabetical interpretation).\n\ncorrect_dat &lt;- mutate(correct_dat,                        \n                      condition_f = factor(condition,\n                                           levels = c(\"unprimed\", \"consistent\"))) \n\nWhat are the mean RTs per condition now that you have filtered for accuracy?\n\n\nShow example code\ncorrect_dat %&gt;% \n  group_by(condition) %&gt;% \n  summarise(mean_rt = mean(rt))"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#traditional-analyses-1",
+    "href": "ambr2_mixed-effects.html#traditional-analyses-1",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.2 Traditional analyses",
+    "text": "4.2 Traditional analyses\n\n4.2.1 T-test of participant averages\nWe can’t run a t-test on the dataset as it is because it violates the assumption of independence: we have multiple responses from each participant. Use the group_by() and summarise() functions to calculate an average (i.e., mean) response time for each participant in each condition. Call your new data frame ppt_means, and reformat it into wide format (i.e., one row per participant, with separate columns containing the average for each condition).\n\n\n\n\n\n\nClick for a hint!\n\n\n\n\n\nRun help(pivot_wider) to inspect the help files for reshaping your dataset. You will need to specify your new column names using names_from, and the values that should go in them using values_from.\n\n\n\n\n\nShow the code\nppt_means &lt;- correct_dat %&gt;%       # take the existing data frame\n  group_by(id, condition_f) %&gt;%    # for each id and condition\n  summarise(mean_rt = mean(rt)) %&gt;%  # calculate the mean rt \n  pivot_wider(names_from = condition_f, values_from = mean_rt)\n\n\nUse the t.test() function to run a paired t-test. Use the internet or the help files to help you if you are unsure. Your output should look as follows:\n\n\n\n    Paired t-test\n\ndata:  ppt_means$consistent and ppt_means$unprimed\nt = -3.6171, df = 65, p-value = 0.0005827\nalternative hypothesis: true mean difference is not equal to 0\n95 percent confidence interval:\n -31.605607  -9.119575\nsample estimates:\nmean difference \n      -20.36259 \n\n\n\n\n4.2.2 T-test of word averages\nThe t-test on participant means tells us that that condition effect likely generalises to other people in the population we have sampled from. What if we also want to know whether it generalises to other words that we might have chosen?\nRepeat the steps above but for items instead of participants: create a set of item means by calculating an average RT for each target and condition. Then run a paired t-test. Are the results consistent with the participant version?\n\n\nShow the code\n# Calculate item means\nitem_means &lt;- correct_dat %&gt;%         # take the existing data frame\n  group_by(target, condition_f) %&gt;%   # for each item and condition\n  summarise(mean_rt = mean(rt)) %&gt;%   # calculate the mean rt \n  pivot_wider(names_from = condition_f, values_from = mean_rt)  # long to wide\n\n# Run paired t-test\nt.test(item_means$consistent, item_means$unprimed, paired = TRUE)"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#random-intercepts-model-1",
+    "href": "ambr2_mixed-effects.html#random-intercepts-model-1",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.3 Random intercepts model",
+    "text": "4.3 Random intercepts model\nMixed effects models build on the by-participant/by-item averaging approach by allowing us to account for both participant and item variation in the same model. We can use the original trial-level data so that we are not wasting information by averaging.\nStart by fitting a random intercepts model: you want to predict the rt variable by your formatted condition variable (condition_f). Include random intercepts for id and target.\n\n\nShow the code\n#|\nprime_ri &lt;- lmer(rt ~ condition_f + (1|id) + (1|target), data = correct_dat) \nsummary(prime_ri)\n\n\nCall summary() on your model and ask yourself the following questions about the output:\n\nCheck the number of observations, as well as the numbers associated with your grouping levels (id, target). Do they match up to your exploration of the dataset?\nWhat the model-estimated reaction time for responses associated with the unprimed condition? Remember, we formatted our condition variable so that the unprimed condition was the reference level (0).\nDoes the prime condition significantly affect reaction times? How many ms does it change by, and in which direction?\nDo participants or items show the most variance?\n\nUse the dotplot() function on the random effects (ranef()) of the model like we did above. You can use the plot window arrows to toggle between the two types of random effect. Which participant IDs and target words were fastest (-) and slowest (+) overall? To what extent do these correspond to the participant and item means you calculated for the t-tests?"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#adding-random-slopes-1",
+    "href": "ambr2_mixed-effects.html#adding-random-slopes-1",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.4 Adding random slopes",
+    "text": "4.4 Adding random slopes\nWe should also consider adding random slopes to model variation in condition effects. Do some participants/words show larger priming effects than others?\nTry adding random slopes for the effect of condition, for both participant ID and target items. Try plotting the random effects. What do you notice about the confidence intervals, and how the condition estimates are ordered relative to the intercept?\n\n\n\n\n\n\nTip!\n\n\n\nYou might want to increase the size of the plot window so that you can see the plots more quickly.\n\n\n\n\nShow the code\n# Fit maximal model\nprime_rs &lt;- lmer(rt ~ condition_f + (1 + condition_f|id) + \n             (1 + condition_f|target), data = correct_dat) \n\n# Inspect output\nsummary(prime_rs)\n\n# Plot random effects\ndotplot(ranef(prime_rs))"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#model-selection",
+    "href": "ambr2_mixed-effects.html#model-selection",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.5 Model selection",
+    "text": "4.5 Model selection\nThe random effect variation for condition effects across participants looks surprisingly small, and the model output shows that they are perfectly negatively correlated with the intercept. The clue here is in the warning that was printed during model fitting: boundary (singular) fit: see help(‘isSingular’). Essentially, this means that the model could not be estimated properly.\nIn this situation, we would typically remove random effects components until the warning goes away. Try this—can we fit any random slopes at all? There is not a consensus on the best approach to deciding which random effects to include/remove from more complex models, but you can read more about this debate via the suggested reading for this week."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#testing-model-assumptions-1",
+    "href": "ambr2_mixed-effects.html#testing-model-assumptions-1",
+    "title": "Week 2: Mixed effects models",
+    "section": "4.6 Testing model assumptions",
+    "text": "4.6 Testing model assumptions\nOnce you have decided on your final model (i.e., one without singularity issues), use the check_model() functions from the performance package to check for linearity, heteroskedasticity, and the normality of residuals, as we did in Part A.\n\n\nShow the code\n# Check linearity and heteroscedasticity\ncheck_model(prime_ri, check = \"linearity\")\n\n# Check normality of residuals\ncheck_model(prime_ri, check = \"normality\")\ncheck_model(prime_ri, check = \"qq\")\n\n\nSometimes a simple transformation can fix problems with skew, such as a log-transform. Try fitting another model, but use the log function to transform the dependent variable within the model formula (log(rt)). Inspect the residuals as above: what do you think of this new model?\n\n\nShow the code\n# Fit model\nlog_mod &lt;- lmer(log(rt) ~ condition_f + (1|id) + (1|target), data = correct_dat)\n\n# Inspect residuals\ncheck_model(log_mod, check = \"normality\")\ncheck_model(log_mod, check = \"qq\")"
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#recap",
+    "href": "ambr2_mixed-effects.html#recap",
+    "title": "Week 2: Mixed effects models",
+    "section": "6.1 Recap",
+    "text": "6.1 Recap\nToday we’ve seen how mixed effects models can allow us to model repeated observations from participants within a regression framework. We also saw how this approach can be used to model multiple sources of variation simultaneously, providing a single overarching estimate of the effects of interest in the context of this variation. This makes it a very flexible framework that can be used across a wide range of research contexts.\nDuring the practical, we also encountered some of the challenges associated with this technique. Mixed effects models remain subject to a number of assumptions—as per any statistical approach—which are important to check and may require further consideration. We also saw that we might not be able to estimate all the model components we set out to, which is a topic widely debated in the literature."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#further-learning",
+    "href": "ambr2_mixed-effects.html#further-learning",
+    "title": "Week 2: Mixed effects models",
+    "section": "6.2 Further learning",
+    "text": "6.2 Further learning\nThis week’s core reading includes an excellent tutorial paper by Violet Brown. If you want to gain more interactive experience in fitting mixed effects models in R, there is also a relevant chapter on DataCamp.\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
+  },
+  {
+    "objectID": "ambr2_mixed-effects.html#footnotes",
+    "href": "ambr2_mixed-effects.html#footnotes",
+    "title": "Week 2: Mixed effects models",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nNote that we don’t actually need to specify the intercept (1), as the model will include this by default. However, we’ve done so here to make clear the similarities in structure when adding random effects below.↩︎\nCurtis et al. also included a third condition with an inconsistent prime that biased meaning away from the target, but we have excluded that for the purposes of today’s demonstration.↩︎"
   },
   {
     "objectID": "ambr0_guide.html",
@@ -130,7 +249,7 @@
     "href": "ambr1_meta-analysis.html#inspecting-for-publication-bias",
     "title": "Week 1: Meta-analysis",
     "section": "3.4 Inspecting for publication bias",
-    "text": "3.4 Inspecting for publication bias\nFinally, let’s consider whether this analysis might be affected by publication bias. Let’s use the random effects model given it would be the more appropriate choice here, and create a funnel plot:\n\nfunnel(rr_random_m)\n\nTake a look at this linked guide for interpreting the funnel plots. What do you conclude?\nYou can also test for asymmetry using Egger’s regression test. Is there statistical evidence for assymmetry?\n\nregtest(rr_random_m)\n\nFor comparison, inspect the evidence for publication bias using female participants instead. You’ll need to subset the data, run a new random effects model, and then inspect for asymmetry. What do you conclude about publication bias in this area of research?\n\n\nShow the code\n# Select only effect sizes corresponding to female participants\nrr_f_ppts &lt;- filter(rr_dat, Gender == \"Females\")\nrr_random_f &lt;- rma(yi = yi, vi = vi, data = rr_f_ppts)\nfunnel(rr_random_f)\nregtest(rr_random_f)\n\n\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you so before you start the next section."
+    "text": "3.4 Inspecting for publication bias\nFinally, let’s consider whether this analysis might be affected by publication bias. Let’s use the random effects model given it would be the more appropriate choice here, and create a funnel plot:\n\nfunnel(rr_random_m)\n\nTake a look at this linked guide for interpreting the funnel plots. What do you conclude?\nYou can also test for asymmetry using Egger’s regression test. Is there statistical evidence for assymmetry?\n\nregtest(rr_random_m)\n\nFor comparison, inspect the evidence for publication bias using female participants instead. You’ll need to subset the data, run a new random effects model, and then inspect for asymmetry. What do you conclude about publication bias in this area of research?\n\n\nShow the code\n# Select only effect sizes corresponding to female participants\nrr_f_ppts &lt;- filter(rr_dat, Gender == \"Females\")\nrr_random_f &lt;- rma(yi = yi, vi = vi, data = rr_f_ppts)\nfunnel(rr_random_f)\nregtest(rr_random_f)\n\n\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you do so before you start the next section."
   },
   {
     "objectID": "ambr1_meta-analysis.html#introduction-to-the-dataset-1",
@@ -173,6 +292,48 @@
     "title": "Week 1: Meta-analysis",
     "section": "6.2 Further learning",
     "text": "6.2 Further learning\nMake sure that you have completed the core reading for this week, and consider reading further resources to consolidate your understanding. As you’ll have seen today, the code for actually running analyses is quite sparse(!) so there aren’t too many interactive resources available. It’s more important this week that you read around the decisions that need to be made along the way.\nIf you come to do meta-analysis in the future or want further details on the different steps that we have covered, then there is an excellent textbook available for free online: Harrer et al. (2021). Doing Meta-Analysis with R: A Hands-On Guide.\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
+  },
+  {
+    "objectID": "ambr3_quantile.html",
+    "href": "ambr3_quantile.html",
+    "title": "Week 3: Quantile Regression",
+    "section": "",
+    "text": "Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York."
+  },
+  {
+    "objectID": "ambr3_quantile.html#packages",
+    "href": "ambr3_quantile.html#packages",
+    "title": "Week 3: Quantile Regression",
+    "section": "2.1 Packages",
+    "text": "2.1 Packages\nToday’s practical will use the following packages. You will need to install each one, before loading them at the top of your script.\n\nlibrary(tidyverse)\nlibrary(quantreg)"
+  },
+  {
+    "objectID": "ambr3_quantile.html#introduction-to-the-dataset",
+    "href": "ambr3_quantile.html#introduction-to-the-dataset",
+    "title": "Week 3: Quantile Regression",
+    "section": "3.1 Introduction to the dataset",
+    "text": "3.1 Introduction to the dataset\n[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset]\n\ndata(engel)\n\nplot(engel$income, engel$foodexp)\nengel_ols &lt;- lm(foodexp ~ income, data = engel)\nsummary(engel_ols)\n\nengel_med &lt;- rq(foodexp ~ income, tau = 0.5, data = engel)\nsummary(engel_med)\n\nengel_10 &lt;- rq(foodexp ~ income, tau = 0.1, data = engel)\nsummary(engel_10)\n\nengel_90 &lt;- rq(foodexp ~ income, tau = 0.9, data = engel)\nsummary(engel_90)\n\nggplot(engel, aes(x = income, y = foodexp)) + \n  theme_bw() + \n  geom_point() + \n  geom_abline(intercept = coef(engel_ols)[[\"(Intercept)\"]],\n              slope = coef(engel_ols)[[\"income\"]], \n              colour = \"blue\") + \n  geom_abline(intercept = coef(engel_med)[[\"(Intercept)\"]],\n              slope = coef(engel_med)[[\"income\"]], \n              colour = \"red\") + \n  geom_abline(intercept = coef(engel_10)[[\"(Intercept)\"]],\n              slope = coef(engel_10)[[\"income\"]], \n              colour = \"green\") + \n  geom_abline(intercept = coef(engel_90)[[\"(Intercept)\"]],\n              slope = coef(engel_90)[[\"income\"]], \n              colour = \"darkgreen\") \nqqnorm(resid(engel_ols))\nqqnorm(resid(engel_med))\n\n[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers ]\n\n\n\n\n\n\nClick for a hint!\n\n\n\n\n\n[Hint text here]\n\n\n\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you so before you start the next section."
+  },
+  {
+    "objectID": "ambr3_quantile.html#introduction-to-the-dataset-1",
+    "href": "ambr3_quantile.html#introduction-to-the-dataset-1",
+    "title": "Week 3: Quantile Regression",
+    "section": "4.1 Introduction to the dataset",
+    "text": "4.1 Introduction to the dataset\n[Structure as above]"
+  },
+  {
+    "objectID": "ambr3_quantile.html#recap",
+    "href": "ambr3_quantile.html#recap",
+    "title": "Week 3: Quantile Regression",
+    "section": "6.1 Recap",
+    "text": "6.1 Recap\n[Practical summary in relation to learning objectives]"
+  },
+  {
+    "objectID": "ambr3_quantile.html#further-learning",
+    "href": "ambr3_quantile.html#further-learning",
+    "title": "Week 3: Quantile Regression",
+    "section": "6.2 Further learning",
+    "text": "6.2 Further learning\n[Link further interactive resources. Can also remind them of the core reading]\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
   },
   {
     "objectID": "index.html",

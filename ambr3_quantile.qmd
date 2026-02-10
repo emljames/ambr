@@ -1,0 +1,161 @@
+---
+title: "Week 3: Quantile Regression"
+author: "Emma James"
+editor: visual
+---
+
+```{r housekeeping}
+#| include: false
+
+# Do any data pre-processing from original/downloaded datasets here 
+# (where possible, import directly from online source)
+
+# Anything here will not be displayed in the file output, although would be public should anyone access the source code on github 
+
+# Save processed data for practical to the data file, using the filepath "./data/ambr[X]_[Y].csv" - where X is the week number, and Y is a descriptive name for the data
+```
+
+# Introduction
+
+::: {.callout-note title="Learning objectives"}
+As a reminder, the learning objectives for this week are:
+
+1.  Explain the key assumptions and limitations of linear regression
+
+2.  Outline when and why quantile regression is preferred
+
+3.  Describe how asymmetric loss unctions weight over- and under-prediction at different points of the outcome distribution
+
+4.  Fit and interpret quantile regression models using the *quantreg* patterns in R
+
+5.  Visualise and communicate the results of quantile regression effectively
+:::
+
+*\[Introductory text\]*
+
+------------------------------------------------------------------------
+
+# Setting up
+
+## Packages
+
+Today's practical will use the following packages. You will need to install each one, before loading them at the top of your script.
+
+```{r libraries}
+#| warning: false
+#| output: false
+
+library(tidyverse)
+library(quantreg)
+```
+
+------------------------------------------------------------------------
+
+# Part A: Core example
+
+## Introduction to the dataset
+
+*\[Introduce the dataset and where it came from; include some initial steps to explore/characterise the dataset\]*
+
+```{r load-dat1}
+#| output: false
+
+
+data(engel)
+
+plot(engel$income, engel$foodexp)
+
+engel_ols <- lm(foodexp ~ income, data = engel)
+summary(engel_ols)
+
+engel_med <- rq(foodexp ~ income, tau = 0.5, data = engel)
+summary(engel_med)
+
+engel_10 <- rq(foodexp ~ income, tau = 0.1, data = engel)
+summary(engel_10)
+
+engel_90 <- rq(foodexp ~ income, tau = 0.9, data = engel)
+summary(engel_90)
+
+ggplot(engel, aes(x = income, y = foodexp)) + 
+  theme_bw() + 
+  geom_point() + 
+  geom_abline(intercept = coef(engel_ols)[["(Intercept)"]],
+              slope = coef(engel_ols)[["income"]], 
+              colour = "blue") + 
+  geom_abline(intercept = coef(engel_med)[["(Intercept)"]],
+              slope = coef(engel_med)[["income"]], 
+              colour = "red") + 
+  geom_abline(intercept = coef(engel_10)[["(Intercept)"]],
+              slope = coef(engel_10)[["income"]], 
+              colour = "green") + 
+  geom_abline(intercept = coef(engel_90)[["(Intercept)"]],
+              slope = coef(engel_90)[["income"]], 
+              colour = "darkgreen") 
+
+qqnorm(resid(engel_ols))
+qqnorm(resid(engel_med))
+
+```
+
+*\[Use further level 2 and 3 headings to structure the section. Here are example set ups for hints and hidden answers \]*
+
+::: {.callout-tip collapse="true"}
+## Click for a hint!
+
+*\[Hint text here\]*
+:::
+
+```{r hidden-answer}
+#| code-fold: true
+#| code-summary: "Show the code"
+#| eval: false 
+
+
+```
+
+------------------------------------------------------------------------
+
+::: callout-tip
+# Take a break!
+
+If you haven't already taken a break today, we suggest you so before you start the next section.
+
+![](images/break.png){fig-alt="Take a break" fig-align="center" width="227"}
+:::
+
+------------------------------------------------------------------------
+
+# Part B: Apply your knowledge
+
+## Introduction to the dataset
+
+*\[Structure as above\]*
+
+------------------------------------------------------------------------
+
+# Part C: Challenge yourself!
+
+*\[This last task should encourage them to advance their knowledge independently\]*
+
+------------------------------------------------------------------------
+
+# Summary
+
+## Recap
+
+*\[Practical summary in relation to learning objectives\]*
+
+## Further learning
+
+*\[Link further interactive resources. Can also remind them of the* [core reading](https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML)\]
+
+------------------------------------------------------------------------
+
+::: callout-important
+## Feedback!
+
+These practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via [this survey](https://docs.google.com/forms/d/e/1FAIpQLSepox6r76dAkSDZRxybJwCvRX28M7BS1_81fGMybkqsvBPvRA/viewform?usp=publish-editor), and let us know of any issues you encountered or aspects you didn't understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.
+
+For more general questions about the practical, please post them on the [VLE Discussion Board](https://vle.york.ac.uk/ultra/courses/_116420_1/engagement/discussion/_6408724_1?view=discussions&disGroupId=default&courseId=_116420_1).
+:::

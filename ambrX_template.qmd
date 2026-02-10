@@ -93,7 +93,7 @@ Today's practical will use the following packages. You will need to install each
 ::: callout-tip
 # Take a break!
 
-If you haven't already taken a break today, we suggest you so before you start the next section.
+If you haven't already taken a break today, we suggest you do so before you start the next section.
 
 ![](images/break.png){fig-alt="Take a break" fig-align="center" width="227"}
 :::
