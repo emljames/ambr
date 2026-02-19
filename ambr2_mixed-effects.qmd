@@ -17,7 +17,7 @@ As a reminder, the learning objectives for this week are:
 
 1.  Describe some limitations of ANOVA and regression
 2.  Explain the benefit and implications of modelling across groups
-3.  Define and identify different fixed versus random effects
+3.  Define and identify appropriate fixed versus random effects
 4.  Evaluate the benefits and challenges of a mixed effects approach
 5.  Fit, evaluate, and interpret mixed effects models using the *lme4* package
 :::
@@ -490,7 +490,7 @@ prime_dat <- prime_dat %>%
 prime_acc1 <- glmer(correct ~ condition_f + (1 + condition_f|id) + 
              (1 + condition_f|target), family = "binomial", data = prime_dat)
 
-# Model with slopes for participant only - no issues - BEST
+# Model with slopes for participant only - no issues 
 prime_acc2 <- glmer(correct ~ condition_f + (1 + condition_f|id) + 
              (1|target), family = "binomial", data = prime_dat)
 

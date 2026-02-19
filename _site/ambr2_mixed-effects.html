@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./ambr1_meta-analysis.html">
  <span class="dropdown-text">W1: Meta-analysis</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr2_mixed-effects.html">
+ <span class="dropdown-text">W2: Mixed effects</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -238,7 +242,7 @@ Learning objectives
 <ol type="1">
 <li>Describe some limitations of ANOVA and regression</li>
 <li>Explain the benefit and implications of modelling across groups</li>
-<li>Define and identify different fixed versus random effects</li>
+<li>Define and identify appropriate fixed versus random effects</li>
 <li>Evaluate the benefits and challenges of a mixed effects approach</li>
 <li>Fit, evaluate, and interpret mixed effects models using the <em>lme4</em> package</li>
 </ol>
@@ -654,7 +658,7 @@ Tip!
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>prime_acc1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(correct <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>id) <span class="sc">+</span> </span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>target), <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> prime_dat)</span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with slopes for participant only - no issues - BEST</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with slopes for participant only - no issues </span></span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>prime_acc2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(correct <span class="sc">~</span> condition_f <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> condition_f<span class="sc">|</span>id) <span class="sc">+</span> </span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>             (<span class="dv">1</span><span class="sc">|</span>target), <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> prime_dat)</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>

@@ -20,6 +20,8 @@ website:
         menu: 
         - text: "W1: Meta-analysis"
           href: ambr1_meta-analysis.qmd
+        - text: "W2: Mixed effects"
+          href: ambr2_mixed-effects.qmd
           
 
 format: 
