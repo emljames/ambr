@@ -22,6 +22,10 @@ website:
           href: ambr1_meta-analysis.qmd
         - text: "W2: Mixed effects"
           href: ambr2_mixed-effects.qmd
+        - text: "W3: Quantile regression"
+          href: ambr3_quantile.qmd       
+        - text: "W4: SEM"
+          href: ambr4_sem.qmd             
           
 
 format: 

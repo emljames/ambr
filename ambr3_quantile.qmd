@@ -17,7 +17,7 @@ As a reminder, the learning objectives for this week are:
 
 1.  Explain the key assumptions and limitations of linear regression
 2.  Outline when and why quantile regression is preferred
-3.  Describe how asymmetric loss functions weight over- and under-prediction at different points of the outcome distribution
+3.  Describe how quantile regression asymmetrically weights the available data to model different parts of the outcome distribution.
 4.  Fit and interpret quantile regression models using the *quantreg* package in R
 5.  Visualise and communicate the results of quantile regression effectively
 :::
@@ -97,7 +97,7 @@ engel_base <- ggplot(engel, aes(income, foodexp)) +
 
 ```
 
-## Fit a linear model 
+## Fit a linear model
 
 Let's start by fitting a regular linear regression model, as you saw how to do [last semester](https://3mmarand.github.io/R4BABS/pgt52m/week-6/overview.html).
 
@@ -144,7 +144,7 @@ engel_lm_plot <- engel_base +
 engel_lm_plot
 ```
 
-## Fit a median regression model 
+## Fit a median regression model
 
 Our checks above indicated that a regular linear (ordinary least squares) regression model may not be a good fit to the data. Indeed, the plot indicates particularly poor estimation for the very lowest income households, as the regression line passes above them.
 
@@ -173,7 +173,7 @@ engel_50_plot <- engel_lm_plot +
 engel_50_plot
 ```
 
-## Model multiple quantiles 
+## Model multiple quantiles
 
 We can see that there might be heterogeneity in this relationship: the spread of points increases as income increases. Let's use quantile regression to model these relationships at different parts of the distribution.
 
