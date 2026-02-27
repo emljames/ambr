@@ -206,8 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
   <li><a href="#measurement-model-1" id="toc-measurement-model-1" class="nav-link" data-scroll-target="#measurement-model-1"><span class="header-section-number">4.2</span> Measurement model</a></li>
   <li><a href="#structural-model" id="toc-structural-model" class="nav-link" data-scroll-target="#structural-model"><span class="header-section-number">4.3</span> Structural model</a></li>
-  <li><a href="#predicting-mathematical-reasoning-from-early-numeric-skills" id="toc-predicting-mathematical-reasoning-from-early-numeric-skills" class="nav-link" data-scroll-target="#predicting-mathematical-reasoning-from-early-numeric-skills"><span class="header-section-number">4.4</span> Predicting mathematical reasoning from early numeric skills</a></li>
-  <li><a href="#dealing-with-missing-data" id="toc-dealing-with-missing-data" class="nav-link" data-scroll-target="#dealing-with-missing-data"><span class="header-section-number">4.5</span> Dealing with missing data</a></li>
+  <li><a href="#dealing-with-missing-data" id="toc-dealing-with-missing-data" class="nav-link" data-scroll-target="#dealing-with-missing-data"><span class="header-section-number">4.4</span> Dealing with missing data</a></li>
   </ul></li>
   <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
@@ -600,9 +599,6 @@ Take a break!
 <section id="structural-model" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="structural-model"><span class="header-section-number">4.3</span> Structural model</h2>
 <p>Now we have successfully modelled the latent constructs relating to early numeric skills, we can see whether they relate to long-term mathematical performance. The researchers followed up the same children two years later to see how Year 1 abilities predicted mathematical reasoning in Year 3.</p>
-</section>
-<section id="predicting-mathematical-reasoning-from-early-numeric-skills" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="predicting-mathematical-reasoning-from-early-numeric-skills"><span class="header-section-number">4.4</span> Predicting mathematical reasoning from early numeric skills</h2>
 <p>In our new model formula, we should specify how our latent constructs are measured just as we did before. However, we can now add a structural part to test whether mathematical reasoning (<code>t3_mr</code>) is predicted by (<code>~</code>) our two latent variables. This part of the model formula should feel familiar - you have written similar regression formulas in earlier practicals.</p>
 <p>Specify the model, and use the <code>sem()</code> function this time to fit it.</p>
 <div class="cell">
@@ -636,8 +632,8 @@ Take a break!
 </details>
 </div>
 </section>
-<section id="dealing-with-missing-data" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="dealing-with-missing-data"><span class="header-section-number">4.5</span> Dealing with missing data</h2>
+<section id="dealing-with-missing-data" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="dealing-with-missing-data"><span class="header-section-number">4.4</span> Dealing with missing data</h2>
 <p>Take a look at your SEM model output. What do you notice about the number of observations used in the model, relative to when we fitted the measurement model using only Year 1 data?</p>
 <p>In the lecture, we mentioned some possible ways of dealing with missing data, including using a different fitting algorithm called <em>Full Information Maximum Likelihood.</em> These techniques require several assumptions about the nature of missingness in the dataset, which we’ll be discussing in more detail in Week 10.</p>
 <p>However, its implementation in <em>lavaan</em> is surprisingly simple: we just need to add an argument within the <code>sem()</code> function to specify that we want missingness to be addressed using (full information) maximum likelihood estimation. Try adding <code>missing = "ML"</code> to your SEM model above, and inspect the output. You should see that the number of observations included in the model increase.</p>
