@@ -279,11 +279,11 @@ Learning objectives
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>hs_dat <span class="ot">&lt;-</span> HolzingerSwineford1939</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Type <code>?HolzingerSwineford1939</code> in your console to open the dataset description in the Help panel. Use R code to answer the following questions about the dataset:</p>
-<ul>
+<ol type="1">
 <li>How many pupils are included in the dataset?</li>
 <li>How many schools did they come from, and what was the distribution of pupils between the two?</li>
 <li>What was the age range of the participants?</li>
-</ul>
+</ol>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -378,7 +378,7 @@ Tip!
 <ul>
 <li><em>N</em> = (9*(9+1))/2 = 45</li>
 </ul></li>
-<li><strong>Number of parameters:</strong> The dashed lines in the diagram above show that the first loading of each latent variable is fixed to 1 by default (the <em>marker method</em>) described in the lecture. We can count the remaining free parameters to be estimated, including the remaining factor loadings (6), variance of latent variables (3), covariances between latent variables (3), and error variance for each measured variable (9) = 21 free parameters to be estimated.</li>
+<li><strong>Number of parameters:</strong> The dashed lines in the diagram above show that the first loading of each latent variable is fixed to 1 by default (the <em>marker method</em> described in the lecture). We can count the remaining free parameters to be estimated, including the remaining factor loadings (6), variance of latent variables (3), covariances between latent variables (3), and error variance for each measured variable (9) = 21 free parameters to be estimated.</li>
 <li><strong>Degrees of freedom:</strong> Number of data points (45) - Number of parameters (21) = 24</li>
 <li>The model is overidentified (= good).</li>
 </ul>
@@ -429,12 +429,12 @@ Tip!
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(hs_fit2, <span class="at">whatLabels =</span> <span class="st">"std"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ve specified that the parameter estimates are presented in standardised format (<code>"std"</code>) so that we can compare the estimates across different variables. You can change the <code>whatLabels</code> argument to <code>"par"</code> if you want them to be in the original units of the variables (as presented in the CFA output by default - we can similarly ask the summary output to present standardised units if we prefer!).</p>
+<p>We’ve specified that the parameter estimates are presented in standardised format (<code>"std"</code>) so that we can compare the estimates across different variables. You can change the <code>whatLabels</code> argument to <code>"par"</code> if you want them to be in the original units of the variables (as presented in the CFA output by default - we can similarly ask the summary output to present standardised units if we prefer).</p>
 <p>See if you can answer the following questions about the model:</p>
-<ul>
+<ol type="1">
 <li>Which two latent factors are most strongly correlated with each other? Which two the weakest?</li>
 <li>Which variable loads most strongly onto the visual factor? Which one most weakly?</li>
-</ul>
+</ol>
 <hr>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -502,7 +502,7 @@ Take a break!
 <span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>         <span class="at">t3_mult =</span> t3ml,</span>
 <span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>         <span class="at">t3_div =</span> t3dv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Despite being a subset, you’ll notice that this is still a lot of variables to be working with compared to previous weeks! Variables labelled with <em>t1</em> correspond to measures administered when the children were in Year 1; variables labelled with <em>t3</em> correspond to measures administered when the children were in Year 3. The key variables we will be working with are as follows:</p>
+<p>Despite being a subset of the dataset, you’ll notice that this is still a lot of variables to be working with compared to previous weeks! Variables labelled with <em>t1</em> correspond to measures administered when the children were in Year 1; variables labelled with <em>t3</em> correspond to measures administered when the children were in Year 3. The key variables we will be working with are as follows:</p>
 <ul>
 <li><strong>id:</strong> a unique identifier for each participant</li>
 <li><strong>t1_age_m:</strong> age in months at T1</li>
@@ -512,11 +512,11 @@ Take a break!
 <li><em>The final six columns reflect additional speeded arithmetic measures at T3. These are only relevant for the</em> “<em>Challenge yourself”</em> <em>task at the end.</em></li>
 </ul>
 <p>Answer the following questions about the dataset:</p>
-<ul>
+<ol type="1">
 <li>How many participants are there in the dataset?</li>
 <li>What is the range of participant ages at T1, in years?</li>
 <li>How many of those participants completed the mathematical reasoning task at T3 (<code>t3_mr</code>)?</li>
-</ul>
+</ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Show example code</summary>
@@ -539,14 +539,14 @@ Take a break!
 <h2 data-number="4.2" class="anchored" data-anchor-id="measurement-model-1"><span class="header-section-number">4.2</span> Measurement model</h2>
 <p>Use the code you learned in Part A to carry out the following analytical steps:</p>
 <ol type="1">
-<li><p>Use the <code>cor()</code> function to inspect the relationships between the nine different t1 mathematical tasks - ie. those that begin with t1_tc* and those that begin with t1_nc<em>.</em> Do the transcoding tasks (t1_tc*<em>)</em> tasks correlate more highly with each other than with the number comparison (t1_nc*) tasks?</p></li>
+<li><p>Use the <code>cor()</code> function to inspect the relationships between the nine different t1 mathematical tasks —ie. those that begin with <em>t1_tc</em> and those that begin with <em>t1_nc.</em> Do the transcoding tasks (t1_tc*<em>)</em> tasks correlate more highly with each other than with the number comparison (t1_nc*) tasks?</p></li>
 <li><p>Use confirmatory factor analysis to decide whether these early mathematical measures best reflect a single “numerical skill” ability or two different abilities.</p>
-<ul>
+<ol type="a">
 <li>Specify and fit a one-factor model, where all nine variables load onto a single latent variable named “numerical”. Inspect the fit of this model.</li>
 <li>Specify and fit a two-factor model, where the three transcoding variables (t1_tc*<em>)</em> load onto a “transcoding” factor, and the six number comparison variables (t1_nc*) load onto a “num_comparison” factor. Inspect the fit of this model.</li>
 <li>Decide which model is a better fit to the data.</li>
 <li>Do you think we need to consider any further model modifications?</li>
-</ul></li>
+</ol></li>
 </ol>
 <p>Your two models should look as follows:</p>
 <div class="cell">
@@ -599,7 +599,7 @@ Take a break!
 <section id="structural-model" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="structural-model"><span class="header-section-number">4.3</span> Structural model</h2>
 <p>Now we have successfully modelled the latent constructs relating to early numeric skills, we can see whether they relate to long-term mathematical performance. The researchers followed up the same children two years later to see how Year 1 abilities predicted mathematical reasoning in Year 3.</p>
-<p>In our new model formula, we should specify how our latent constructs are measured just as we did before. However, we can now add a structural part to test whether mathematical reasoning (<code>t3_mr</code>) is predicted by (<code>~</code>) our two latent variables. This part of the model formula should feel familiar - you have written similar regression formulas in earlier practicals.</p>
+<p>In our new model formula, we should specify how our latent constructs are measured just as we did before. However, we can now add a structural part to test whether mathematical reasoning (<code>t3_mr</code>) is predicted by (<code>~</code>) our two latent variables. This part of the model formula should feel familiar—you have written similar regression formulas in earlier practicals.</p>
 <p>Specify the model, and use the <code>sem()</code> function this time to fit it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Longitudinal model specification</span></span>
@@ -615,11 +615,11 @@ Take a break!
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>fit_predict <span class="ot">&lt;-</span> <span class="fu">sem</span>(pred_mr, <span class="at">data =</span> maths_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Complete the following remaining steps for your analysis:</p>
-<ul>
+<ol type="1">
 <li>Evaluate the model: Is it a good fit to the data? Are any further modifications required/justified?</li>
 <li>Use <code>semPaths()</code> to plot the path diagram.</li>
 <li>Interpret the output: Which early numerical skills is a stronger predictor of later mathematical reasoning?</li>
-</ul>
+</ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
