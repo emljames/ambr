@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Jamie Cockcroft">
+
+<title>Week 5: Item Response Theory – AMBR</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-01fbe853b7980beddfee3b159dd84a08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AMBR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ambr0_guide.html"> 
+<span class="menu-text">Set-up guide</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-content" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly content</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-content">    
+        <li>
+    <a class="dropdown-item" href="./ambr1_meta-analysis.html">
+ <span class="dropdown-text">W1: Meta-analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr2_mixed-effects.html">
+ <span class="dropdown-text">W2: Mixed effects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr3_quantile.html">
+ <span class="dropdown-text">W3: Quantile regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr4_sem.html">
+ <span class="dropdown-text">W4: SEM</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Week 5: Item Response Theory</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Dr.&nbsp;Jamie Cockcroft </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Outline</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  </ul></li>
+  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  <li><a href="#item-response-theory" id="toc-item-response-theory" class="nav-link" data-scroll-target="#item-response-theory"><span class="header-section-number">3.2</span> Item Response Theory</a></li>
+  </ul></li>
+  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  <li><a href="#downloading-the-dataset" id="toc-downloading-the-dataset" class="nav-link" data-scroll-target="#downloading-the-dataset"><span class="header-section-number">4.2</span> Downloading the dataset</a></li>
+  <li><a href="#fitting-the-model-1" id="toc-fitting-the-model-1" class="nav-link" data-scroll-target="#fitting-the-model-1"><span class="header-section-number">4.3</span> Fitting the model</a></li>
+  </ul></li>
+  <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
+  </ul></li>
+  <li><a href="#appendix-a-classical-test-theory" id="toc-appendix-a-classical-test-theory" class="nav-link" data-scroll-target="#appendix-a-classical-test-theory"><span class="header-section-number">7</span> Appendix A: Classical Test Theory</a>
+  <ul class="collapse">
+  <li><a href="#item-facility" id="toc-item-facility" class="nav-link" data-scroll-target="#item-facility"><span class="header-section-number">7.1</span> Item Facility</a></li>
+  <li><a href="#item-discrimination" id="toc-item-discrimination" class="nav-link" data-scroll-target="#item-discrimination"><span class="header-section-number">7.2</span> Item Discrimination</a></li>
+  <li><a href="#better-yet" id="toc-better-yet" class="nav-link" data-scroll-target="#better-yet"><span class="header-section-number">7.3</span> Better yet…</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr5_irt.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr5_irt.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>As a reminder, the learning objectives for this week are</strong>:</p>
+<ol type="1">
+<li>Explain the limitations of classical test theory and justify the use of item response theory</li>
+<li>Describe the structure and interpretation of the one- and two-parameter IRT models</li>
+<li>Interpret item difficulty, discrimination, and item characteristic curves in applied contexts</li>
+<li>Evaluate core IRT assumptions, including unidimensionality, monotonicity, and local independence</li>
+<li>Fit, compare, and interpret IRT models using the <code>mirt</code> package in R, including assessment of model fit</li>
+</ol>
+</div>
+</div>
+<p>In this week’s lecture we introduced Item Response Theory as a model-based alternative to Classical Test Theory. We discussed how IRT links item responses to an underlying latent trait, and how item difficulty and discrimination parameters shape the probability of endorsement or correct responding across levels of ability. We also considered the assumptions that underpin these models and how they influence interpretation.</p>
+<p>In today’s practical, you will implement these ideas directly in R. You will fit and compare one- and two-parameter models using <code>mirt</code>, evaluate model fit and assumptions, and interpret item and test information. We will begin with multiple-choice exam data from the undergraduate B.Sc. Psychology module Brain and Behaviour, and then apply the same workflow to questionnaire data from the Taylor Manifest Anxiety</p>
+<hr>
+</section>
+<section id="setting-up" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setting up</h1>
+<section id="packages" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">2.1</span> Packages</h2>
+<p>Today’s practical will use the following packages. You will need to install each one, before loading them at the top of your script.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data wrangling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)     <span class="co"># for omega/alpha</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mirt)      <span class="co"># for item response modelling</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-a-core-example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part A: Core example</h1>
+<section id="introduction-to-the-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</h2>
+<p>We will start with real exam data. Specifically, we will use student responses from a multiple-choice examination in the Brain and Behaviour module. This module is part of the undergraduate B.Sc. in Psychology at the University of York. The exam consisted of 40 questions, covering the two main topics taught in the module. The dataset is in wide format, with each row representing a single student and each column representing one question (<code>Q1</code> to <code>Q40</code>) and whether or not they got the answer correct (1) or incorrect (0).</p>
+<p>Let’s begin by loading the dataset into R. Note that this assumes you have downloaded the dataset from the VLE and saved it in the appropriate <code>/data</code> folder in your project directory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>brain <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/ambr5_brain-and-behaviour.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exploring-the-data" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="exploring-the-data"><span class="header-section-number">3.1.1</span> Exploring the data</h3>
+<p>Before running any IRT models, you should explore the dataset to understand the responses and check for any possible issues.</p>
+<p>Use your preferred R code to answer the following questions about the dataset:</p>
+<ul>
+<li>How many students took the exam?</li>
+<li>Are there any missing responses for each item?</li>
+<li>Does any student have one or more missing responses?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many students took the exam? </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(brain) <span class="co"># 293 students</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Are there any missing responses:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) per item? </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(brain)) <span class="co"># No missing responses per item</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) per student? </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rowSums</span>(<span class="fu">is.na</span>(brain)) <span class="co"># No missing responses per student</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="item-response-theory" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="item-response-theory"><span class="header-section-number">3.2</span> Item Response Theory</h2>
+<p>Item Response Theory (IRT) takes a different approach to Classical Test Theory (CTT, see <a href="#appendix-a-classical-test-theory">Appendix A: Classical Test Theory</a> if you are interested in learning a little more). IRT models the probability of a correct response as a function of a latent trait, often denoted theta. In our case, theta represents the underlying ability of students in the Brain and Behaviour module.</p>
+<p>To fit an IRT model, we will be using the <code>mirt</code> package. However, we need to ensure that the dataset is in the correct format for the package to run correctly. <code>mirt</code> expects a data frame in which each row corresponds to one individual and each column corresponds to one item. As this is dichotomous data, the values must be coded as either 0 (incorrect/no endorsement) or 1 (correct/endorsement). No additional variables should be included in the data object passed to <code>mirt</code> (e.g., participant IDs, gender, age). As such, we need to create a cleaned data frame that contains only the 40 MCQ responses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the item responses in the data frame</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>brain_items <span class="ot">&lt;-</span> brain <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Q1<span class="sc">:</span>Q40)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="unidimensionality" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="unidimensionality"><span class="header-section-number">3.2.1</span> Unidimensionality</h3>
+<p>Before creating the IRT model, we should first check the assumption of unidimensionality; this means that a single latent trait accounts for the relationship among items. In practical terms, we are assuming that performance on all 40 questions is driven primarily by one underlying ability dimension. We can do a check of this using the <code>omega</code> function from the <code>psych</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>omega_output <span class="ot">&lt;-</span> <span class="fu">omega</span>(<span class="at">m =</span> brain_items, <span class="co"># Data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">poly =</span> <span class="cn">TRUE</span>,     <span class="co"># Specify tetrachoric correlation </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">plot =</span> <span class="cn">FALSE</span>)    <span class="co"># Do not produce plot</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print hierarchical omega</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Hierarchical omega (ωh) is:"</span>, <span class="fu">round</span>(omega_output[[<span class="st">"omega_h"</span>]], <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hierarchical omega (ωh) is: 0.48 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print explained common variance</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Explained common variance (ECV) is:"</span>, <span class="fu">round</span>(omega_output[[<span class="st">"ECV"</span>]], <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Explained common variance (ECV) is: 0.4 </code></pre>
+</div>
+</div>
+<p>When you run <code>omega</code>, the output gives many statistics, but for IRT we only need to focus on two: hierarchical omega (<span class="math inline">\(\mathsf{\omega}_h\)</span>) and explained common variance (ECV).</p>
+<p>In this analysis, <span class="math inline">\(\mathsf{\omega}_h\)</span> is 0.48, which means that only 48% of the variance in the total score comes from a single general factor. The ECV is 0.40, which shows that 40% of the shared variance among items comes from the general factor, while the remaining 60% is attributable to group factors. Values above 0.70 are generally considered evidence of unidimensionality, though values above 0.50 are sometimes considered “essentially” unidimensional (<a href="https://doi.org/10.1080/00223891.2015.1089249">Rodriguez, Reise, &amp; Haviland, 2015</a>). Strictly speaking, a unidimensional IRT model may not be ideal and a multidimensional IRT model may be better suited. However, for the purposes of this practical we will proceed with the unidimensional model!</p>
+</section>
+<section id="two-parameter-2pl-modelling" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="two-parameter-2pl-modelling"><span class="header-section-number">3.2.2</span> Two-parameter (2PL) Modelling</h3>
+<p>We will begin with the two parameter logistic model (2PL). In this model, each item is characterised by two parameters: its discrimination (<code>a</code>) and difficulty (<code>b</code>). Items are allowed to differ in how strongly they relate to the latent trait.</p>
+<section id="fitting-the-model" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="fitting-the-model"><span class="header-section-number">3.2.2.1</span> Fitting the model</h4>
+<p>To fit the 2PL model we use the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model_2PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(<span class="at">data =</span> brain_items,        <span class="co"># The item data</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">formula =</span> <span class="st">"BB = Q1-Q40"</span>,   <span class="co"># The model that will be fit</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="dv">1</span>,                 <span class="co"># How many dimensions?</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">itemtype =</span> <span class="st">"2PL"</span>,          <span class="co"># Model type</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">SE =</span> <span class="cn">TRUE</span>,                 <span class="co"># Compute SE's</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">verbose =</span> <span class="cn">FALSE</span>)           <span class="co"># No printing!</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the model estimates</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model_coef_2PL <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="at">object =</span> model_2PL,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">simplify =</span> <span class="cn">TRUE</span>,  <span class="co"># Keep only relevant information</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">IRTpars =</span> <span class="cn">TRUE</span>)   <span class="co"># Use a/b not a/d</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Discrimination reflects how sharply the probability of a correct response increases as <em>θ</em> increases, while difficulty indicates where along <em>θ</em> a person has a 50% chance of answering correctly. Put the table of item statistics into a new variable by doing <code>item_stats &lt;- model_coef_2PL$items</code> and take a look. If you sort the items by <code>b</code>, which is the easiest and which is the hardest? If you sort by <code>a</code>, which items discriminate most strongly?</p>
+</section>
+<section id="model-fit-and-assumption-checks" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="model-fit-and-assumption-checks"><span class="header-section-number">3.2.2.2</span> Model Fit and Assumption Checks</h4>
+<p>At this stage, before examining person or item level diagnostics, it is appropriate to evaluate <a href="#global-model-fit">global model fit</a> along with the three core assumptions of IRT: <a href="#unidimensionality">Unidimensionality</a>, <a href="#local-independence">local independence</a> and <a href="#monotonicity">monotonicity</a>. We already checked for unidimensionality, so we will just review local independence and monotonicity.</p>
+<section id="global-model-fit" class="level5" data-number="3.2.2.2.1">
+<h5 data-number="3.2.2.2.1" class="anchored" data-anchor-id="global-model-fit"><span class="header-section-number">3.2.2.2.1</span> Global Model Fit</h5>
+<p>In <code>mirt</code> they have a function to obtain goodness of fit statistics for your model: <code>M2()</code>. This is recommended to ensure the model has fit the data well.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the fit statistics for the model</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>model_fit_2PL <span class="ot">&lt;-</span> <span class="fu">M2</span>(model_2PL)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model_fit_2PL, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       M2  df    p RMSEA RMSEA_5 RMSEA_95 SRMSR  TLI  CFI
+stats 767 740 0.24 0.011       0    0.021 0.053 0.98 0.98</code></pre>
+</div>
+</div>
+<p>The first value M2 is a limited information goodness of fit test. It addresses the question: <em>Does this model adequately reproduce the observed item means and inter-item associations seen in the real data?</em> A significant result suggests it does not. However, much like chi-square goodness of fit measures, significance is easy to achieve with large samples. As such, people tend to focus on other fit statistics: Root Mean Square Error of Approximation (RMSEA), Comparative Fit Index (CFI), and Tucker Lewis Index (TLI). People tend to interpret these in the same way for IRT and Structural Equation Modelling (SEM).</p>
+<p>In our case, the M2 statistic was non-significant, <em>χ²</em>(740) = 766.79, <em>p</em> = .240. This indicates the model provides a relatively good fit for the data. Similarly, RMSEA was 0.01, CFI was 0.98 and the TLI was 0.98; these values all suggest good fit. As such, our model seems to be doing very well!</p>
+</section>
+<section id="local-independence" class="level5" data-number="3.2.2.2.2">
+<h5 data-number="3.2.2.2.2" class="anchored" data-anchor-id="local-independence"><span class="header-section-number">3.2.2.2.2</span> Local Independence</h5>
+<p>Local independence implies that any association between items should be fully explained by the latent trait (i.e., after conditioning on <em>θ</em>, there should be no residual association). To assess it, we can use the <code>residuals</code> functions from <code>mirt</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the Yen (1984) Q3 statistic</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>residuals_2PL <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model_2PL, <span class="at">type =</span> <span class="st">"Q3"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Put values into a long-format for easier reading</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use as.data.frame() as residuals_2PL is a matrix and we need to keep row names</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>residuals_long <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(residuals_2PL) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make sure each row represents the first item in the pair</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"item1"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make the data frame go to longer format</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Put everything except the new column (item1) into long format</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>item1,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The extra column is the second item in the pair</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"item2"</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The value is the Q3 statistic</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Q3"</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The values are symmetric in the matrix, so keep only upper triangle!</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">&lt;</span> item2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We specifically asked for the Q3 (<a href="https://doi.org/10.1177/014662168400800201">Yen, 1984</a>) statistic. Q3 is the residual correlation between pairs of items after conditioning on the estimated latent trait. It indicates whether two items remain associated beyond what the IRT model explains: values close to zero support local independence, positive values suggest excess association, and negative values reflect less association than expected under the model. There is no universal cut-off for Q3, although values above about 0.20 are often used as flags. A really great discussion on local dependence and how to assess it can be found in <a href="https://doi.org/10.1177/0146621616677520">Christensen et al.&nbsp;(2017)</a>.</p>
+<p>Use your preferred R code to address the following question: Are any of the Q3 statistics ≥ .20? Ensure you take the absolute value when checking for this!</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>flagged_items <span class="ot">&lt;-</span> residuals_long <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Identify any problematic item pairs</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(Q3) <span class="sc">&gt;</span> <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>If one or more item pairs show large residual associations, this suggests a possible violation of local independence, but it does not automatically require item removal. First, you should inspect the flagged items. Consider whether they share wording, content, or reflect a narrower sub-skill that could explain the residual association. Next, you should assess the practical impact. Temporarily remove one of the items and refit the model. If parameter estimates and overall fit change little, the dependence is likely minor. If estimates shift meaningfully, the violation may be substantively important. For the time being, let’s just move on!</p>
+</section>
+<section id="monotonicity" class="level5" data-number="3.2.2.2.3">
+<h5 data-number="3.2.2.2.3" class="anchored" data-anchor-id="monotonicity"><span class="header-section-number">3.2.2.2.3</span> Monotonicity</h5>
+<p>Monotonicity means that the probability of endorsing or correctly answering an item should increase as the latent trait increases. To assess monotonicity you can look at the item parameters we extracted earlier (<code>item_stats</code>). You should really be checking whether any discrimination (<code>a</code>) estimates are negative or close to zero. However, I often find it easier to look at item characteristic curves (ICC).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the item characteristic curve for all items</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model_2PL, <span class="at">type =</span> <span class="st">"trace"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If a curve decreases, this suggests a violation. Can you identify which questions may be problematic in this set?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Problematic items?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ambr5_irt_files/figure-html/focused_plot-1.png" class="quarto-figure quarto-figure-center figure-img" width="532" height="347"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You should see that one item in particular is very problematic (<code>Q33</code>). The discrimination value for this item is -0.12. Because this value is negative, the item characteristic curve is non-monotonic, meaning higher ability is associated with a lower probability of answering correctly.</p>
+<p>Of course, there are some items that tell us very little about the latent trait we are interested in. For example, <code>Q3</code>. For <code>Q3</code>, the item discrimination is 0.05. This value is close to zero, so the ICC is almost flat, meaning the item barely differentiates between low and high ability and provides little information about the latent trait.</p>
+</div>
+</div>
+</div>
+<p>If you find an item with non-monotonicity, the first step is to check for a scoring or coding error. Negative slopes are often caused by reverse coding or an incorrect answer key. If scoring is correct, inspect the item content to see whether it is ambiguous, misleading, or measuring a different skill than the rest of the test. In practice, items that remain non-monotonic after checking scoring are usually removed from the scale or rewritten for future use, because they undermine interpretation of the latent trait.</p>
+</section>
+</section>
+<section id="item-fit" class="level4" data-number="3.2.2.3">
+<h4 data-number="3.2.2.3" class="anchored" data-anchor-id="item-fit"><span class="header-section-number">3.2.2.3</span> Item Fit</h4>
+<p>We have checked the global model fit and the assumptions of the model. However, even if the overall model fits well, individual items could still behave unexpectedly! To assess item fit, we can use the <code>itemfit()</code> function from <code>mirt</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make dataframe of the person fit statistics </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>item_fit <span class="ot">&lt;-</span> <span class="fu">itemfit</span>(model_2PL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you view the <code>item_fit</code> statistics you just generated you will see many columns. The one to focus on is the <code>RMSEA.S_X2</code> value. <code>RMSEA.S_X2</code> gives you an idea of the magnitude of misfit per item and is (a little) less sensitive to sample size. The closer to 0 the value, the better the fit. You can treat these similar to the RMSEA values we discussed for global fit.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What about Q33?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>We know that <code>Q33</code> is non-monotonic, but it isn’t flagged by the item fit statistics. Why?</p>
+<p>Well, it’s because you’re asking a different question. Remember, the S-X² statistic is interested in whether the observed response across ability groups matches the response curve generated by the model. It does not care if the slope is positive or negative, just whether the data fit with the models prediction. In this case, the data clearly follow the same pattern as the model (i.e., a negative association with the latent trait).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="total-test-information" class="level4" data-number="3.2.2.4">
+<h4 data-number="3.2.2.4" class="anchored" data-anchor-id="total-test-information"><span class="header-section-number">3.2.2.4</span> Total (Test) Information</h4>
+<p>We can also evaluate how well the entire test measures the latent trait. In IRT, this is done using the concept of total (test) information. Total information describes how precisely the test estimates ability at different levels of <em>θ</em>. More information means more precision and smaller standard errors. Less information means greater uncertainty in ability estimates. In <code>mirt</code>, test information can be obtained using:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of theta values from -4 to 4 (must be a matrix for mirt)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.01</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the test information at each specified theta value</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>test_info <span class="ot">&lt;-</span> <span class="fu">testinfo</span>(model_2PL, <span class="at">Theta =</span> theta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use your preferred R code to answer the following questions:</p>
+<ul>
+<li>At what <em>θ</em> value does the test provide the most information?</li>
+<li>Can you generate a test information curve where ability is on the x-axis and the test information is on the y-axis? Compare information at:
+<ul>
+<li><em>θ</em> = −1.96,</li>
+<li><em>θ</em> = 0, and</li>
+<li><em>θ</em> = +1.96
+<ul>
+<li>What does this tell you about this test?</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a tibble of the theta and test information values</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>test_info_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">as.vector</span>(theta),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">information =</span> <span class="fu">as.vector</span>(test_info))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Where do we get the most information?</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>test_info_df <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(information, <span class="at">n =</span> <span class="dv">1</span>) <span class="co"># θ = -0.75, Information = 5.11</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the plot</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> test_info_df,</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> theta,</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> information)) <span class="sc">+</span> </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>,<span class="dv">0</span>,<span class="fl">1.96</span>), </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the three ability values, what information do we get? </span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>test_info_df <span class="sc">%&gt;%</span> </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(theta <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>,<span class="dv">0</span>,<span class="fl">1.96</span>))</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep in mind the maximum information was 5.11.</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co"># At θ = -1.96, information = 5.06, which is about 78% of the maximum.</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># At θ = 0, information = 4.63, which is about 91% of the maximum.</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co"># At θ = 1.96, information = 3.16, which is about 37% of the maximum.</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># This shows that the test is most precise for slightly below-average</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># and average ability respondents, but precision declines towards higher</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ability levels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/total_information.png" class="img-fluid figure-img" alt="Test information curve plotted across ability levels from −4 to 4. Vertical reference lines indicate the mean (θ = 0) and the central 95% range (θ = −1.96 and 1.96)." width="378"></p>
+<figcaption><strong>Total information curve</strong>. Vertical lines indicate θ = 0 and ±1.96, representing the mean and the central 95% of the ability distribution.</figcaption>
+</figure>
+</div>
+<p>The total information curve shows: <em>θ</em> on the x-axis and information on the y-axis. High points on the curve indicate regions where the test is most precise. Low points indicate regions where ability estimates are less precise. In our example, our test appears to be suited for individuals with slightly lower-to-average abilities. However, we do see it still gives us some information about higher ability students.</p>
+</section>
+</section>
+<section id="one-parameter-1pl-rasch-modelling" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="one-parameter-1pl-rasch-modelling"><span class="header-section-number">3.2.3</span> One-parameter (1PL, Rasch) Modelling</h3>
+<p>Let’s quickly recompute the model as a 1PL fit (i.e., only item difficulty (<code>b</code>) varies).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a 1PL (Rasch) model</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model_1PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> brain_items,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="dv">1</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">itemtype =</span> <span class="st">"1PL"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">SE =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can look at the coefficients as we did before, what do you notice? One thing that should be obvious is that discrimination (<code>a</code>) is now fixed to a value of 1, but difficulty (<code>b</code>) varies. In other words, the model assumes that all items are equally sensitive to ability and differ only in their level of difficulty. Though a bold assumption, it is possible that this model provides a better overall fit to the data. You could also check all of the other aspects of the model as we did with the 2PL if you wished to.</p>
+<section id="model-comparison" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="model-comparison"><span class="header-section-number">3.2.3.1</span> Model Comparison</h4>
+<p>However, for the practical, let’s just have a quick look at which model provides the best overall fit. You can do this using this code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model_comparison <span class="ot">&lt;-</span> <span class="fu">anova</span>(model_1PL, model_2PL)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model_comparison, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               AIC    SABIC       HQ      BIC   logLik    X2 df p
+model_1PL 14864.15 14884.51 14923.11 15011.36 -7392.08           
+model_2PL 14730.65 14771.37 14848.57 15025.07 -7285.33 213.5 40 0</code></pre>
+</div>
+</div>
+<p>Three out of four information criteria favour the 2PL model (remember - less is better!), suggesting that allowing item discriminations to vary provides a better balance between fit and complexity. BIC, which penalises additional parameters more strongly, favours the simpler 1PL model. Given most information criteria favour the 2PL, it is likely we should use the 2PL model to understand this test!</p>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Take a break!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you haven’t already taken a break today, we suggest you do so before you start the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/break.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Take a break" width="227"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+</section>
+<section id="part-b-apply-your-knowledge" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part B: Apply your knowledge</h1>
+<section id="introduction-to-the-dataset-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</h2>
+<p>We will be working with a dataset from <a href="https://openpsychometrics.org/">Open Psychometrics</a> containing 5,410 responses to the <strong>Taylor Manifest Anxiety Scale (TMA)</strong>. As noted in the lecture, the TMA consists of <strong>50 questionnaire items</strong>, each designed to measure anxiety. While all items aim to measure general anxiety, they target <strong>different dimensions</strong> of anxiety, including:</p>
+<ul>
+<li><strong>Cognitive symptoms</strong> (e.g., Q11: “I worry quite a bit over possible misfortunes”)</li>
+<li><strong>Physical symptoms</strong> (e.g., Q16: “I sweat very easily even on cool days”)</li>
+<li><strong>Emotional responses</strong> (e.g., Q25: “I am easily embarrassed”)</li>
+</ul>
+<p>The dataset is in <strong>wide format</strong>, meaning that each row represents a single participant. It includes the following variables:</p>
+<ul>
+<li><strong><code>score</code></strong>: the participant’s total score on the TMA</li>
+<li><strong><code>age</code></strong>: the participant’s age in years</li>
+<li><strong><code>gender</code></strong>: the participant’s self-reported gender, coded as:
+<ul>
+<li><code>0 = None</code></li>
+<li><code>1 = Male</code></li>
+<li><code>2 = Female</code></li>
+<li><code>3 = Other</code></li>
+</ul></li>
+<li><strong><code>Q1 – Q50</code></strong>: the participant’s responses to the 50 questionnaire items, where each column corresponds to one item.</li>
+</ul>
+</section>
+<section id="downloading-the-dataset" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="downloading-the-dataset"><span class="header-section-number">4.2</span> Downloading the dataset</h2>
+<p>The dataset is provided as a ZIP file on Open Psychometrics. Due to it being a ZIP file, we cannot load it directly into R. We first need to:</p>
+<ol type="1">
+<li>Download the ZIP file.</li>
+<li>Unzip the contents.</li>
+<li>Rename the files to more informative names.</li>
+<li>… and then load the data into R.</li>
+</ol>
+<p>This means there are a few additional data management steps before analysis! I will take you through that below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Download the ZIP file into the data subfolder</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"http://openpsychometrics.org/_rawdata/TMA.zip"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"data/TMA.zip"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"wb"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Unzip the downloaded file </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(<span class="st">"data/TMA.zip"</span>, <span class="at">exdir =</span> <span class="st">"data"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Rename the dataset so it is more informative</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">file.rename</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="st">"data/TMA/data.csv"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">to   =</span> <span class="st">"data/TMA/ambr5_TMA-data.csv"</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can load the data in and make sure we are only working with relevant parts.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in data </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>anxiety <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/TMA/ambr5_TMA-data.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select only the items (remove age, score and gender)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Q1<span class="sc">:</span>Q50) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># As noted in the codebook.txt file, answers are coded as:</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1 = TRUE, 2 = FALSE, 0 = NOT ANSWERED.</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Need to fix this to be 1 = True, 0 = False and NA = Not answered</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Recode all items Q1 to Q50</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>      Q1<span class="sc">:</span>Q50,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># 0 becomes NA, 2 becomes 0, and 1 stays as 1. </span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">ifelse</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, <span class="fu">ifelse</span>(. <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Let's remove rows containing NAs for ease</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Above, we loaded the TMA dataset and retained only the questionnaire items. Due to how the responses were originally coded, we needed to recode them to match the format required for our analyses. Specifically, we converted responses to a 1 (endorsed the item), 0 (did not endorse the item), and NA (did not respond to the item). After that, we used the <code>drop_na</code> function to remove any rows containing <code>NA</code> values; this is known as listwise deletion. We are doing this here for simplicity.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning: Listwise Deletion Can be Bad!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Listwise deletion can reduce statistical power and may introduce bias. In research, missing data should be handled more carefully. The way we handle missing data depends on <strong>why data are missing</strong> and <strong>how much is missing</strong>. In Week 10, Emma will cover principled approaches to missing data, including methods that make better use of available information!</p>
+</div>
+</div>
+<section id="reverse-coding" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="reverse-coding"><span class="header-section-number">4.2.1</span> Reverse Coding?</h3>
+<p>Before fitting the IRT model, we must ensure that all items are scored correctly. In the TMA, higher scores should indicate higher anxiety. However, some items are written so that endorsement reflects lower anxiety rather than higher anxiety. These items must be reverse coded. For example, Q1 states: “I do not tire quickly”. Agreeing with this statement suggests lower anxiety. If endorsement were coded as 1, this would incorrectly indicate higher anxiety unless the item is reversed. There are 12 reverse coded items in the TMA. You should identify them by consulting the <code>codebook.txt</code> file you downloaded. The codebook specifies which items require reversal.</p>
+<p>Use your preferred R code to select those items and reverse their scores!</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify the items that are reverse coded...</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>reverse_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q1"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4"</span>, <span class="st">"Q9"</span>, <span class="st">"Q12"</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Q15"</span>, <span class="st">"Q18"</span>, <span class="st">"Q20"</span>, <span class="st">"Q29"</span>, <span class="st">"Q32"</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Q38"</span>, <span class="st">"Q50"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply reverse coding to those items only</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>anxiety <span class="ot">&lt;-</span> anxiety <span class="sc">%&gt;%</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>( </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_of</span>(reverse_items), <span class="sc">~</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(.), <span class="cn">NA</span>, <span class="dv">1</span> <span class="sc">-</span> .) </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>      ) </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Check the codebook!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always check the data and any corresponding codebooks before you do any analyses. If a coding scheme has been implemented, ensure you apply it accordingly.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="fitting-the-model-1" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="fitting-the-model-1"><span class="header-section-number">4.3</span> Fitting the model</h2>
+<p>It is now time to fit both a 1PL and a 2PL model to the <code>anxiety</code> data. Use the same workflow you applied to the <code>brain</code> dataset and adapt it to this new data. In doing so, address the questions listed below.</p>
+<ol type="1">
+<li><strong>Fit both a 1PL model and 2PL model to the data. Once both models have been estimated, compare them.</strong>
+<ul>
+<li>Which model provides the better overall fit?</li>
+<li>Do all the fit statistics agree on the best model?</li>
+</ul></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the 1PL model</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>anxiety_1PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> anxiety,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="dv">1</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">itemtype =</span> <span class="st">"1PL"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">SE =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Fi the 2PL model</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>anxiety_2PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> anxiety,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="dv">1</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">itemtype =</span> <span class="st">"2PL"</span>,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">SE =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Which model provides the best fit?</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># According to all statistics, the 2PL model provides the best fit. </span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(anxiety_1PL, anxiety_2PL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="2" type="1">
+<li><strong>After selecting your preferred model, evaluate how well it performs. Examine the global fit statistics using. Are RMSEA, CFI, and TLI within acceptable ranges?</strong></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assess the M2 fit for your chosen model</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># All fit statistics (except M2) show a good fit</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">M2</span>(anxiety_2PL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="3" type="1">
+<li><strong>You can then assess the different assumptions of IRT. For example, unidimensionality, local independence, monotonicity. Reflect on the following questions:</strong>
+<ul>
+<li>Does a single dominant factor account for most of the common variance?</li>
+<li>Are any items still correlated after controlling for the latent variable?
+<ul>
+<li>Is there any reason you can think of for those items to be highly correlated?</li>
+</ul></li>
+<li>Are any discrimination estimates negative or very close to zero?</li>
+</ul></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assess undimensionality</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The omega hierarchical value is 0.77 and ECV is 0.69. </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This suggests a dominant trait (anxiety) is present. </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>anxiety_uni <span class="ot">&lt;-</span> <span class="fu">omega</span>(<span class="at">m =</span> anxiety,     </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">poly =</span> <span class="cn">TRUE</span>,     </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">plot =</span> <span class="cn">FALSE</span>)    </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Assess local dependence</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>residuals_anxiety_2PL <span class="ot">&lt;-</span> <span class="fu">residuals</span>(anxiety_2PL, <span class="at">type =</span> <span class="st">"Q3"</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Put values into a long-format</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several items that have problematic correlations (e.g., Q6 - Q41)</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>residuals_anxiety_2PL_long <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(residuals_anxiety_2PL) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"item1"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>item1,</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"item2"</span>,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Q3"</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(item1 <span class="sc">&lt;</span> item2)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Assess monotonicity (ICC)</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co"># One item seems to be problematic: Q15! </span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(anxiety_2PL, <span class="at">type =</span> <span class="st">"trace"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="4" type="1">
+<li><strong>Explore the item parameter estimates.</strong>
+<ul>
+<li>Which items are easiest and hardest?</li>
+<li>Which discriminate most strongly?</li>
+<li>What do the item fit statistics tell you?</li>
+</ul></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab the a/b coefficients</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>model_coef_2PL_anxiety <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="at">object =</span> anxiety_2PL,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">simplify =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">IRTpars =</span> <span class="cn">TRUE</span>)   </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The easiest item is Q15, which also has the lowest discrimination. Poor fit?</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The hardest item is Q13. </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The item with the best discrimination is Q27, but for lower anxiety levels. </span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>item_stats_anxiety <span class="ot">&lt;-</span> model_coef_2PL_anxiety<span class="sc">$</span>items</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make dataframe of the person fit statistics</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># No items appear problematic. </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>item_fit <span class="ot">&lt;-</span> <span class="fu">itemfit</span>(anxiety_2PL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="5" type="1">
+<li><strong>Examine total information.</strong>
+<ul>
+<li><p>For total information, at what level of <em>θ</em> does the test provide the most precision?</p></li>
+<li><p>Is the scale more informative for low, average, or high anxiety?</p></li>
+</ul></li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of theta values from -4 to 4</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.01</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the test information at each specified theta value</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>test_info <span class="ot">&lt;-</span> <span class="fu">testinfo</span>(anxiety_2PL, <span class="at">Theta =</span> theta)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a tibble of the theta and test information values</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>test_info_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">as.vector</span>(theta),</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">information =</span> <span class="fu">as.vector</span>(test_info))</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the plot</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># We get the most precise information for low anxiety individuals </span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co"># (~1.14 SD below the mean trait). Information decreases quite rapidly</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># with very little information about those experiencing high anxiety. </span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> test_info_df,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> theta,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> information)) <span class="sc">+</span> </span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="part-c-challenge-yourself" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part C: Challenge yourself!</h1>
+<p>So far, you have examined total test information, which reflects the sum of information across all items. However, information is defined at the item level. Each question contributes differently to measurement precision across the latent trait continuum.</p>
+<p>In this challenge, you will generate item information for individual items. You will then plot the information for those individual items using <code>ggplot()</code>.</p>
+<p>Let’s start with just one individual item to begin with. Using your preferred model from Part B:</p>
+<ul>
+<li>Create a sequence of θ values from −4 to +4, as you did previously.</li>
+<li>Use the <code>testinfo()</code> function from <code>mirt</code> to extract information for individual items.</li>
+<li>Convert the output into a tidy data frame suitable for plotting.</li>
+<li>Generate a <code>ggplot()</code> with θ on the x-axis and item information on the y-axis.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for a hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You may find using the help page useful for the function <code>testinfo</code> to see what arguments it can accept and their impact.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of theta values from -4 to 4</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.01</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract information from Q1</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>q1_test_info_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> <span class="fu">as.vector</span>(theta),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">information =</span> <span class="fu">as.vector</span>(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">testinfo</span>(anxiety_2PL,                <span class="co"># Extract for anxiety model</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">Theta =</span> theta,              <span class="co"># For these specific thetas</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">which.items =</span> <span class="dv">1</span>)            <span class="co"># Item 1 of the questionnaire (Q1)))</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    )        </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the information curve for Q1</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1_test_info_df,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> theta,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> information)) <span class="sc">+</span> </span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now that you have done this for a single item, how about we plot <strong>ALL</strong> of the items? Extend your code to compare multiple items on the same plot. To do this, you will need to extract information for several items, combine the results into one data frame, and include an item identifier variable so that you can facet the plots.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for a hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A for loop may be useful here! But there are some useful tools in the <code>purrr</code> package that can help you get around using for loops in R. For example, check out <code>map_dfr</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the item names from the dataset (e.g., "Q1" to "Q50")</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>item_names <span class="ot">&lt;-</span> <span class="fu">names</span>(anxiety)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop over all items in the model and compute item information</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># map_dfr() iterates over each item index</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>item_info_df <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get a sequence of values for each item (e.g., 1, 2, 3...)</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the testinfo accepts only numeric inputs, not item names!</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seq_along</span>(item_names),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># For each item index, create a tibble of theta and information values</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> <span class="fu">tibble</span>(</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repeat the full theta grid for this item</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta =</span> <span class="fu">as.vector</span>(theta),</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute item information at each theta value</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">information =</span> <span class="fu">as.vector</span>(</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">testinfo</span>(anxiety_2PL, <span class="at">Theta =</span> theta, <span class="at">which.items =</span> .x)</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a column identifying which item this is (for faceting)</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">item =</span> item_names[.x])) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert item to a factor with levels in the original item order</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">item =</span> <span class="fu">factor</span>(item, <span class="at">levels =</span> item_names)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot item information curves</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> item_info_df, </span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> theta, </span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> information)) <span class="sc">+</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Split the plots by item</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> item) <span class="sc">+</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>                      </span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="recap" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
+<p>This week you have learned about Item Response Theory. Today you have applied that knowledge to generate item response models to real datasets. Across the two datasets, you fit 1PL and 2PL models using <code>mirt</code>, interpreted item parameters, and compared models using information criteria and global fit statistics. You also evaluated the key assumptions of IRT, including unidimensionality, local independence, and monotonicity, and considered what violations might mean substantively. Finally, by examining total and item information, you saw how precision varies across the latent trait and how individual items contribute differently to measurement. Together, these steps illustrate how IRT provides a flexible framework for understanding item behaviour and test performance!</p>
+</section>
+<section id="further-learning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
+<p>This week’s <a href="https://eu.alma.exlibrisgroup.com/leganto/nui/lists/60979364670001381">core reading</a> includes a very <a href="https://assess.com/what-is-item-response-theory/">accessible blog post written by Nathan Thompson</a> that gives a good overview of IRT. If you want to gain more interactive experience in fitting IRT models in R, there are two online tutorials that I would recommend:</p>
+<ol type="1">
+<li>Dr Han Hao: <a href="https://hanhao23.github.io/project/irttutorial/">Intro to Item Response Modelling in R</a></li>
+<li>Dr Federico Ferrero: <a href="https://rpubs.com/fferrero/IRT_Tutorial?">Item Response Theory Practice with R</a></li>
+</ol>
+<p>Both go into detail about using the <code>mirt</code> package, and do go beyond the core material (e.g., using a three-parameter model), but still remain very easy to follow.</p>
+<hr>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Feedback!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via <a href="https://docs.google.com/forms/d/e/1FAIpQLSepox6r76dAkSDZRxybJwCvRX28M7BS1_81fGMybkqsvBPvRA/viewform?usp=publish-editor">this survey</a>, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.</p>
+<p>For more general questions about the practical, please post them on the <a href="https://vle.york.ac.uk/ultra/courses/_116420_1/engagement/discussion/_6408724_1?view=discussions&amp;disGroupId=default&amp;courseId=_116420_1">VLE Discussion Board</a>.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="appendix-a-classical-test-theory" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Appendix A: Classical Test Theory</h1>
+<p>You could also use Classical Test Theory (CTT) instead of Item Response Theory if you really wanted to. Just in case you get curious about how to do that, I have made this mini-tutorial. Two important concepts in this context are item facility and item discrimination! CTT is often used as a first step analysis of item properties. For the examples below, we will use the <code>brain</code> dataset.</p>
+<section id="item-facility" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="item-facility"><span class="header-section-number">7.1</span> Item Facility</h2>
+<p>Item facility measures how “easy” or “hard” an item is, calculated as the proportion of participants who answered it correctly or endorsed it. A high facility value, close to 1, indicates that most participants got the item right, while a low value, close to 0, indicates that the item was difficult or rarely endorsed. We can calculate this quite easily, as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get item facility (difficulty) values </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>item_facility <span class="ot">&lt;-</span> brain <span class="sc">%&gt;%</span>   </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the mean of each item (proportion correct)   </span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(Q1<span class="sc">:</span>Q40, <span class="sc">~</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span>      </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We can put this into long-format for easier reading!   </span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(),     <span class="co"># Put it all in long format         </span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"item"</span>,       <span class="co"># Call the Qu. number 'item'      </span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"facility"</span>)  <span class="co"># Put the mean per item as 'facility'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use your preferred R code to create a quick histogram to look at the distribution of facility values. If you have done it correctly, it should look something like this:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example... </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Distribution of facility values </span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> item_facility,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> facility)) <span class="sc">+</span>       </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot a histogram of values   </span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.1</span>,          <span class="co"># Pick an appropriate binwidth</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">"lightblue"</span>,      <span class="co"># Change fill                  </span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span>      <span class="co"># Change outline      </span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure x-axis spans 0 to 1 (possible facility range)   </span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/facility_distribution.png" class="img-fluid figure-img" alt="A histogram showing the distribution of facility values for the Brain and Behaviour dataset." width="354"></p>
+<figcaption>Distribution of facility values</figcaption>
+</figure>
+</div>
+</section>
+<section id="item-discrimination" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="item-discrimination"><span class="header-section-number">7.2</span> Item Discrimination</h2>
+<section id="total-scores" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="total-scores"><span class="header-section-number">7.2.1</span> Total Scores</h3>
+<p>For CTT, item discrimination requires a total score. To do this, create a copy of the <code>brain</code> dataset and call it <code>brain_scored</code>. In this new tibble, add a variable called <code>total_score</code>; this will represent the number of correct responses for each student. Once this variable is created, create a summary table called <code>brain_descriptives</code> that computes the mean, standard deviation, minimum, and maximum total_score.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click for a hint!
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You may find the <code>dplyr</code> function <code>rowwise</code> very useful for creating the <code>total_score</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several ways you could do this, but here is one example...  </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the tibble brain_scored  </span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>brain_scored <span class="ot">&lt;-</span> brain <span class="sc">%&gt;%</span>      </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ensure you work by row      </span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span>         </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate the total score of each student      </span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_score =</span> <span class="fu">sum</span>(<span class="fu">across</span>(Q1<span class="sc">:</span>Q40), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>         </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># To ensure rowwise doesn't remain in effect...      </span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()    </span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate descriptives for total_score  </span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>brain_descriptives <span class="ot">&lt;-</span> brain_scored <span class="sc">%&gt;%</span>       </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(          </span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_score =</span> <span class="fu">mean</span>(total_score),   <span class="co"># Mean is 23.6          </span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_score =</span> <span class="fu">sd</span>(total_score),       <span class="co"># SD is 6.00          </span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_score =</span> <span class="fu">min</span>(total_score),     <span class="co"># Minimum is 6          </span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_score =</span> <span class="fu">max</span>(total_score)      <span class="co"># Maximum is 40        </span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="item-total-correlation" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="item-total-correlation"><span class="header-section-number">7.2.2</span> Item-total correlation</h3>
+<p>Item discrimination, often expressed as the item-total correlation or <em>r<sub>it</sub></em>, measures how well an item differentiates between people with high and low total scores. It is calculated as the correlation between an item and the total test score, excluding that item. A high <em>r<sub>it</sub></em> value means that people with higher total scores tend to answer the item correctly, and those with lower total scores tend to get it wrong. Items with low discrimination contribute little to differentiating people.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot to long format </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>brain_long <span class="ot">&lt;-</span> brain_scored <span class="sc">%&gt;%</span>   </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Give unique ID to each student (just for tracking!)   </span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">participant =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span>        </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Put into long format, but only need actual questions   </span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Q1<span class="sc">:</span>Q40,                 </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"item"</span>,                 </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"response"</span>)  </span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute rit for each item </span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>item_rit <span class="ot">&lt;-</span> brain_long <span class="sc">%&gt;%</span>   </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by individual questions   </span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(item) <span class="sc">%&gt;%</span>   </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(     </span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute correlation (excluding the item of interest)     </span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">rit =</span> <span class="fu">cor</span>(response, brain_scored<span class="sc">$</span>total_score <span class="sc">-</span> response),     </span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span>   </span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="better-yet" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="better-yet"><span class="header-section-number">7.3</span> Better yet…</h2>
+<p>You can get all of these statistics in one step using the <code>psych</code> package with the <code>alpha</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the facility and rit values all in one go </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ctt_brain <span class="ot">&lt;-</span> <span class="fu">alpha</span>(brain)<span class="sc">$</span>item.stats  </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets look at the output </span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ctt_brain, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output provides a lot of values, but the ones we should focus on are the <code>mean</code>, which represents the item facility, and <code>r.drop</code>, which represents the item-total correlation (<em>r<sub>it</sub></em>). If you want to explore the other columns and understand what they represent, you can check the documentation using <code>?psych::alpha</code>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emljames\.github\.io\/ambr\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html">
+<p>License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
