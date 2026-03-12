@@ -247,15 +247,16 @@ Learning objectives
 <div class="callout-body-container callout-body">
 <p>As a reminder, the learning objectives for this week are:</p>
 <ol type="1">
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li>Describe the difference between variable-centred and person-centred approaches</li>
+<li>Explain how categorical latent variables can be used to identify unobserved subpopulations</li>
+<li>Fit and compare latent profile models that vary in their constraints and k-classes</li>
+<li>Interpret model output to identify subpopulations</li>
+<li>Discuss factors that affect the implementation and generalisability of mixture models</li>
 </ol>
 </div>
 </div>
-<p>We will use the <em>tidyLPA</em> package to fit these models. The advantage of this package is that it is designed to align with the <em>tidyverse</em> framework, and so we can use pipes to progress between each modelling step.</p>
+<p>This week we’ve taken a <em>person-centred</em> approach to analysing data: what can we learn about heterogeneity within the population? In today’s practical, we will continue to use latent profile analysis as our example of mixture modelling—i.e., we will use continuous variables as indicators of different subpopulations. We will start with a built-in dataset of student survey responses, before analysing a dataset of early mathematical skills from a recently published paper.</p>
+<p>We will use the <em>tidyLPA</em> package to fit these models. A nice advantage of this package is that it is designed to align with the <em>tidyverse</em> framework, and so we can use pipes to progress between each modelling step.</p>
 <hr>
 </section>
 <section id="setting-up" class="level1" data-number="2">
@@ -278,7 +279,7 @@ Learning objectives
 <h1 data-number="3"><span class="header-section-number">3</span> Part A: Core example</h1>
 <section id="introduction-to-the-dataset" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</h2>
-<p>We will start by using the built-in dataset from the tidyLPA package, <code>pisaUSA15</code>. PISA stands for the Programme for International Student Assessment, and represents an international survey of 15-year-old school pupils. This subset of data is from the 2015 survey and includes questions about USA students’ school attitudes.</p>
+<p>We will start by using the built-in dataset from the tidyLPA package, <code>pisaUSA15</code>. PISA stands for the Programme for International Student Assessment, and represents an international survey of 15-year-old school pupils. This subset of data is from the 2015 survey and includes questions about US students’ attitudes towards school.</p>
 <p>This is a real dataset with some missingness that would need to be considered in a full analysis. We’ll come back to these issues later in the module, but for the purpose of today’s practical we will exclude cases with missing data. Let’s also cut back to a slightly smaller sample to speed up model fitting. We can load the dataset and complete these preprocessing steps as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and preprocess data</span></span>
@@ -295,10 +296,10 @@ Learning objectives
 <div class="cell">
 <details class="code-fold">
 <summary>Show example code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of pupils</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of pupils (rows in dataset)</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(pisa_dat)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of variables</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of variables (columns in dataset)</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(pisa_dat)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable descriptions</span></span>
@@ -315,8 +316,8 @@ Learning objectives
 <p>In latent profile analysis, we are asking how many (<em>k</em>) classes are optimal to account for patterns of performance in the data. We are typically conducting this type of analysis under the assumption that there is heterogeneity in the population (i.e., more than one group), but we rarely have strong hypotheses about the precise number and nature of the classes. A typical approach is therefore to fit several models of different <em>k</em>-classes and compare model fit.</p>
 <section id="fit-models" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="fit-models"><span class="header-section-number">3.2.1</span> Fit models</h3>
-<p>Let’s start here with the simplest possible model. This <em>class-invariant</em> model assumes that the only thing that differs between the classes we identify is their mean score on the items. We assume that the variance of these scores is equal across classes, and don’t estimate any relationships (covariances) between the items.</p>
-<p>Use the <code>estimate_profiles()</code> function to fit 5 different models as follows, increasing from 1 class to 5 classes. We specify that the variances should be equal across classes, and that covariances should be constrained to zero. This might take a minute or two to run—be patient!</p>
+<p>Let’s start here with the simplest possible model. This <em>class-invariant</em> model assumes that the only thing that differs between classes is their mean score on the items. We assume that the variance of these scores is equal across classes, and don’t estimate any relationships (covariances) between the items.</p>
+<p>Use the <code>estimate_profiles()</code> function as follows to fit 5 different models, increasing from 1 class to 5 classes. We specify that the variances should be equal across classes, and that covariances should be constrained to zero. This might take a minute or two to run—be patient!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit models</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pisa_m1 <span class="ot">&lt;-</span> pisa_dat <span class="sc">%&gt;%</span> </span>
@@ -332,9 +333,9 @@ Learning objectives
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract fit indices</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pisa_m1_fit <span class="ot">&lt;-</span> <span class="fu">get_fit</span>(pisa_m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Print your fit indices in the console, or open them in the viewer. Each row provides fit indices for one of the models you fitted (so three in total, because we increased the number of <em>k</em> classes per model up to three). <em>TidyLPA</em> provides us with lots of information by default, so let’s focus on a few key elements to start with:</p>
+<p>Each row provides fit indices for one of the models you fitted (so five in total, because we increased the number of <em>k</em> classes from 1 to 5). <em>TidyLPA</em> provides us with lots of information by default, so let’s focus on a few key elements to start with:</p>
 <ul>
-<li><strong>Model:</strong> This number reflects the model structure (i.e., whether variances and covariances are allowed to vary). The labels are found on the vignette, but they are all the same here as we only fitted one model type.</li>
+<li><strong>Model:</strong> This number reflects the model structure (i.e., whether variances and covariances are allowed to vary). The labels are found on the <a href="https://cran.r-project.org/web/packages/tidyLPA/vignettes/Introduction_to_tidyLPA.html">vignette</a>, but they are all the same here as we only fitted one model type.</li>
 <li><strong>Classes:</strong> This is the number (<em>k</em>) of classes fitted in each model. This tells us which of our different <em>k</em>-class models each row corresponds too.</li>
 <li><strong>AIC - SABIC:</strong> These are all different types of fit indices, which differ in how they penalise model complexity and how they perform with datasets of different sizes. More on these below!</li>
 <li><strong>BLRT_p:</strong> This tells us whether each model is significantly better than the <em>k</em>-1 model. In this set of models, this doesn’t look to be particularly informative (i.e., each additional class always leads to a significant increase in model fit, <em>p</em> &lt; .05).</li>
@@ -352,13 +353,15 @@ Top tip! Plotting fit indices
 <div class="callout-body-container callout-body">
 <p>It can be helpful to plot these to inspect them. Unfortunately <em>tidyLPA</em> doesn’t include any built-in functions for this, but I’ve drafted some <em>ggplot</em> code that you’re welcome to play around with here. In each of these, we can see an “elbow” at the 4-class model—the improvement in fit beyond this point is much smaller.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take output of get_fit() </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pisa_m1_fit <span class="sc">%&gt;%</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select k-class variable indices of interest</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(Model, Classes, BIC, CAIC, AWE)) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Turn this into a long dataset ti implement panel plotting </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Turn this into a long dataset to implement panel plotting </span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(BIC<span class="sc">:</span>AWE), <span class="at">names_to =</span> <span class="st">"fit_index"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create ggplot object</span></span>
@@ -373,6 +376,7 @@ Top tip! Plotting fit indices
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create separate panels/plots for each fit index</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(fit_index), <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div>
 </div>
@@ -381,11 +385,11 @@ Top tip! Plotting fit indices
 </section>
 <section id="widening-the-search-space" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="widening-the-search-space"><span class="header-section-number">3.3</span> Widening the search space</h2>
-<p>Thus far, our models have not accounted for covariances between the items (i.e., we fixed the covariances to 0). Estimating these increases the complexity of the model (you will see that there are more paramaters in the output), but gives the model more information for working out the classes. Let’s add in this estimation, but still keep them equal across classes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Extract the fit indices as before.</p>
+<p>Thus far, our models have not accounted for covariances between the items (i.e., we fixed the covariances to 0). Estimating these increases the complexity of the model (you will see that there are more parameters in the output), but gives the model more information for working out the classes. Let’s add in this estimation, but still keep them equal across classes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Extract the fit indices as before.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pisa_m3 <span class="ot">&lt;-</span> pisa_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),  <span class="co"># fit models with k = 1-3</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),  <span class="co"># fit models with k = 1-5</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variances =</span> <span class="fu">c</span>(<span class="st">"equal"</span>),</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">covariances =</span> <span class="fu">c</span>(<span class="st">"equal"</span>))</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -396,11 +400,11 @@ Top tip! Plotting fit indices
 </section>
 <section id="choosing-the-final-model" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="choosing-the-final-model"><span class="header-section-number">3.4</span> Choosing the final model</h2>
-<p>In the modelling procedure above, we’ve identified two candidate models to choose between. The final model to proceed with can be decided based on several factors, including:</p>
+<p>In Steps 3.2 and 3.3, we identified two candidate models to choose between (one from each specification). The final model to proceed with can be decided based on several factors, including:</p>
 <ul>
-<li>The same <strong>fit indices</strong> we considered above: Is one a much better fit than the other? Plotting can be helpful again here for comparison (code below if you would like to do this).</li>
+<li><strong>Fit indices:</strong> Using the same indices we paid attention to above, is one a much better fit than the other? Plotting can be helpful again here for comparison (code below if you would like to do this).</li>
 <li><strong>Entropy:</strong> Does one model provide more distinct classes than the other?</li>
-<li><strong>Interpretability/theoretical judgement:</strong> We are not experts in this dataset so won’t try this one here, but we might look at the final classes estimated by each model (see below) and consider whether they are meaningful.</li>
+<li><strong>Interpretability/theoretical judgement:</strong> We are not experts in this dataset so won’t try this one here, but we might look at the final classes estimated by each model and consider whether they are meaningful (as in Step 3.5). We tend to avoid very small classes unless they are clearly distinct and align with theoretical expectations.</li>
 <li><strong>Simplicity!</strong> If the models look comparably good on all other metrics, we tend to prefer a simpler model (i.e., one with fewer parameters) that is more likely to generalise.</li>
 </ul>
 <div class="cell">
@@ -420,7 +424,7 @@ Top tip! Plotting fit indices
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(fit_index), <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Note that the two model specifications were more than enough to consider for the practical today. However, in reality, we might continue to fit more models with increasingly complex variance/covariance structures and compare the best candidate models from each.</p>
+<p>Choose your preferred model to take forward to the final step. Note that the two model specifications were more than enough to consider for the practical today. However, in reality, we might continue to fit more models with increasingly complex variance/covariance structures and compare the best candidate models from each.</p>
 </section>
 <section id="inspecting-the-final-model" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="inspecting-the-final-model"><span class="header-section-number">3.5</span> Inspecting the final model</h2>
@@ -434,42 +438,25 @@ Top tip! Plotting fit indices
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">ci =</span> <span class="fl">0.95</span>)  <span class="co"># default but can also switch to false</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I’ve switched off the plotting for raw data (messy with large datasets, slow to plot) and standard deviations (hard to read alongside the confidence intervals), but feel free to play around with these options.</p>
-<p>Have a look at the different classes from the plot. It seems like Class 4 for example show the highest school interest and enjoyment, but are the lowest on motivation and self-efficacy. Class 2 by comparison are show fairly middle-range responses across the different measures. It’s standard practice to come up with descriptive labels for these classes when communicating the findings.</p>
+<p>Have a look at the different classes from the plot. It seems like Class 4 for example show the highest school interest and enjoyment, but are the lowest on motivation and self-efficacy. By comparison, Class 2 shows fairly middle-range responses across the different measures. It’s standard practice to come up with descriptive labels for these classes when communicating the findings.</p>
 <p>If we wanted to extract these specific model estimates for reporting, we could use the <code>get_estimates()</code> function. We can also extract the class assignment for each individual participant as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract data and round probabilities to 2 d.p.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pisa_class_probs <span class="ot">&lt;-</span> <span class="fu">get_data</span>(pisa_m1<span class="sc">$</span>model_1_class_4) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CPROB1<span class="sc">:</span>CPROB4, round, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `across(CPROB1:CPROB4, round, 2)`.
-Caused by warning:
-! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
-Supply arguments directly to `.fns` through an anonymous function instead.
-
-  # Previously
-  across(a:b, mean, na.rm = TRUE)
-
-  # Now
-  across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CPROB1<span class="sc">:</span>CPROB4, round, <span class="dv">2</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview dataframe </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pisa_class_probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview dataframe </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pisa_class_probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 11
-  model_number classes_number broad_interest enjoyment instrumental_mot
-         &lt;dbl&gt;          &lt;int&gt;          &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
-1            1              4            3.8       4               2   
-2            1              4            3         3               2.5 
-3            1              4            1.8       2.8             3.5 
-4            1              4            1.4       1               2.75
-5            1              4            1.8       2.2             2   
-6            1              4            1.6       1.6             2.75
-# ℹ 6 more variables: self_efficacy &lt;dbl&gt;, CPROB1 &lt;dbl&gt;, CPROB2 &lt;dbl&gt;,
-#   CPROB3 &lt;dbl&gt;, CPROB4 &lt;dbl&gt;, Class &lt;dbl&gt;</code></pre>
+<p>You should see that each participant has a probability of being assigned to each of the four classes (<code>CPROB1-4</code>), with their highest probability class assignment presented in the final <code>Class</code> column. For most participants this assignment is pretty clear cut, which is an indication of clear class separation in the model. However, we see for the sixth participant that there is fairly equal probability that they could be assigned to Class 2 or 3. We can see from the profile plots above that these two classes are fairly similar on 2-3 of the 4 measures, so this uncertainty is perhaps to be expected.</p>
+<p>Finally, you can also use the extracted data to work out the proportion of individuals assigned to each class:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate proportions</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pisa_class_probs <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Class) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">proportion =</span> n<span class="sc">/</span><span class="fu">nrow</span>(pisa_class_probs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>You can see here that each participant as a probability of being assigned to each class (<code>CPROB1-4</code>), with their highest probability class assignment presented in the final <code>Class</code> column. For most participants this assignment is pretty clear cut, which is an indication of clear class separation in the model. However, we see for the sixth participant that there is fairly equal probability that they could be assigned to Class 2 or 3. We can see from the profile plots above that these two classes are fairly similar on 2-3 of the 4 measures.</p>
 <hr>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -499,9 +486,9 @@ Take a break!
 <p>Now let’s take a look at a dataset from a recently published study. In this paper by <a href="https://doi.org/10.1016/j.lindif.2025.102866">Silla et al.&nbsp;(2026)</a>, they examined different aspects of children’s fraction knowledge. They wanted to know whether there are distinct patterns of early fraction knowledge that characterise different children, and how this predicted other cognitive skills and maths achievement. Their data and an open-access preprint of their manuscript is available on the <a href="https://osf.io/d4wf5/wiki?wiki=59z6u">OSF</a>. <em>[Note I had some problems importing this into R directly, so I have shared the data on the VLE].</em></p>
 <p>Read in the data and select the relevant variables for analysis</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fraction_dat <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"./data/FractionItemLevel_FallSpring_OSF_20240907.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NONEQSFP<span class="sc">:</span>SYMWRFP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fraction_dat <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"./data/FractionItemLevel_FallSpring_OSF_20240907.xlsx"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NONEQSFP<span class="sc">:</span>SYMWRFP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The dataset contains the following variables:</p>
 <ul>
@@ -521,20 +508,20 @@ Take a break!
 <div class="cell">
 <details class="code-fold">
 <summary>Show example code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of children</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(fraction_dat)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean and range - this would also flag any NAs</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fraction_dat)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#... or if you want a different method - tells us whether the number of complete cases is the same as above</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>fraction_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlations</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(fraction_dat) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of children</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(fraction_dat)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean and range - this would also flag any NAs</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fraction_dat)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#... or if you want a different method - tells us whether the number of complete cases is the same as above</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>fraction_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlations</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(fraction_dat) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -545,56 +532,56 @@ Take a break!
 <li><p>Fit models with <em>k</em> = 1-5, with equal variances and no covariances (Model 1)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
 <li><p>Select the best candidate k-class model(s) for this model specification, based on the BIC, CAIC, and AWE fit indices and the bLRT test.</p></li>
 <li><p>Fit models with <em>k</em> = 1-5, with equal variances and equal covariances (Model 3).</p></li>
-<li><p>Select the best candidate k-class model(s) for this model specification, based on the BIC, CAIC, and AWE fit indices and the bLRT test.</p></li>
+<li><p>Select the best candidate <em>k</em>-class model(s) for this model specification, based on the BIC, CAIC, and AWE fit indices and the bLRT test.</p></li>
 <li><p>Compare the best models against each other, and weigh up the evidence in favour of each. Which model do you choose?</p></li>
 <li><p>Plot the profiles from your final model, and describe each one verbally.</p></li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model 1 (most constrained)</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fraction_m1 <span class="ot">&lt;-</span> fraction_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variances =</span> <span class="st">"equal"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">covariances =</span> <span class="st">"zero"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect fit</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">get_fit</span>(fraction_m1)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">## bLRT favours 4-class</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">## AWE favours 2-class</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="do">## BIC favours 3-class</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="do">## CAIC favours 3-class </span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model 3 (including covariances)</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>fraction_m3 <span class="ot">&lt;-</span> fraction_dat <span class="sc">%&gt;%</span> </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variances =</span> <span class="st">"equal"</span>,</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">covariances =</span> <span class="st">"equal"</span>)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect fit</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="fu">get_fit</span>(fraction_m3)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="do">## bLRT favours 3-class</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="do">## AWE favours 2-class</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="do">## BIC favours 3-class</span></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="do">## CAIC favours 3-class </span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose best options</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 3-class looks promising across both specifications </span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot for easy inspection</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>fraction_fit_full <span class="ot">&lt;-</span> <span class="fu">get_fit</span>(fraction_m1) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">get_fit</span>(fraction_m3))</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>fraction_fit_full <span class="sc">%&gt;%</span> </span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(Model, Classes, BIC, CAIC, AWE)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(BIC<span class="sc">:</span>AWE), <span class="at">names_to =</span> <span class="st">"fit_index"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Classes, <span class="at">y =</span> value, <span class="at">group =</span> Model, <span class="at">colour =</span> <span class="fu">as.factor</span>(Model))) <span class="sc">+</span> </span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span> </span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(fit_index), <span class="at">scales =</span> <span class="st">"free"</span>)</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="do">## simpler model preferred </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model 1 (most constrained)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fraction_m1 <span class="ot">&lt;-</span> fraction_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variances =</span> <span class="st">"equal"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">covariances =</span> <span class="st">"zero"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect fit</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">get_fit</span>(fraction_m1)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">## bLRT favours 4-class</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## AWE favours 2-class</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## BIC favours 3-class</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">## CAIC favours 3-class </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model 3 (including covariances)</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>fraction_m3 <span class="ot">&lt;-</span> fraction_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">variances =</span> <span class="st">"equal"</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">covariances =</span> <span class="st">"equal"</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect fit</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">get_fit</span>(fraction_m3)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="do">## bLRT favours 3-class</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="do">## AWE favours 2-class</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="do">## BIC favours 3-class</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="do">## CAIC favours 3-class </span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose best options</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 3-class looks promising across both specifications </span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot for easy inspection</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>fraction_fit_full <span class="ot">&lt;-</span> <span class="fu">get_fit</span>(fraction_m1) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">get_fit</span>(fraction_m3))</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>fraction_fit_full <span class="sc">%&gt;%</span> </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(Model, Classes, BIC, CAIC, AWE)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(BIC<span class="sc">:</span>AWE), <span class="at">names_to =</span> <span class="st">"fit_index"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Classes, <span class="at">y =</span> value, <span class="at">group =</span> Model, <span class="at">colour =</span> <span class="fu">as.factor</span>(Model))) <span class="sc">+</span> </span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>() <span class="sc">+</span> </span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(fit_index), <span class="at">scales =</span> <span class="st">"free"</span>)</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="do">## simpler model preferred </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <hr>
@@ -602,18 +589,19 @@ Take a break!
 </section>
 <section id="part-c-challenge-yourself" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Part C: Challenge yourself!</h1>
-<p><em>[This last task should encourage them to advance their knowledge independently]</em></p>
+<p>Today’s practical has already been pretty challenging! If you want to push yourself further, take a look at the <a href="https://cran.r-project.org/web/packages/tidyLPA/vignettes/Introduction_to_tidyLPA.html"><em>tidyLPA</em> vignette</a> and see which other model specifications you can fit with the <em>tidyLPA</em> package alone (i.e., using <em>mclust</em> rather than <em>MPlus</em>). What happens when you try to run them on the datasets that we used today?</p>
 <hr>
 </section>
 <section id="summary" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
 <section id="recap" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
-<p><em>[Practical summary in relation to learning objectives]</em></p>
+<p>Today’s practical showed us an example of a mixture modelling approach in action. We saw how a latent variable with different numbers <em>(k</em>) of categories can be fitted and compared to identify unobserved subpopulations in the data. We also varied the constraints of the model, and saw how we can use fit statistics to identify the best model that balances precision and parsimony. Finally, we inspected the characteristics of each profile in the final model, and extracted the probabilistic class membership for individuals in the dataset.</p>
 </section>
 <section id="further-learning" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
-<p><em>[Link further interactive resources. Can also remind them of the</em> <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a>]</p>
+<p>This week’s <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML">core reading</a> can be found on the reading list as usual. This is one of—indeed maybe even <em>the</em>—most complex analyses we will cover in this module, and there’s a great <a href="https://quantitudepod.org/episode-20-sir-mixture-a-lot/">Quantitude podcast episode</a> if you’re struggling to get your head around the main ideas.</p>
+<p>There is also a DataCamp course on <a href="https://app.datacamp.com/learn/courses/mixture-models-in-r">Mixture Models in R</a>. This course uses the <em>flexmix</em> package rather than <em>tidyLPA,</em> which has a slightly steeper learning curve but is more flexible to different types of mixture models. You might want to consider this to build your experience or if you are likely to run this type of analysis in future.</p>
 <hr>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
