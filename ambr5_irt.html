@@ -185,6 +185,10 @@ window.Quarto = {
     <a class="dropdown-item" href="./ambr5_irt.html">
  <span class="dropdown-text">W5: IRT</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr6_mixture.html">
+ <span class="dropdown-text">W6: Mixture modelling</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -289,7 +293,7 @@ Learning objectives
 </div>
 </div>
 <p>In this week’s lecture we introduced Item Response Theory as a model-based alternative to Classical Test Theory. We discussed how IRT links item responses to an underlying latent trait, and how item difficulty and discrimination parameters shape the probability of endorsement or correct responding across levels of ability. We also considered the assumptions that underpin these models and how they influence interpretation.</p>
-<p>In today’s practical, you will implement these ideas directly in R. You will fit and compare one- and two-parameter models using <code>mirt</code>, evaluate model fit and assumptions, and interpret item and test information. We will begin with multiple-choice exam data from the undergraduate B.Sc. Psychology module Brain and Behaviour, and then apply the same workflow to questionnaire data from the Taylor Manifest Anxiety</p>
+<p>In today’s practical, you will implement these ideas directly in R. You will fit and compare one- and two-parameter models using <code>mirt</code>, evaluate model fit and assumptions, and interpret item and test information. We will begin with multiple-choice exam data from the undergraduate B.Sc. Psychology module Brain and Behaviour, and then apply the same workflow to questionnaire data from the Taylor Manifest Anxiety Scale.</p>
 <hr>
 </section>
 <section id="setting-up" class="level1" data-number="2">
@@ -312,7 +316,7 @@ Learning objectives
 <p>We will start with real exam data. Specifically, we will use student responses from a multiple-choice examination in the Brain and Behaviour module. This module is part of the undergraduate B.Sc. in Psychology at the University of York. The exam consisted of 40 questions, covering the two main topics taught in the module. The dataset is in wide format, with each row representing a single student and each column representing one question (<code>Q1</code> to <code>Q40</code>) and whether or not they got the answer correct (1) or incorrect (0).</p>
 <p>Let’s begin by loading the dataset into R. Note that this assumes you have downloaded the dataset from the VLE and saved it in the appropriate <code>/data</code> folder in your project directory.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>brain <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/ambr5_brain-and-behaviour.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>brain <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/ambr5_brain-and-behaviour.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="exploring-the-data" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="exploring-the-data"><span class="header-section-number">3.1.1</span> Exploring the data</h3>
@@ -351,7 +355,7 @@ Learning objectives
 </div>
 <section id="unidimensionality" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="unidimensionality"><span class="header-section-number">3.2.1</span> Unidimensionality</h3>
-<p>Before creating the IRT model, we should first check the assumption of unidimensionality; this means that a single latent trait accounts for the relationship among items. In practical terms, we are assuming that performance on all 40 questions is driven primarily by one underlying ability dimension. We can do a check of this using the <code>omega</code> function from the <code>psych</code></p>
+<p>Before creating the IRT model, we should first check the assumption of unidimensionality; this means that a single latent trait accounts for the relationship among items. In practical terms, we are assuming that performance on all 40 questions is driven primarily by one underlying ability dimension. We can do a check of this using the <code>omega</code> function from the <code>psych</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>omega_output <span class="ot">&lt;-</span> <span class="fu">omega</span>(<span class="at">m =</span> brain_items, <span class="co"># Data</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">poly =</span> <span class="cn">TRUE</span>,     <span class="co"># Specify tetrachoric correlation </span></span>
@@ -687,7 +691,7 @@ Take a break!
 <p>Now we can load the data in and make sure we are only working with relevant parts.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in data </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>anxiety <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./data/TMA/ambr5_TMA-data.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>anxiety <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/TMA/ambr5_TMA-data.csv"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select only the items (remove age, score and gender)</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Q1<span class="sc">:</span>Q50) <span class="sc">%&gt;%</span></span>
@@ -796,7 +800,7 @@ Check the codebook!
 </details>
 </div>
 <ol start="2" type="1">
-<li><strong>After selecting your preferred model, evaluate how well it performs. Examine the global fit statistics using. Are RMSEA, CFI, and TLI within acceptable ranges?</strong></li>
+<li><strong>After selecting your preferred model, evaluate how well it performs. Examine the global fit statistics using <code>M2</code>. Are RMSEA, CFI, and TLI within acceptable ranges?</strong></li>
 </ol>
 <div class="cell">
 <details class="code-fold">
@@ -870,7 +874,7 @@ Check the codebook!
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The item with the best discrimination is Q27, but for lower anxiety levels. </span></span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>item_stats_anxiety <span class="ot">&lt;-</span> model_coef_2PL_anxiety<span class="sc">$</span>items</span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make dataframe of the person fit statistics</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Make dataframe of the item fit statistics</span></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># No items appear problematic. </span></span>
 <span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>item_fit <span class="ot">&lt;-</span> <span class="fu">itemfit</span>(anxiety_2PL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
