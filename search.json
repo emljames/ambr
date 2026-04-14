@@ -88,7 +88,7 @@
     "href": "ambr7_network.html#estimating-a-partial-correlation-network",
     "title": "Week 7: Network Psychometrics",
     "section": "3.4 Estimating a partial correlation network",
-    "text": "3.4 Estimating a partial correlation network\n\nnet &lt;- estimateNetwork(\n  items,\n  default   = \"EBICglasso\",\n  corMethod = \"cor_auto\"\n)\n\nEstimating Network. Using package::function:\n  - qgraph::EBICglasso for EBIC model selection\n    - using glasso::glasso\n  - qgraph::cor_auto for correlation computation\n    - using lavaan::lavCor\n\n\nVariables detected as ordinal: nervous; hopeless; restless; nothing_cheer; everything_effort; worthless\n\n\nWarning in EBICglassoCore(S = S, n = n, gamma = gamma, penalize.diagonal =\npenalize.diagonal, : A dense regularized network was selected (lambda &lt; 0.1 *\nlambda.max). Recent work indicates a possible drop in specificity. Interpret\nthe presence of the smallest edges with care. Setting threshold = TRUE will\nenforce higher specificity, at the cost of sensitivity.\n\n\n\nWhy is cor_auto appropriate?\nWhat does the sparsity warning imply?\nWhat is EBICglasso, and why is it used to estimate the network?"
+    "text": "3.4 Estimating a partial correlation network\n\nnet &lt;- estimateNetwork(\n  items,\n  default   = \"EBICglasso\",\n  corMethod = \"cor_auto\"\n)\n\n\nWhy is cor_auto appropriate?\nWhat does the sparsity warning imply?\nWhat is EBICglasso, and why is it used to estimate the network?"
   },
   {
     "objectID": "ambr7_network.html#inspecting-the-partial-correlation-matrix",
