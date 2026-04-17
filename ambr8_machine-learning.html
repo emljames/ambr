@@ -269,7 +269,7 @@ Learning objectives
 </div>
 </div>
 <p>In the lecture this week, we introduced Support Vector Machines (SVMs) as a supervised machine learning approach used for classification. We discussed how SVMs identify decision boundaries that separate classes, the role of margins, and how model behaviour is influenced by tuning parameters such as the cost function (C) and, for non-linear models, gamma. We also considered how model performance should be evaluated, particularly in the context of imbalanced data.</p>
-<p>In today’s practical, you will apply these concepts to two datasets. You will begin by working with a diabetes dataset, where you will fit and evaluate both linear and non-linear SVMs to identify whether or not someone has diabetes. You will then extend this analysis to a depression dataset. Across both datasets, you will split the data into training and test sets, apply cross-validation, and interpret model performance using measures such as accuracy, sensitivity, and specificity. Finally, if you’re up for the challenge, you can see how much impact each tuning parameter has on your model’s performance.</p>
+<p>In today’s practical, you will apply these concepts to two datasets. You will begin by working with a diabetes dataset, where you will fit and evaluate both linear and non-linear SVMs to identify whether or not someone has diabetes. You will then extend this analysis to a depression dataset. Across both datasets, you will split the data into training and test sets, apply cross-validation, and interpret model performance using measures such as accuracy, sensitivity, and specificity. Finally, if you’re up for the challenge, you can see how much impact each tuning parameter has on your model’s performance and how the number of outcomes influences predictions.</p>
 <p>The aim of this practical is to help you develop a clear understanding of how SVMs behave, and how modelling decisions affect both performance and interpretation.</p>
 <hr>
 </section>
@@ -374,7 +374,7 @@ Learning objectives
 <p>An SVM identifies a boundary that separates two groups. This boundary is chosen to maximise the margin, which is the distance between the boundary and the closest observations from each group. The observations closest to the boundary are called support vectors. These points determine where the boundary is placed. Maximising the margin improves how well the model generalises to new data.</p>
 <section id="linear-svm" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="linear-svm"><span class="header-section-number">3.2.1</span> Linear SVM</h3>
-<p>We begin with a linear SVM, where the boundary between groups is a straight line (or a flat plane in higher dimensions).</p>
+<p>We begin with a linear SVM, where the boundary between groups is a straight line (or a flat hyperplane in higher dimensions).</p>
 <section id="training-and-test-sets" class="level4" data-number="3.2.1.1">
 <h4 data-number="3.2.1.1" class="anchored" data-anchor-id="training-and-test-sets"><span class="header-section-number">3.2.1.1</span> Training and test sets</h4>
 <p>When building predictive models, it is essential to evaluate how well the model performs on data that were not used during training. If we fit and evaluate the model on the same dataset, the resulting performance estimates are likely to be overly optimistic. To avoid this, we divide the dataset into two parts. The training set is used to fit and tune the model, while the test set is reserved for evaluating final performance.</p>
@@ -533,7 +533,7 @@ The final values used for the model were sigma = 0.1292167 and C = 0.25.</code><
 </div>
 </div>
 <p>Unlike the linear SVM, the radial model has two tuning parameters: <code>C</code>, which controls the penalty for misclassification, and <code>sigma</code> (gamma), which controls the shape of the radial basis function kernel. <code>caret</code> automatically tests a range of <code>C</code> values when doing a non-linear fit with cross-validation to see how it affects performance. Again, we will return to what these are doing in <a href="#part-c-challenge-yourself">Part C: Challenge yourself!</a></p>
-<p>Nevertheless, similar to the linear SVM output, we still get Accuracy and Kappa values. However, given that they are reported at each level of C, we should look for the one that produced the best fit. In this case, it was when <code>C = 0.25</code>. Therefore, the radial SVM achieved an accuracy of around 77%, which is identical to our linear model. This suggests that allowing a non-linear decision boundary is not leading to any further improvements in predictive performance for these data. However, keep in mind that the linear SVM used a cost function of 1 in its original fit.</p>
+<p>Nevertheless, similar to the linear SVM output, we still get Accuracy and Kappa values. However, given that they are reported at each level of C, we should look for the one that produced the best fit. In this case, it was when <code>C = 0.25</code>. Therefore, the radial SVM achieved an accuracy of around 77%, which is slightly below our linear model. This suggests that allowing a non-linear decision boundary is not leading to any further improvements in predictive performance for these data.</p>
 <p>Before we make any decisions though, let’s see how well the model performs on the <code>diabetes_test_data</code>. Use what you’ve learned above to generate a confusion matrix for the unseen data and evaluate performance based on sensitivity and specificity. Is the model doing any better?</p>
 <div class="cell">
 <details class="code-fold">
@@ -692,7 +692,7 @@ Take a break!
 </section>
 <section id="fitting-the-svms" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="fitting-the-svms"><span class="header-section-number">4.2</span> Fitting the SVM’s</h2>
-<p>It is now your turn to fit a linear and non-linear (radial basis function) SVM to the data. Use the same workflow you used for the <code>cleaned_diabetes</code> dataset and adapt it to this <code>depression_data</code>. In doing so, address the questions list below.</p>
+<p>It is now your turn to fit a linear and non-linear (radial basis function) SVM to the data. Use the same workflow you used for the <code>cleaned_diabetes</code> dataset and adapt it to this <code>depression_data</code>. In doing so, address the questions listed below.</p>
 <ol type="1">
 <li>Split the <code>depression_data</code> into a training set (75%) and a test set (25%).
 <ul>
@@ -828,7 +828,7 @@ Take a break!
 <section id="cost-c-and-sigma" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="cost-c-and-sigma"><span class="header-section-number">5.1</span> Cost (<code>C</code>) and Sigma</h2>
 <p>So far, we have fitted SVM models and evaluated their performance, but we have not yet considered how the model is being controlled. As discussed in the lecture, there are two key parameters that influence SVM behaviour: <code>C</code> and sigma (what most people call gamma). In linear models, you only have one of these parameters to worry about: <code>C</code> (cost function). <code>C</code> controls how much the model penalises errors in classification. Larger values of <code>C</code> place greater emphasis on correct classification of the training data. Smaller values of <code>C</code> allow more errors but favour a wider margin and simpler decision boundary. For non-linear SVMs, you have both <code>C</code> and sigma to contend with. Sigma controls how far a single observation influences the decision boundary. Larger values of sigma will mean the influence of each observation is very local, making the decision boundary far more complex. In contrast, when sigma is small, the influence of each observation is broader, leading to smoother and more general decision boundaries.</p>
-<p>In practice, researchers often examine how different values of <code>C</code> and <code>sigma</code> (what <code>caret</code> calls gamma) affect model performance. In this section, you will do the same with the <code>depression_data</code>. To achieve this, you will need to consult the documentation for the <code>train()</code> function, paying particular attention to the <code>tuneGrid</code> argument, and work out how to specify your own tuning values.</p>
+<p>In practice, researchers often examine how different values of <code>C</code> and <code>sigma</code> (what most people call gamma) affect model performance. In this section, you will do the same with the <code>depression_data</code>. To achieve this, you will need to consult the documentation for the <code>train()</code> function, paying particular attention to the <code>tuneGrid</code> argument, and work out how to specify your own tuning values.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -943,7 +943,7 @@ Click for a hint!
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"None"</span>, <span class="st">"Moderate"</span>, <span class="st">"Severe"</span>))</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You should check whether the groupings are balanced. You should see that most people are classified as moderate. Is any imbalance a problem?</p>
+<p>You should check whether the groupings are balanced. You should see that most people are classified as moderate.</p>
 </section>
 <section id="fit-the-model" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="fit-the-model"><span class="header-section-number">5.2.2</span> Fit the model</h3>
@@ -1023,7 +1023,7 @@ Click for a hint!
 <section id="recap" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
 <p>Today we’ve seen how support vector machines can be used to classify outcomes by identifying decision boundaries between groups, and how this can be extended from simple linear boundaries to more flexible non-linear ones when the data require it. We also saw how this approach can be implemented in practice using the <code>caret</code> package in R, giving us a full workflow for fitting, tuning, and evaluating SVM models across different classification problems.</p>
-<p>During the practical, we also encountered some of the key decisions and challenges involved in using this technique. In particular, we saw why train and test splits, alongside cross-validation, are important for producing more trustworthy estimates of model performance, and why accuracy alone is often not enough when classes are imbalanced. You’ve also considered how tuning parameters such as <code>C</code> and gamma affect model complexity and performance, and how different evaluation metrics can lead us to different conclusions about which model is most useful in context.</p>
+<p>During the practical, we also encountered some of the key decisions and challenges involved in using this technique. In particular, we saw why train and test splits, alongside cross-validation, are important for producing more trustworthy estimates of model performance, and why accuracy alone is often not enough when classes are imbalanced. You’ve also considered how tuning parameters such as <code>C</code> and sigma (gamma) affect model complexity and performance, and how different evaluation metrics can lead us to different conclusions about which model is most useful in context.</p>
 </section>
 <section id="further-learning" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
