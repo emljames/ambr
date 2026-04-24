@@ -172,6 +172,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./ambr9_stochastic.html">
  <span class="dropdown-text">W9: Stochastic methods</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr10_missing-data.html">
+ <span class="dropdown-text">W10: Missing data</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -230,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">5.1</span> Introduction to the dataset</a></li>
   <li><a href="#run-a-linear-regression-model" id="toc-run-a-linear-regression-model" class="nav-link" data-scroll-target="#run-a-linear-regression-model"><span class="header-section-number">5.2</span> Run a linear regression model</a></li>
-  <li><a href="#compute-bootstrapped-95-cis-on-the-intercept-and-slope" id="toc-compute-bootstrapped-95-cis-on-the-intercept-and-slope" class="nav-link" data-scroll-target="#compute-bootstrapped-95-cis-on-the-intercept-and-slope"><span class="header-section-number">5.3</span> Compute bootstrapped 95% CIs on the intercept and slope</a></li>
+  <li><a href="#compute-bootstrapped-95-cis-for-the-slope" id="toc-compute-bootstrapped-95-cis-for-the-slope" class="nav-link" data-scroll-target="#compute-bootstrapped-95-cis-for-the-slope"><span class="header-section-number">5.3</span> Compute bootstrapped 95% CIs for the slope</a></li>
   <li><a href="#run-a-power-simulation" id="toc-run-a-power-simulation" class="nav-link" data-scroll-target="#run-a-power-simulation"><span class="header-section-number">5.4</span> Run a power simulation</a></li>
   </ul></li>
   <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">6</span> Part C: Challenge yourself!</a></li>
@@ -512,8 +516,8 @@ Take a break!
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="compute-bootstrapped-95-cis-on-the-intercept-and-slope" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="compute-bootstrapped-95-cis-on-the-intercept-and-slope"><span class="header-section-number">5.3</span> Compute bootstrapped 95% CIs on the intercept and slope</h2>
+<section id="compute-bootstrapped-95-cis-for-the-slope" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="compute-bootstrapped-95-cis-for-the-slope"><span class="header-section-number">5.3</span> Compute bootstrapped 95% CIs for the slope</h2>
 <p>To do the bootstrapping, we need to sample the <em>rows</em> from the dataframe, so that the relationship between variables is preserved (i.e., the correct pairings between each participant’s scores). To do this, we create an index variable that contains the same number of entries as there are rows of the dataframe:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data index for resampling </span></span>
