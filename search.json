@@ -392,6 +392,111 @@
     "text": "Footnotes\n\n\nNote that we don’t actually need to specify the intercept (1), as the model will include this by default. However, we’ve done so here to make clear the similarities in structure when adding random effects below.↩︎\nCurtis et al. also included a third condition with an inconsistent prime that biased meaning away from the target, but we have excluded that for the purposes of today’s demonstration.↩︎"
   },
   {
+    "objectID": "ambr11_bayes.html",
+    "href": "ambr11_bayes.html",
+    "title": "Week 11: Bayesian approaches",
+    "section": "",
+    "text": "Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York."
+  },
+  {
+    "objectID": "ambr11_bayes.html#packages",
+    "href": "ambr11_bayes.html#packages",
+    "title": "Week 11: Bayesian approaches",
+    "section": "2.1 Packages",
+    "text": "2.1 Packages\nToday’s practical will use the following packages. You will need to install each one before loading them at the top of your script.\n\nlibrary(tidyverse)\nlibrary(naniar)\nlibrary(BayesFactor)\n\nYou might also find it helpful to turn off scientific notation using options(scipen=999)."
+  },
+  {
+    "objectID": "ambr11_bayes.html#introduction-to-the-dataset",
+    "href": "ambr11_bayes.html#introduction-to-the-dataset",
+    "title": "Week 11: Bayesian approaches",
+    "section": "3.1 Introduction to the dataset",
+    "text": "3.1 Introduction to the dataset\nLet’s start with a quick demonstration using a built-in dataset as usual. For this purpose, we can use the penguins dataset (admittedly it’s not “human data”—we’ll do that next—but who doesn’t like penguins?!). The dataset contains measurements from three species of penguin collected from three islands in the Antarctica.\nThe BayesFactor package doesn’t play nicely with missing data, so we will also filter the data for complete cases. Of course if this was a real analysis we would do this much more cautiously.\n\n\n\nMeet the penguins! Artwork by @allison_horst\n\n\n\n# Load dataset into the environment\ndata(penguins)\n\n# Filter for complete cases\npenguins_cc &lt;- penguins %&gt;% \n  filter(complete.cases(.))\n\nUse R code to answer the following questions about the dataset:\n\nHow many observations did we lose by listwise deletion?\nHow many remaining penguins of each species are there?\nHow many penguins of each species were on each island?\nWhich island had the largest penguins in terms of average body mass?\nWhere was the penguin with the shortest bill length (bill_len) found, and what species was it?\nWhat is the average body mass and bill length of male versus female penguins?\n\n\n\nShow example code\n# Listwise deletion\nnrow(penguins) - nrow(penguins_cc)\n\n# Species count\npenguins_cc %&gt;% \n  group_by(species) %&gt;% \n  count()\n\n# Species by island\npenguins_cc %&gt;% \n  group_by(island, species) %&gt;% \n  count()\n\n# Size by island\npenguins_cc %&gt;% \n  group_by(island) %&gt;% \n  summarise(mean = mean(body_mass))\n\n# Shortest bill penguin\npenguins_cc %&gt;% \n  slice_min(bill_len)\n\n# Sex differences\npenguins_cc %&gt;% \n  group_by(sex) %&gt;% \n  summarise(mass = mean(body_mass),\n            bill_length = mean(bill_len))"
+  },
+  {
+    "objectID": "ambr11_bayes.html#independent-t-test",
+    "href": "ambr11_bayes.html#independent-t-test",
+    "title": "Week 11: Bayesian approaches",
+    "section": "3.2 Independent t-test",
+    "text": "3.2 Independent t-test\nFor our example, we will use a simple independent t-test to compare the bill length of male versus female penguins. We can first remind ourselves how to run a frequentist independent t-test:\n\n3.2.1 Frequentist\n\nt.test(bill_len ~ sex, data = penguins_cc)\n\nYou should see that there is a significant difference between groups, with male penguins averaging ~3mm longer beaks than female penguins.\n\n\n3.2.2 Bayes Factor\nNow let’s calculate a Bayes Factor for this test. We use the specialised t-test function from the BayesFactor package, but everything else is set up in pretty much the same way. The only difference is that we must explicitly specify that the first argument we provide is a formula.\n\nttestBF(formula = bill_len ~ sex, data = penguins_cc)\n\nThe output tells us the direction of the comparison—i.e., that it is testing evidence for the alternative hypothesis against evidence for the null hypothesis that the difference in means is 0 (BF10). The alternative hypothesis used the default Cauchy prior, which you can see in the output is scaled to “r = 0.707”. If you’re interested in the justification for this decision, the references are linked in the “Note” of the function documentation (i.e., call help(ttestBF)). We’ll explore the implications of using different priors below.\nThe output shows a very large BF in favour of the alternative hypothesis (&gt;73 million!), which is perhaps not surprising considering the clear group difference observed above.\nFor comparison, let’s compare the bill length of penguins from two different islands. Filter the data as follows, and run a Bayes Factor t-test:\n\n# Remove penguins from Torgersen island\npenguins_2isl &lt;- filter(penguins_cc, island != \"Torgersen\") %&gt;% \n  droplevels()\n\nttestBF(formula = bill_len ~ island, data = penguins_2isl)\n\nThis time our Bayes Factor is &lt; 1, indicating evidence in favour of the null hypothesis. However, we can consider it weak or “anecdotal” evidence with reference to Jeffreys’ scale as it is larger than 1/3.\nSome people find it easier to flip the Bayes Factor to report evidence in favour of the null over the alternative hypothesis (BF01; values &gt;1 favour the null). We can do this simply by inversing the test:\n\n1/ttestBF(formula = bill_len ~ island, data = penguins_2isl)\n\nCongratulations, you’ve just calculated your first Bayes Factors! It was surprisingly easy, huh?"
+  },
+  {
+    "objectID": "ambr11_bayes.html#changing-the-prior",
+    "href": "ambr11_bayes.html#changing-the-prior",
+    "title": "Week 11: Bayesian approaches",
+    "section": "3.3 Changing the prior",
+    "text": "3.3 Changing the prior\nThe BayesFactor package uses a default, weakly informative prior to test hypotheses—meaning that we didn’t actually use much in the way of specialist knowledge when calculating the Bayes Factors above. The default is to use a Cauchy distribution (a bit like a pointier normal distribution) with a scale of 0.707. Plot this to see what it looks like, using the following line of code:\n\n# Set scale of x axis \nx &lt;- seq(-10, 10, by = 0.1) \nplot(x, dcauchy(x, scale = 0.707), type = \"l\")\n\nUsing a distribution (rather than a single point estimate) allows us to consider that a range of outcomes are plausible. It is centered around 0 to indicate that the effect may be in either direction, and has more mass over small versus large values as very large effect sizes tend to be unlikely.\nSee what happens to the distribution when you change the scale value from lower to higher numbers. How does this affect the width of the prior?\nNow let’s see how changing the width of the prior affects the Bayes Factor, using our original t-test example. Try a range of smaller and higher values for the rscale argument. How does the prior affect the conclusions?\n\n# Default  \nttestBF(formula = bill_len ~ island, data = penguins_2isl) \n\n# Alternatives - e.g., \nttestBF(formula = bill_len ~ island, data = penguins_2isl, rscale = 0.3)\nttestBF(formula = bill_len ~ island, data = penguins_2isl, rscale = 3)\n\nResearchers will often test a range of priors in a sensitivity analysis, allowing them to consider how the choice of prior influences the results. We’ll have a go at this in Part C.\n\n\n\n\n\n\n\nTake a break!\n\n\n\nIf you haven’t already taken a break today, we suggest you do so before you start the next section."
+  },
+  {
+    "objectID": "ambr11_bayes.html#introduction-to-the-dataset-1",
+    "href": "ambr11_bayes.html#introduction-to-the-dataset-1",
+    "title": "Week 11: Bayesian approaches",
+    "section": "4.1 Introduction to the dataset",
+    "text": "4.1 Introduction to the dataset\nToday’s dataset is from a feasibility trial conducted by Professor Lisa Henderson and Dr Emma Sullivan. They assessed the impact of a 3-week smartphone and social media ban on adolescents’ sleep, cognition, and wellbeing. The trial was part of a TV documentary, Swiped: the school that banned smartphones (Channel 4; Netflix). The results were released as a pre-print, and will now form the basis of a large-scale randomised control trial here in York.\nWe will work with two types of data so that we can test out different analyses: the questionnaire data from before and after the ban, and data from Garmin watches that recorded sleep duration over the month period. You can copy the code below to create the key variables we’ll need (summed anxiety score, averaged sleep data), though you may need to do some additional data wrangling for some of the analyses below.\n\n# Load the questionnaire data\nswiped_q_dat &lt;- read_csv(\"https://osf.io/cpz2n/?action=download\") %&gt;% \n  filter(Condition == 1) %&gt;%  # Pupils who took part in ban\n  select(random_ID, Session, PSQI_Q4, contains(\"HADS_\"))  %&gt;% \n  replace_with_na_at(.vars = 5:12, condition = ~.x == 5) %&gt;% # code missing data\n  mutate(HADS_anx = HADS_Q1 + HADS_Q3 + HADS_Q5 +     # Sum anxiety items\n           HADS_Q7 + HADS_Q9 + HADS_Q11 + HADS_Q13) %&gt;% \n  select(-contains(\"HADS_Q\")) %&gt;% \n  pivot_wider(names_from = \"Session\", values_from = c(PSQI_Q4, HADS_anx)) %&gt;% \n  mutate_at(vars(random_ID), as.factor)\n\n# Load the wearables data\nswiped_w_dat &lt;- read_csv(\"https://osf.io/k62u5/?action=download\") %&gt;% \n  filter(Weekday == 1) %&gt;%   # Use sleep duration on school nights\n  select(random_ID, Ban, Day, Sleep_duration) %&gt;% \n  group_by(random_ID, Ban) %&gt;% \n  summarise(Sleep_duration = mean(Sleep_duration, na.rm = TRUE)) %&gt;% \n  mutate_at(vars(random_ID, Ban), as.factor)\n\nThe questionnaire data (swiped_q_dat) should have the following variables remaining:\n\nrandom_ID: a unique participant code\nPSQI_Q4_*: self-reported sleep duration in hours; before (1) and after (2) the ban\nHADS_anx_*: anxiety scale score from the Hospital Depression and Anxiety Scale; before (1) and after (2) the ban\n\nThe wearables data (swiped_w_dat) should have the following variables remaining:\n\nrandom_ID: a unique participant code\nBan: ban period (1 = pre-ban; 2 = one week post-ban; 3 = two weeks post-ban; 4 = three weeks post-ban\nSleep_duration: mean sleep duration per night (hours) recorded during the ban period\n\nUse R code to answer the following questions about the dataset:\n\nHow many pupils took part in the phone ban? (Hint: we might not be left with both types of data for all participants!)\nWhat was the mean and range of self-reported sleep duration before and after the study?\nWhat was the mean and range of recorded sleep duration in before (Ban == 1) and at the end (Ban == 4) of the study?\n\n\n\nShow example code\n# Number of pupils - can explore in various ways, e.g., \nlength(unique(c(swiped_w_dat$random_ID, swiped_q_dat$random_ID)))\n\n# Self-reported sleep duration\nmean(swiped_q_dat$PSQI_Q4_1)\nmean(swiped_q_dat$PSQI_Q4_2)\nrange(swiped_q_dat$PSQI_Q4_1)\nrange(swiped_q_dat$PSQI_Q4_2)\n\n# Measured sleep duration\nswiped_w_dat %&gt;% \n  filter(Ban == 1 | Ban == 4) %&gt;% \n  group_by(Ban) %&gt;% \n  summarise(mean = mean(Sleep_duration), \n            min = min(Sleep_duration), \n            max = max(Sleep_duration))"
+  },
+  {
+    "objectID": "ambr11_bayes.html#analysing-the-data",
+    "href": "ambr11_bayes.html#analysing-the-data",
+    "title": "Week 11: Bayesian approaches",
+    "section": "4.2 Analysing the data",
+    "text": "4.2 Analysing the data\nRun both standard frequentist and Bayesian analyses to address the following questions. For each one, use the package page to identify the relevant function and inspect the examples to set up your model.\n\nUse a paired t-test to assess whether self-reported sleep duration and anxiety symptoms changed from before to after the ban (hint: you will need to calculate difference scores)\nUse a one-way ANOVA to assess whether the watch-recorded sleep duration changed across the four ban periods\nUse a regression model to assess whether change in self-reported sleep duration predicts change in anxiety symptoms\n\nFor each analysis, consider what the Bayes Factor adds to your understanding of the available evidence.\n\n\nShow t-test code\n# Sleep duration - frequentist (usual format)\nt.test(swiped_q_dat$PSQI_Q4_1, swiped_q_dat$PSQI_Q4_2, paired = TRUE)\n\n# Create difference score and remove NAs\nswiped_q_sleep &lt;- swiped_q_dat %&gt;% \n  mutate(sleep_diff = PSQI_Q4_2-PSQI_Q4_1) %&gt;% \n  filter(!is.na(sleep_diff))\n\n# Reformatted frequentist with difference score - same results\nt.test(swiped_q_sleep$sleep_diff)\n\n# Sleep duration - BF10\nttestBF(swiped_q_sleep$sleep_diff)\n\n#################################\n\n# Anxiety - reformat and remove NAs\nswiped_q_anx &lt;- swiped_q_dat %&gt;% \n  mutate(anx_diff = HADS_anx_2-HADS_anx_1) %&gt;% \n  filter(!is.na(anx_diff))\n\n# Anxiety - frequentist\nt.test(swiped_q_anx$anx_diff)\n\n# Anxiety - Bayes \nttestBF(swiped_q_anx$anx_diff)   # BF10\n1/ttestBF(swiped_q_anx$anx_diff) # or BF01\n\n\n\n\nShow ANOVA code\n# Run and print ANOVA output\nsleep_phase_mod &lt;- aov(Sleep_duration ~ Ban + Error(random_ID/Ban), data = swiped_w_dat)\nsummary(sleep_phase_mod)\n\n# Run and print Bayes Factor ANOVA\nanovaBF(Sleep_duration ~ Ban + random_ID, whichRandom = \"random_ID\", data = swiped_w_dat) #BF10\n1/anovaBF(Sleep_duration ~ Ban + random_ID, whichRandom = \"random_ID\", data = swiped_w_dat) #BF01\n\n\n\n\nShow regression code\n# Reformatting\nswiped_q_dat &lt;- swiped_q_dat %&gt;% \n  mutate(sleep_diff = PSQI_Q4_2-PSQI_Q4_1,\n         anx_diff = HADS_anx_2-HADS_anx_1) %&gt;% \n  filter(!is.na(sleep_diff) & !is.na(anx_diff))\n\n# Frequentist regression \nsleep_anx_mod &lt;- lm(sleep_diff ~ anx_diff, data = swiped_q_dat)\nsummary(sleep_anx_mod)\n\n# Bayes factor regression\nregressionBF(sleep_diff ~ anx_diff, data = swiped_q_dat)   #BF10\n1/regressionBF(sleep_diff ~ anx_diff, data = swiped_q_dat) #BF01\n\n\nYou should finish these in good time, in which case I highly recommend taking on today’s challenge section…"
+  },
+  {
+    "objectID": "ambr11_bayes.html#recap",
+    "href": "ambr11_bayes.html#recap",
+    "title": "Week 11: Bayesian approaches",
+    "section": "6.1 Recap",
+    "text": "6.1 Recap\nThis week served to remind us what we can and cannot conclude from null hypothesis significance testing. Bayes Factors can prove a useful tool in evaluating the strength of evidence for different hypotheses, and thereby allows us to consider whether a null effect is likely or inconclusive. The small-scale trial data was a good example of this in practice: the small sample had low statistical power for detecting significant effects under a frequentist framework, but the Bayes Factors allowed us to consider the likelihood that some outcomes were unaffected by the phone ban versus there not being sufficient evidence to draw conclusions. If you took on Part C, you’ll have also seen how priors can affect the conclusions, and why sensitivity checks can play an important role in communicating results."
+  },
+  {
+    "objectID": "ambr11_bayes.html#further-learning",
+    "href": "ambr11_bayes.html#further-learning",
+    "title": "Week 11: Bayesian approaches",
+    "section": "6.2 Further learning",
+    "text": "6.2 Further learning\nThe core and suggested reading can be found on the reading list as usual, and there’s a nice Quantitude podcast if you want to consolidate your understanding. If you want to gain more hands-on practice in R, I recommend starting with the introductory DataCamp course on Fundamentals of Bayesian Data Analysis in R.\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
+  },
+  {
+    "objectID": "ambr0_guide.html",
+    "href": "ambr0_guide.html",
+    "title": "Set-up guide",
+    "section": "",
+    "text": "Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.\nThis section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine. Consider the guidance below and decide on your workflow for this module, and default to the recommendations if you are not yet confident in your set-up."
+  },
+  {
+    "objectID": "ambr0_guide.html#set-up-your-folders",
+    "href": "ambr0_guide.html#set-up-your-folders",
+    "title": "Set-up guide",
+    "section": "1.1 Set up your folders",
+    "text": "1.1 Set up your folders\nYou can do this from within R if you prefer, but here are the simplest instructions for setting up on your device.\n1) Open the file browser on your computer. On Windows, you can do this by clicking Start &gt;&gt; File Explorer.\n2) Navigate to your Documents folder.\n3) Create a new folder, and call it something like “AMBR_Practicals”.\n4) Within this new folder, create one folder called “scripts”, and another folder called “data”.\n\n\n\n\n\n\nTip\n\n\n\nNote that R is case sensitive, meaning that if you capitalise letters here then you will also need to be specific in your capitalisation in the scripts. It is a good idea to adopt a consistent approach to avoid later issues. Here we have used lower case, and strongly advise you to do the same so that you don’t get confused later on.\n\n\nIf you download datasets for the practicals in the future, you should save them in your data folder. Similarly, when you create scripts in each practical, save them in the scripts folder."
+  },
+  {
+    "objectID": "ambr0_guide.html#initiate-an-r-project",
+    "href": "ambr0_guide.html#initiate-an-r-project",
+    "title": "Set-up guide",
+    "section": "1.2 Initiate an R Project",
+    "text": "1.2 Initiate an R Project\nNow let’s tell R where we want to work during these practicals.\n1) Open RStudio.\n2) At the top of the window, click File &gt;&gt; New Project…\n3) After a bit of thinking (be patient!), a “New Project Wizard” window should appear. Click the Existing Directory option in the middle, to associate this new project with an existing working directory. We choose this option because we have already set up our folders manually in the previous step.\n4) On the next window, click “Browse…” and then navigate to your AMBR_Practicals folder. Once you are in it (and can see your data/scripts folders), click “Open”.\n5) Click “Create Project”.\nThe name of the R Project you are working in should now show in the top right hand corner of your window, like this:\n\n\n\nThe current R Project\n\n\nIf it doesn’t, retrace your steps and try again. If it still doesn’t work, ask us for help."
+  },
+  {
+    "objectID": "ambr0_guide.html#moving-forwards",
+    "href": "ambr0_guide.html#moving-forwards",
+    "title": "Set-up guide",
+    "section": "1.3 Moving forwards",
+    "text": "1.3 Moving forwards\nThe instructions for the practicals will assume that you have set up R in this way. We will follow three key principles:\n1) Open the R Project at the start of every session. You can do this by double clicking it from your file browser, or clicking File &gt;&gt; Open Project… from within RStudio.\n2) Save the data files in the data folder, once you have downloaded them.\n3) Save your scripts in the scripts folder."
+  },
+  {
+    "objectID": "ambr0_guide.html#saving-the-workspace",
+    "href": "ambr0_guide.html#saving-the-workspace",
+    "title": "Set-up guide",
+    "section": "3.1 Saving the workspace",
+    "text": "3.1 Saving the workspace\nOne irritating default of RStudio is that it saves everything automatically on exiting. This might sound like a great idea, but in reality it can mean that you have a very messy workspace and that mistakes can emerge from using old material. To turn this off (highly recommended):\n1) At the top of RStudio, click Tools &gt;&gt; Global Options…\n2) On the General panel that should open in the window, there is a section titled Workspace.\n3) Make sure that the Restore .RData[…] box is unticked, and that it is set to never save the workspace on exit.\n4) Click “Apply” to save the settings.\n\n\n\nGlobal options window with recommended General settings"
+  },
+  {
+    "objectID": "ambr0_guide.html#rainbow-parentheses",
+    "href": "ambr0_guide.html#rainbow-parentheses",
+    "title": "Set-up guide",
+    "section": "3.2 Rainbow parentheses",
+    "text": "3.2 Rainbow parentheses\nSometimes we will need to wrap things inside multiple nested brackets. Whilst we’re on the settings, we might as well set up one of my favourite most useful features: rainbow parentheses! This setting colour codes your brackets so that you can tell which ones are paired together. And who doesn’t want a bit of colour on their scripts?!\n1) On the Global Options… window you have open, click on “Code” down the left hand side.\n2) Click the “Display” tab at the op.\n3) Under syntax, check the box that says “Use rainbow parentheses”.\n4) Then click “Apply”, and/or “OK” to close the window.\n\n\n\nGlobal options window with recommended Code Display settings\n\n\nAs for what this has done? Well, you’ll just have to wait and see as we get writing scripts…"
+  },
+  {
     "objectID": "ambr10_missing-data.html",
     "href": "ambr10_missing-data.html",
     "title": "Week 10: Missing data",
@@ -481,48 +586,6 @@
     "title": "Week 10: Missing data",
     "section": "6.2 Further learning",
     "text": "6.2 Further learning\nThe core and suggested reading can be found on the reading list as usual. You can consolidate your knowledge via this Quantitude podcast with Craig Enders as a special guest.\nThere are two DataCamp courses that specialise in missing data in R if you are interested in building your expertise in this area:\n\nDealing with Missing Data in R - this looks to be a introductory level course useful for consolidating your understanding of missing data mechanisms and exploring tools to visualise and understand missingness in your data.\nHandling Missing Data with Imputations in R - this course builds to more advanced imputation methods, including multiple imputation using the mice package. It will also introduce you to some other techniques for imputation that we have not covered in this module.\n\nFinally, if you ever find yourself needing to use multiple imputation in R, the go-to resource is this freely available textbook on Flexible Imputation of Missing Data by Stef van Buuren, the developer of the MICE algorithm and co-developer of the package in R.\n\n\n\n\n\n\n\nFeedback!\n\n\n\nThese practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via this survey, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.\nFor more general questions about the practical, please post them on the VLE Discussion Board."
-  },
-  {
-    "objectID": "ambr0_guide.html",
-    "href": "ambr0_guide.html",
-    "title": "Set-up guide",
-    "section": "",
-    "text": "Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.\nThis section provides some guidelines and recommendations for organising your work as we progress throughout the module. However, your development as a data scientist is now well underway, and you may have already established preferred ways of working. This is fine. Consider the guidance below and decide on your workflow for this module, and default to the recommendations if you are not yet confident in your set-up."
-  },
-  {
-    "objectID": "ambr0_guide.html#set-up-your-folders",
-    "href": "ambr0_guide.html#set-up-your-folders",
-    "title": "Set-up guide",
-    "section": "1.1 Set up your folders",
-    "text": "1.1 Set up your folders\nYou can do this from within R if you prefer, but here are the simplest instructions for setting up on your device.\n1) Open the file browser on your computer. On Windows, you can do this by clicking Start &gt;&gt; File Explorer.\n2) Navigate to your Documents folder.\n3) Create a new folder, and call it something like “AMBR_Practicals”.\n4) Within this new folder, create one folder called “scripts”, and another folder called “data”.\n\n\n\n\n\n\nTip\n\n\n\nNote that R is case sensitive, meaning that if you capitalise letters here then you will also need to be specific in your capitalisation in the scripts. It is a good idea to adopt a consistent approach to avoid later issues. Here we have used lower case, and strongly advise you to do the same so that you don’t get confused later on.\n\n\nIf you download datasets for the practicals in the future, you should save them in your data folder. Similarly, when you create scripts in each practical, save them in the scripts folder."
-  },
-  {
-    "objectID": "ambr0_guide.html#initiate-an-r-project",
-    "href": "ambr0_guide.html#initiate-an-r-project",
-    "title": "Set-up guide",
-    "section": "1.2 Initiate an R Project",
-    "text": "1.2 Initiate an R Project\nNow let’s tell R where we want to work during these practicals.\n1) Open RStudio.\n2) At the top of the window, click File &gt;&gt; New Project…\n3) After a bit of thinking (be patient!), a “New Project Wizard” window should appear. Click the Existing Directory option in the middle, to associate this new project with an existing working directory. We choose this option because we have already set up our folders manually in the previous step.\n4) On the next window, click “Browse…” and then navigate to your AMBR_Practicals folder. Once you are in it (and can see your data/scripts folders), click “Open”.\n5) Click “Create Project”.\nThe name of the R Project you are working in should now show in the top right hand corner of your window, like this:\n\n\n\nThe current R Project\n\n\nIf it doesn’t, retrace your steps and try again. If it still doesn’t work, ask us for help."
-  },
-  {
-    "objectID": "ambr0_guide.html#moving-forwards",
-    "href": "ambr0_guide.html#moving-forwards",
-    "title": "Set-up guide",
-    "section": "1.3 Moving forwards",
-    "text": "1.3 Moving forwards\nThe instructions for the practicals will assume that you have set up R in this way. We will follow three key principles:\n1) Open the R Project at the start of every session. You can do this by double clicking it from your file browser, or clicking File &gt;&gt; Open Project… from within RStudio.\n2) Save the data files in the data folder, once you have downloaded them.\n3) Save your scripts in the scripts folder."
-  },
-  {
-    "objectID": "ambr0_guide.html#saving-the-workspace",
-    "href": "ambr0_guide.html#saving-the-workspace",
-    "title": "Set-up guide",
-    "section": "3.1 Saving the workspace",
-    "text": "3.1 Saving the workspace\nOne irritating default of RStudio is that it saves everything automatically on exiting. This might sound like a great idea, but in reality it can mean that you have a very messy workspace and that mistakes can emerge from using old material. To turn this off (highly recommended):\n1) At the top of RStudio, click Tools &gt;&gt; Global Options…\n2) On the General panel that should open in the window, there is a section titled Workspace.\n3) Make sure that the Restore .RData[…] box is unticked, and that it is set to never save the workspace on exit.\n4) Click “Apply” to save the settings.\n\n\n\nGlobal options window with recommended General settings"
-  },
-  {
-    "objectID": "ambr0_guide.html#rainbow-parentheses",
-    "href": "ambr0_guide.html#rainbow-parentheses",
-    "title": "Set-up guide",
-    "section": "3.2 Rainbow parentheses",
-    "text": "3.2 Rainbow parentheses\nSometimes we will need to wrap things inside multiple nested brackets. Whilst we’re on the settings, we might as well set up one of my favourite most useful features: rainbow parentheses! This setting colour codes your brackets so that you can tell which ones are paired together. And who doesn’t want a bit of colour on their scripts?!\n1) On the Global Options… window you have open, click on “Code” down the left hand side.\n2) Click the “Display” tab at the op.\n3) Under syntax, check the box that says “Use rainbow parentheses”.\n4) Then click “Apply”, and/or “OK” to close the window.\n\n\n\nGlobal options window with recommended Code Display settings\n\n\nAs for what this has done? Well, you’ll just have to wait and see as we get writing scripts…"
   },
   {
     "objectID": "ambr1_meta-analysis.html",

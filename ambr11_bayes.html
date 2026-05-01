@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Emma James">
+
+<title>Week 11: Bayesian approaches – AMBR</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-01fbe853b7980beddfee3b159dd84a08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AMBR</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./ambr0_guide.html"> 
+<span class="menu-text">Set-up guide</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-content" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly content</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-content">    
+        <li>
+    <a class="dropdown-item" href="./ambr1_meta-analysis.html">
+ <span class="dropdown-text">W1: Meta-analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr2_mixed-effects.html">
+ <span class="dropdown-text">W2: Mixed effects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr3_quantile.html">
+ <span class="dropdown-text">W3: Quantile regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr4_sem.html">
+ <span class="dropdown-text">W4: SEM</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr5_irt.html">
+ <span class="dropdown-text">W5: IRT</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr6_mixture.html">
+ <span class="dropdown-text">W6: Mixture modelling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr7_network.html">
+ <span class="dropdown-text">W7: Network modelling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr8_machine-learning.html">
+ <span class="dropdown-text">W8: Machine learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr9_stochastic.html">
+ <span class="dropdown-text">W9: Stochastic methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr10_missing-data.html">
+ <span class="dropdown-text">W10: Missing data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./ambr11_bayes.html">
+ <span class="dropdown-text">W11: Bayesian approaches</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Week 11: Bayesian approaches</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Emma James </p>
+            </div>
+    </div>
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Outline</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link" data-scroll-target="#setting-up"><span class="header-section-number">2</span> Setting up</a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">2.1</span> Packages</a></li>
+  </ul></li>
+  <li><a href="#part-a-core-example" id="toc-part-a-core-example" class="nav-link" data-scroll-target="#part-a-core-example"><span class="header-section-number">3</span> Part A: Core example</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset" id="toc-introduction-to-the-dataset" class="nav-link" data-scroll-target="#introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</a></li>
+  <li><a href="#independent-t-test" id="toc-independent-t-test" class="nav-link" data-scroll-target="#independent-t-test"><span class="header-section-number">3.2</span> Independent t-test</a></li>
+  <li><a href="#changing-the-prior" id="toc-changing-the-prior" class="nav-link" data-scroll-target="#changing-the-prior"><span class="header-section-number">3.3</span> Changing the prior</a></li>
+  </ul></li>
+  <li><a href="#part-b-apply-your-knowledge" id="toc-part-b-apply-your-knowledge" class="nav-link" data-scroll-target="#part-b-apply-your-knowledge"><span class="header-section-number">4</span> Part B: Apply your knowledge</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-the-dataset-1" id="toc-introduction-to-the-dataset-1" class="nav-link" data-scroll-target="#introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</a></li>
+  <li><a href="#analysing-the-data" id="toc-analysing-the-data" class="nav-link" data-scroll-target="#analysing-the-data"><span class="header-section-number">4.2</span> Analysing the data</a></li>
+  </ul></li>
+  <li><a href="#part-c-challenge-yourself" id="toc-part-c-challenge-yourself" class="nav-link" data-scroll-target="#part-c-challenge-yourself"><span class="header-section-number">5</span> Part C: Challenge yourself!</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6.1</span> Recap</a></li>
+  <li><a href="#further-learning" id="toc-further-learning" class="nav-link" data-scroll-target="#further-learning"><span class="header-section-number">6.2</span> Further learning</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ambr11_bayes.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="ambr11_bayes.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Practical materials for Advanced Methods in Behavioural Research, Semester 2 (2025-2026), University of York.</p>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<div class="callout callout-style-default callout-note callout-titled" title="Learning objectives">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Learning objectives
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a reminder, the learning objectives for this week are:</p>
+<ol type="1">
+<li>Recall core principles of frequentist statistics</li>
+<li>Describe the philosophy behind Bayesian statistics</li>
+<li>Explain how prior and posterior probability distributions are used in Bayesian inference</li>
+<li>Compare alternative models by interpreting Bayes Factors as evidence</li>
+<li>Calculate and interpret a simple Bayes Factor in R</li>
+</ol>
+</div>
+</div>
+<p>In this final practical, we’ll see how we can calculate and interpret Bayes Factors for simple analyses using the <em>BayesFactor</em> package (Morey &amp; Rouder, 2024). This can be an effective way of incorporating Bayesian methods alongside standard frequentist approaches for hypothesis testing. Part A will give you just one example of using an analysis function from the <em>BayesFactor</em> package, before we get stuck in with some more interesting data from a “digital detox” trial in adolescents.</p>
+<hr>
+</section>
+<section id="setting-up" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Setting up</h1>
+<section id="packages" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="packages"><span class="header-section-number">2.1</span> Packages</h2>
+<p>Today’s practical will use the following packages. You will need to install each one before loading them at the top of your script.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BayesFactor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You might also find it helpful to turn off scientific notation using <code>options(scipen=999)</code>.</p>
+<hr>
+</section>
+</section>
+<section id="part-a-core-example" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Part A: Core example</h1>
+<section id="introduction-to-the-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-the-dataset"><span class="header-section-number">3.1</span> Introduction to the dataset</h2>
+<p>Let’s start with a quick demonstration using a built-in dataset as usual. For this purpose, we can use the <code>penguins</code> dataset (admittedly it’s not “human data”—we’ll do that next—but who doesn’t like penguins?!). The dataset contains measurements from three species of penguin collected from three islands in the Antarctica.</p>
+<p>The <em>BayesFactor</em> package doesn’t play nicely with missing data, so we will also filter the data for complete cases. Of course if this was a real analysis we would do this much more cautiously.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/penguins.png" class="img-fluid figure-img" width="329"></p>
+<figcaption>Meet the penguins! Artwork by @allison_horst</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset into the environment</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(penguins)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for complete cases</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use R code to answer the following questions about the dataset:</p>
+<ul>
+<li>How many observations did we lose by listwise deletion?</li>
+<li>How many remaining penguins of each species are there?</li>
+<li>How many penguins of each species were on each island?</li>
+<li>Which island had the largest penguins in terms of average body mass?</li>
+<li>Where was the penguin with the shortest bill length (<code>bill_len</code>) found, and what species was it?</li>
+<li>What is the average body mass and bill length of male versus female penguins?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listwise deletion</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(penguins) <span class="sc">-</span> <span class="fu">nrow</span>(penguins_cc)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Species count</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Species by island</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(island, species) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Size by island</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(island) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(body_mass))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Shortest bill penguin</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(bill_len)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Sex differences</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>penguins_cc <span class="sc">%&gt;%</span> </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mass =</span> <span class="fu">mean</span>(body_mass),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">bill_length =</span> <span class="fu">mean</span>(bill_len))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="independent-t-test" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="independent-t-test"><span class="header-section-number">3.2</span> Independent t-test</h2>
+<p>For our example, we will use a simple independent t-test to compare the bill length of male versus female penguins. We can first remind ourselves how to run a frequentist independent t-test:</p>
+<section id="frequentist" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="frequentist"><span class="header-section-number">3.2.1</span> Frequentist</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(bill_len <span class="sc">~</span> sex, <span class="at">data =</span> penguins_cc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You should see that there is a significant difference between groups, with male penguins averaging ~3mm longer beaks than female penguins.</p>
+</section>
+<section id="bayes-factor" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="bayes-factor"><span class="header-section-number">3.2.2</span> Bayes Factor</h3>
+<p>Now let’s calculate a Bayes Factor for this test. We use the specialised t-test function from the <em>BayesFactor</em> package, but everything else is set up in pretty much the same way. The only difference is that we must explicitly specify that the first argument we provide is a formula.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> sex, <span class="at">data =</span> penguins_cc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output tells us the direction of the comparison—i.e., that it is testing evidence for the alternative hypothesis against evidence for the null hypothesis that the difference in means is 0 (<em>BF<sub>10</sub></em>). The alternative hypothesis used the default Cauchy prior, which you can see in the output is scaled to “r = 0.707”. If you’re interested in the justification for this decision, the references are linked in the “Note” of the function documentation (i.e., call <code>help(ttestBF)</code>). We’ll explore the implications of using different priors below.</p>
+<p>The output shows a <em>very</em> large BF in favour of the alternative hypothesis (&gt;73 million!), which is perhaps not surprising considering the clear group difference observed above.</p>
+<p>For comparison, let’s compare the bill length of penguins from two different islands. Filter the data as follows, and run a Bayes Factor t-test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove penguins from Torgersen island</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>penguins_2isl <span class="ot">&lt;-</span> <span class="fu">filter</span>(penguins_cc, island <span class="sc">!=</span> <span class="st">"Torgersen"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> island, <span class="at">data =</span> penguins_2isl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This time our Bayes Factor is &lt; 1, indicating evidence in favour of the null hypothesis. However, we can consider it weak or “anecdotal” evidence with reference to Jeffreys’ scale as it is larger than 1/3.</p>
+<p>Some people find it easier to flip the Bayes Factor to report evidence in favour of the null over the alternative hypothesis (<em>BF<sub>01</sub>;</em> values &gt;1 favour the null). We can do this simply by inversing the test:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> island, <span class="at">data =</span> penguins_2isl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Congratulations, you’ve just calculated your first Bayes Factors! It was surprisingly easy, huh?</p>
+</section>
+</section>
+<section id="changing-the-prior" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="changing-the-prior"><span class="header-section-number">3.3</span> Changing the prior</h2>
+<p>The <em>BayesFactor</em> package uses a default, weakly informative prior to test hypotheses—meaning that we didn’t actually use much in the way of specialist knowledge when calculating the Bayes Factors above. The default is to use a <a href="https://en.wikipedia.org/wiki/Cauchy_distribution">Cauchy distribution</a> (a bit like a pointier normal distribution) with a scale of 0.707. Plot this to see what it looks like, using the following line of code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set scale of x axis </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>) </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">dcauchy</span>(x, <span class="at">scale =</span> <span class="fl">0.707</span>), <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using a distribution (rather than a single point estimate) allows us to consider that a range of outcomes are plausible. It is centered around 0 to indicate that the effect may be in either direction, and has more mass over small versus large values as very large effect sizes tend to be unlikely.</p>
+<p>See what happens to the distribution when you change the scale value from lower to higher numbers. How does this affect the width of the prior?</p>
+<p>Now let’s see how changing the width of the prior affects the Bayes Factor, using our original t-test example. Try a range of smaller and higher values for the <code>rscale</code> argument. How does the prior affect the conclusions?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Default  </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> island, <span class="at">data =</span> penguins_2isl) </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatives - e.g., </span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> island, <span class="at">data =</span> penguins_2isl, <span class="at">rscale =</span> <span class="fl">0.3</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> bill_len <span class="sc">~</span> island, <span class="at">data =</span> penguins_2isl, <span class="at">rscale =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Researchers will often test a range of priors in a <em>sensitivity analysis,</em> allowing them to consider how the choice of prior influences the results. We’ll have a go at this in Part C.</p>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Take a break!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you haven’t already taken a break today, we suggest you do so before you start the next section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/break.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Take a break" width="227"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-b-apply-your-knowledge" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Part B: Apply your knowledge</h1>
+<p>Let’s move onto some real data. Over the module, you’ve built skills to explore and work with different packages in R. Now you’ve seen what the <em>BayesFactor</em> package is and what it does, you can use the <a href="https://richarddmorey.github.io/BayesFactor/">package help page</a> to identify the relevant functions for this section.</p>
+<section id="introduction-to-the-dataset-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction-to-the-dataset-1"><span class="header-section-number">4.1</span> Introduction to the dataset</h2>
+<p>Today’s dataset is from a feasibility trial conducted by Professor Lisa Henderson and Dr Emma Sullivan. They assessed the impact of a 3-week smartphone and social media ban on adolescents’ sleep, cognition, and wellbeing. The trial was part of a TV documentary, <em>Swiped: the school that banned smartphones</em> (<a href="https://www.channel4.com/programmes/swiped-the-school-that-banned-smartphones">Channel 4</a>; <a href="https://www.netflix.com/gb/title/82687630">Netflix</a>). The results were released as a <a href="https://doi.org/10.31234/osf.io/ucbps_v1">pre-print</a>, and will now form the basis of a <a href="https://www.york.ac.uk/york-giving/news/2025/smartphone-research-grant/">large-scale randomised control trial</a> here in York.</p>
+<p>We will work with two types of data so that we can test out different analyses: the questionnaire data from before and after the ban, and data from Garmin watches that recorded sleep duration over the month period. You can copy the code below to create the key variables we’ll need (summed anxiety score, averaged sleep data), though you may need to do some additional data wrangling for some of the analyses below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the questionnaire data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>swiped_q_dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/cpz2n/?action=download"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Condition <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  <span class="co"># Pupils who took part in ban</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(random_ID, Session, PSQI_Q4, <span class="fu">contains</span>(<span class="st">"HADS_"</span>))  <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_with_na_at</span>(<span class="at">.vars =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">condition =</span> <span class="sc">~</span>.x <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="co"># code missing data</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HADS_anx =</span> HADS_Q1 <span class="sc">+</span> HADS_Q3 <span class="sc">+</span> HADS_Q5 <span class="sc">+</span>     <span class="co"># Sum anxiety items</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>           HADS_Q7 <span class="sc">+</span> HADS_Q9 <span class="sc">+</span> HADS_Q11 <span class="sc">+</span> HADS_Q13) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">"HADS_Q"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"Session"</span>, <span class="at">values_from =</span> <span class="fu">c</span>(PSQI_Q4, HADS_anx)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(random_ID), as.factor)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the wearables data</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>swiped_w_dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://osf.io/k62u5/?action=download"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Weekday <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>   <span class="co"># Use sleep duration on school nights</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(random_ID, Ban, Day, Sleep_duration) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(random_ID, Ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Sleep_duration =</span> <span class="fu">mean</span>(Sleep_duration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(random_ID, Ban), as.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The questionnaire data (<code>swiped_q_dat</code>) should have the following variables remaining:</p>
+<ul>
+<li><strong>random_ID</strong>: a unique participant code</li>
+<li><strong>PSQI_Q4_*</strong>: self-reported sleep duration in hours; before (1) and after (2) the ban</li>
+<li><strong>HADS_anx_*</strong>: anxiety scale score from the Hospital Depression and Anxiety Scale; before (1) and after (2) the ban</li>
+</ul>
+<p>The wearables data (<code>swiped_w_dat</code>) should have the following variables remaining:</p>
+<ul>
+<li><strong>random_ID</strong>: a unique participant code</li>
+<li><strong>Ban</strong>: ban period (1 = pre-ban; 2 = one week post-ban; 3 = two weeks post-ban; 4 = three weeks post-ban</li>
+<li><strong>Sleep_duration</strong>: mean sleep duration per night (hours) recorded during the ban period</li>
+</ul>
+<p>Use R code to answer the following questions about the dataset:</p>
+<ul>
+<li>How many pupils took part in the phone ban? (<em>Hint:</em> we might not be left with both types of data for all participants!)</li>
+<li>What was the mean and range of <em>self-reported</em> sleep duration before and after the study?</li>
+<li>What was the mean and range of <em>recorded</em> sleep duration in before (Ban == 1) and at the end (Ban == 4) of the study?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of pupils - can explore in various ways, e.g., </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">c</span>(swiped_w_dat<span class="sc">$</span>random_ID, swiped_q_dat<span class="sc">$</span>random_ID)))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Self-reported sleep duration</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(swiped_q_dat<span class="sc">$</span>PSQI_Q4_1)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(swiped_q_dat<span class="sc">$</span>PSQI_Q4_2)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(swiped_q_dat<span class="sc">$</span>PSQI_Q4_1)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(swiped_q_dat<span class="sc">$</span>PSQI_Q4_2)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Measured sleep duration</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>swiped_w_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Ban <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> Ban <span class="sc">==</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Ban) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(Sleep_duration), </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">min =</span> <span class="fu">min</span>(Sleep_duration), </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>(Sleep_duration))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="analysing-the-data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="analysing-the-data"><span class="header-section-number">4.2</span> Analysing the data</h2>
+<p>Run both standard frequentist and Bayesian analyses to address the following questions. For each one, use the <a href="https://richarddmorey.github.io/BayesFactor/">package page</a> to identify the relevant function and inspect the examples to set up your model.</p>
+<ul>
+<li><p>Use a paired t-test to assess whether self-reported sleep duration and anxiety symptoms changed from before to after the ban (<em>hint</em>: you will need to calculate difference scores)</p></li>
+<li><p>Use a one-way ANOVA to assess whether the watch-recorded sleep duration changed across the four ban periods</p></li>
+<li><p>Use a regression model to assess whether change in self-reported sleep duration predicts change in anxiety symptoms</p></li>
+</ul>
+<p>For each analysis, consider what the Bayes Factor adds to your understanding of the available evidence.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show t-test code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sleep duration - frequentist (usual format)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(swiped_q_dat<span class="sc">$</span>PSQI_Q4_1, swiped_q_dat<span class="sc">$</span>PSQI_Q4_2, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create difference score and remove NAs</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>swiped_q_sleep <span class="ot">&lt;-</span> swiped_q_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_diff =</span> PSQI_Q4_2<span class="sc">-</span>PSQI_Q4_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sleep_diff))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformatted frequentist with difference score - same results</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(swiped_q_sleep<span class="sc">$</span>sleep_diff)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Sleep duration - BF10</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(swiped_q_sleep<span class="sc">$</span>sleep_diff)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="do">#################################</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Anxiety - reformat and remove NAs</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>swiped_q_anx <span class="ot">&lt;-</span> swiped_q_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">anx_diff =</span> HADS_anx_2<span class="sc">-</span>HADS_anx_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(anx_diff))</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Anxiety - frequentist</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(swiped_q_anx<span class="sc">$</span>anx_diff)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Anxiety - Bayes </span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ttestBF</span>(swiped_q_anx<span class="sc">$</span>anx_diff)   <span class="co"># BF10</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">ttestBF</span>(swiped_q_anx<span class="sc">$</span>anx_diff) <span class="co"># or BF01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show ANOVA code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run and print ANOVA output</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sleep_phase_mod <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sleep_duration <span class="sc">~</span> Ban <span class="sc">+</span> <span class="fu">Error</span>(random_ID<span class="sc">/</span>Ban), <span class="at">data =</span> swiped_w_dat)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep_phase_mod)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run and print Bayes Factor ANOVA</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anovaBF</span>(Sleep_duration <span class="sc">~</span> Ban <span class="sc">+</span> random_ID, <span class="at">whichRandom =</span> <span class="st">"random_ID"</span>, <span class="at">data =</span> swiped_w_dat) <span class="co">#BF10</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">anovaBF</span>(Sleep_duration <span class="sc">~</span> Ban <span class="sc">+</span> random_ID, <span class="at">whichRandom =</span> <span class="st">"random_ID"</span>, <span class="at">data =</span> swiped_w_dat) <span class="co">#BF01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show regression code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reformatting</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>swiped_q_dat <span class="ot">&lt;-</span> swiped_q_dat <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_diff =</span> PSQI_Q4_2<span class="sc">-</span>PSQI_Q4_1,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">anx_diff =</span> HADS_anx_2<span class="sc">-</span>HADS_anx_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sleep_diff) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(anx_diff))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequentist regression </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sleep_anx_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(sleep_diff <span class="sc">~</span> anx_diff, <span class="at">data =</span> swiped_q_dat)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sleep_anx_mod)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Bayes factor regression</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">regressionBF</span>(sleep_diff <span class="sc">~</span> anx_diff, <span class="at">data =</span> swiped_q_dat)   <span class="co">#BF10</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="fu">regressionBF</span>(sleep_diff <span class="sc">~</span> anx_diff, <span class="at">data =</span> swiped_q_dat) <span class="co">#BF01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>You should finish these in good time, in which case I highly recommend taking on today’s challenge section…</p>
+<hr>
+</section>
+</section>
+<section id="part-c-challenge-yourself" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Part C: Challenge yourself!</h1>
+<p>Run a full sensitivity analysis on your t-test for self-reported sleep duration before versus after the ban. The aim is to produce a plot that shows how the Bayes Factor changes as a function of different priors that you could have chosen. There is a beautiful illustration of this process by <a href="https://jimgrange.wordpress.com/2015/11/27/animating-robustness-check-of-bayes-factor-priors/">Jim Grange on his blog</a>.</p>
+<p>You will need to create a loop (like you did in the stochastic methods practical) and extract the Bayes Factor values for each analysis. Here are some hints:</p>
+<ul>
+<li><em>Before</em> your loop, you will need to create an empty list to store Bayes Factors.</li>
+<li>You might also want to create a row counter variable that starts at 0, and increases by one each time through the loop. You can use this variable to index which row/entry of your list to store the output in each time.</li>
+<li>You can use the <code>seq()</code> function to specify the different scale values. Try increasing the scale from 0.1 to 3, in steps of 0.1.</li>
+<li>You can extract the Bayes Factor from the model output as follows: <code>bf_list[n] &lt;- extractBF(bf, onlybf = TRUE)</code> , where <code>bf</code> is the output of the <code>ttestBF()</code> command above, and <code>bf_list</code> is the name of your list to store the output.</li>
+<li>You can plot your different scale values on the x-axis, and resulting Bayes Factors on the y-axis.</li>
+</ul>
+<p>Is the function a straight line, or does it peak around some optimal value? Would your conclusions about these data have changed based on the values of the prior that you selected?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show example code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty list to store BFs</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>bf_list <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create row counter</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through tests</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)){</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update row counter</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> n<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute Bayes Factor with new scale value</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  bf <span class="ot">&lt;-</span> <span class="fu">ttestBF</span>(swiped_q_dat<span class="sc">$</span>sleep_diff, <span class="at">rscale =</span> r)   <span class="co"># BF10</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract BF and store in list</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  bf_list[n] <span class="ot">&lt;-</span> <span class="fu">extractBF</span>(bf, <span class="at">onlybf =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">3</span>, <span class="fl">0.1</span>), bf_list, <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+</section>
+<section id="summary" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Summary</h1>
+<section id="recap" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">6.1</span> Recap</h2>
+<p>This week served to remind us what we can and cannot conclude from null hypothesis significance testing. Bayes Factors can prove a useful tool in evaluating the strength of evidence for different hypotheses, and thereby allows us to consider whether a null effect is likely or inconclusive. The small-scale trial data was a good example of this in practice: the small sample had low statistical power for detecting significant effects under a frequentist framework, but the Bayes Factors allowed us to consider the likelihood that some outcomes were unaffected by the phone ban versus there not being sufficient evidence to draw conclusions. If you took on Part C, you’ll have also seen how priors can affect the conclusions, and why sensitivity checks can play an important role in communicating results.</p>
+</section>
+<section id="further-learning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="further-learning"><span class="header-section-number">6.2</span> Further learning</h2>
+<p>The core and suggested reading can be found on the <a href="https://eu.alma.exlibrisgroup.com/leganto/public/44YORK_INST/lists/60979364670001381?auth=SAML&amp;section=60979364780001381">reading list</a> as usual, and there’s a nice <a href="https://quantitudepod.org/s2e04-bayesian-wake-up-call/">Quantitude podcast</a> if you want to consolidate your understanding. If you want to gain more hands-on practice in R, I recommend starting with the introductory DataCamp course on <a href="https://www.datacamp.com/courses/fundamentals-of-bayesian-data-analysis-in-r?utm_medium=organic_social&amp;utm_campaign=sharewidget&amp;utm_content=coursedetailpage&amp;utm_source=copy">Fundamentals of Bayesian Data Analysis in R</a>.</p>
+<hr>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Feedback!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These practical sessions are new this year. Please take a moment to rate the difficulty and length of these practical activities via <a href="https://docs.google.com/forms/d/e/1FAIpQLSepox6r76dAkSDZRxybJwCvRX28M7BS1_81fGMybkqsvBPvRA/viewform?usp=publish-editor">this survey</a>, and let us know of any issues you encountered or aspects you didn’t understand (positive feedback is also welcome!). You will need to be logged in with your university account to respond, but your submission will be anonymous.</p>
+<p>For more general questions about the practical, please post them on the <a href="https://vle.york.ac.uk/ultra/courses/_116420_1/engagement/discussion/_6408724_1?view=discussions&amp;disGroupId=default&amp;courseId=_116420_1">VLE Discussion Board</a>.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/emljames\.github\.io\/ambr\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./LICENSE.html">
+<p>License</p>
+</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
